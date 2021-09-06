@@ -3,7 +3,6 @@ package com.fdmgroup.AssessmentCentreProject.model;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.fdmgroup.AssessmentCentreProject.model.enums.QuestionType;

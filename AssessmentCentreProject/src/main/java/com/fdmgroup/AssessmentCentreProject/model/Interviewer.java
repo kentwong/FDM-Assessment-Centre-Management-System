@@ -1,6 +1,5 @@
 package com.fdmgroup.AssessmentCentreProject.model;
 
-import java.util.HashMap;
 import java.util.List;
 
 import javax.persistence.Entity;
