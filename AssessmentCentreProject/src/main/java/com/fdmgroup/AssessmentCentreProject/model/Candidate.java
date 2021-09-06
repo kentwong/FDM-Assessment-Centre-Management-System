@@ -16,7 +16,7 @@ public class Candidate {
 	
 	private String cv; // URL to CV, stored externally
 	
-	private Staff recruiter;
+	private Recruiter recruiter;
 	private Stream stream;
 	
 	private double aptitudeScore;

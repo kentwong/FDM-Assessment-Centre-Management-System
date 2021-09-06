@@ -2,6 +2,8 @@ package com.fdmgroup.AssessmentCentreProject.model;
 
 import java.util.List;
 
+import com.fdmgroup.AssessmentCentreProject.model.enums.QuestionType;
+
 public class ACCoordinator extends Staff {
 	
 	public void scheduleAC() {
@@ -16,7 +18,7 @@ public class ACCoordinator extends Staff {
 		
 	}
 	
-	public void chooseInterviewType(Staff staff, QuestionBank questionBank) {
+	public void chooseInterviewType(Staff staff, QuestionType questionType) { 
 		
 	}
 	
