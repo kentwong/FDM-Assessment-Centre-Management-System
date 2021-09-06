@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 
-class HomePage extends Component {
+class ApplicantsIndexPage extends Component {
     render() {
         return (
             <div className="custom-container">
-                This is the HOME page.
+                This is the applicant's page.
             </div>
         );
     }
 }
 
-export default HomePage;
+export default ApplicantsIndexPage;

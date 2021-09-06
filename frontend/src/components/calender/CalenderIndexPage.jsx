@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 
-class HomePage extends Component {
+class CalenderIndexPage extends Component {
     render() {
         return (
             <div className="custom-container">
-                This is the HOME page.
+                This is the Calender Page.
             </div>
         );
     }
 }
 
-export default HomePage;
+export default CalenderIndexPage;
