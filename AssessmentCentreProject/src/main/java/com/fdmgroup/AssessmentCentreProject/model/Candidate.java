@@ -12,9 +12,14 @@ public class Candidate {
 	private Address address;
 	private String email;
 	private String phoneNumber;
+	private String university;
+	
+	private String cv; // URL to CV, stored externally
 	
 	private Staff recruiter;
 	private Stream stream;
+	
+	private double aptitudeScore;
 	
 	private List<Candidate> history;
 

@@ -15,5 +15,13 @@ public class ACCoordinator extends Staff {
 	public void assignInterviewers(List<Staff> interviewersList) {
 		
 	}
+	
+	public void chooseInterviewType(Staff staff, QuestionBank questionBank) {
+		
+	}
+	
+	public void chooseInterviewerToCandidate(Staff staff, Candidate candidate) {
+		
+	}
 
 }
