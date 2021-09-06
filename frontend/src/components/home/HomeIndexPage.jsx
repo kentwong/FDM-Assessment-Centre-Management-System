@@ -4,7 +4,7 @@ class HomeIndexPage extends Component {
     render() {
         return (
             <div className="custom-container">
-                This is the Home Page.
+                This is the Home (after Login) Page.
             </div>
         );
     }
