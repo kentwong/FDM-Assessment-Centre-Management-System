@@ -13,7 +13,7 @@ public class Interviewer extends Staff {
 	@ManyToMany
 	@JoinTable(name = "question_bank",
 		joinColumns = { @JoinColumn(name="fk_interviewer_id")},
-		inverseJoinColumns = { @JoinColumn(name="fk_skill_id") }
+		inverseJoinColumns = { @JoinColumn(name="fk_question_id") }
 	)
 	private List<Question> questions;
 	

@@ -30,20 +30,18 @@ public class Candidate {
 	private String university;
 	
 	private String cv; // URL to CV, stored externally
+	private double aptitudeScore;
 	
 	@ManyToOne
-	@JoinColumn(name="fk_recruiter_id")
 	private Recruiter recruiter;
 	
 	@ManyToOne
-	@JoinColumn(name = "fk_stream_id")
 	private Stream stream;
 	
-	private double aptitudeScore;
 	
 	@ManyToMany
 	@JoinTable(name = "candidate_history", 
-		joinColumns = { @JoinColumn(name="fk_ac_id") }, 
+		joinColumns = { @JoinColumn(name="fk_candidate_id") }, 
 		inverseJoinColumns =	{ @JoinColumn(name="fk_old_id") }
 	) // editCandidate() ==> creates new instance of candidate (for new generated id) -> set history to old Candidate history + Candidate
 	private List<Candidate> history;

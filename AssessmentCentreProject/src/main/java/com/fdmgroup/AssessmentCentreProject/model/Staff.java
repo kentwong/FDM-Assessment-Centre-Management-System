@@ -17,7 +17,7 @@ public abstract class Staff {
 	private String lastName;
 	
 	private String email;
-	private String number;
+	private String phoneNumber;
 //	private Object emailTemplate; // TODO define type
 
 }
