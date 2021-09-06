@@ -1,6 +1,6 @@
 package com.fdmgroup.AssessmentCentreProject.model;
 
-public class Staff {
+public abstract class Staff {
 	
 	private int id;
 	private String firstName;
