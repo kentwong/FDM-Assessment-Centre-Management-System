@@ -13,6 +13,24 @@ class Header extends Component {
                                 <span className="navbar-toggler-icon"></span>
                             </button>
                             <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                                <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+
+                                    <li className="nav-item">
+                                        <a className="nav-link" href="/">Home</a>
+                                    </li>
+                                    <li className="nav-item">
+                                        <a className="nav-link" href="/applicants">Applicants</a>
+                                    </li>
+                                    <li className="nav-item">
+                                        <a className="nav-link" href="/calender">Calender</a>
+                                    </li>
+                                    <li className="nav-item">
+                                        <a className="nav-link" href="/results">Results Dashboard</a>
+                                    </li>
+                                    <li className="nav-item">
+                                        <a className="nav-link" href="/support">Help &#38; Support</a>
+                                    </li>
+                                </ul>
                                 <div className="navbar-nav ms-auto">
                                     <li className="nav-item navbar-right">
                                         <a className="nav-link" href="/login">Log In</a>
