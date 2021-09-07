@@ -37,3 +37,18 @@
   left: auto !important;
   right: 0 !important;
 }
+
+.quick-access-link {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.quick-access-link img {
+  width: 100px;
+}
+
+.quick-access-link p,
+.quick-access-link a {
+  text-decoration: none;
+  color: #444;
+}
