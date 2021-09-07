@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 
-class VincentTestPage extends Component {
+class TestREMOVEBEFORESUBMISSIONIndexPage extends Component {
     render() {
         return (
             <div className="custom-container">
-                TESTING PAGE
+                TESTING PAGE dsfsdfdsfds
             </div>
         );
     }
 }
 
-export default VincentTestPage;
+export default TestREMOVEBEFORESUBMISSIONIndexPage;
