@@ -15,11 +15,12 @@ public class Question {
 	private String questionBody;
 	private QuestionType questionType;
 
-	@Override
-	public String toString() {
-		return "Question [id=" + id + ", questionBody=" + questionBody + ", questionType=" + questionType + "]";
+	// CONSTRUCTOR
+	public Question() {
+		super();
 	}
-
+	
+	// GETTERS & SETTERS
 	public int getId() {
 		return id;
 	}
@@ -42,6 +43,11 @@ public class Question {
 
 	public void setQuestionType(QuestionType questionType) {
 		this.questionType = questionType;
+	}
+	
+	@Override
+	public String toString() {
+		return "Question [id=" + id + ", questionBody=" + questionBody + ", questionType=" + questionType + "]";
 	}
 
 }

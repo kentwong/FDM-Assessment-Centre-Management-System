@@ -18,13 +18,12 @@ public class ACCoordinator extends Staff {
 	@Transient
 	private AssessmentCentre newAC;
 	
-	// CONSTRUCTORS
+	// CONSTRUCTOR
 	public ACCoordinator() {
 		super();
 	}
 	
 	// BEHAVIOURS
-	
 	/**
 	 * Sets the new AssessmentCentre with a @param date
 	 */

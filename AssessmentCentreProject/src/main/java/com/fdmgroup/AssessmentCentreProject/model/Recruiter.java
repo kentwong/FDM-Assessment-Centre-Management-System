@@ -10,7 +10,13 @@ public class Recruiter extends Staff {
 	
 	@OneToMany(mappedBy="recruiter")
 	private List<Candidate> candidates;
+	
+	// CONSTRUCTOR
+	public Recruiter() {
+		super();
+	}
 
+	// BEHAVIOURS *
 	public void recruit(Candidate candidate) {
 
 	}
@@ -22,12 +28,24 @@ public class Recruiter extends Staff {
 	public void removeCandidate(Candidate candidate) {
 
 	}
-
-	public List<Candidate> getAllCandidates() {
-		return null;
-	}
 	
 	public void sendStatusEmail(String status) {
 		
 	}
+
+	// GETTERS & SETTERS
+	public List<Candidate> getCandidates() {
+		return candidates;
+	}
+
+	public void setCandidates(List<Candidate> candidates) {
+		this.candidates = candidates;
+	}
+
+	@Override
+	public String toString() {
+		return "Recruiter [candidates=" + candidates + "]";
+	}
+	
+	
 }

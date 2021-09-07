@@ -36,10 +36,8 @@ public class Candidate {
 	
 	@ManyToOne
 	private Recruiter recruiter;
-	
 	@ManyToOne
 	private Stream stream;
-	
 	
 	@ManyToMany
 	@JoinTable(name = "candidate_history", 
@@ -47,12 +45,18 @@ public class Candidate {
 		inverseJoinColumns =	{ @JoinColumn(name="fk_old_id") }
 	) // editCandidate() ==> creates new instance of candidate (for new generated id) -> set history to old Candidate history + Candidate
 	private List<Candidate> history;
-
-
+	
+	// application status
+	
+	// CONSTRUCTOR
+	public Candidate() {
+		super();
+	}
+	
+	// GETTERS & SETTERS
 	public int getId() {
 		return id;
 	}
-
 
 	public void setId(int id) {
 		this.id = id;
@@ -185,11 +189,5 @@ public class Candidate {
 				+ ", university=" + university + ", cv=" + cv + ", aptitudeScore=" + aptitudeScore + ", recruiter="
 				+ recruiter + ", stream=" + stream + ", history=" + history + "]";
 	}
-	
-	
-	// application status
-	// assessmentCentre -> bidirectional
-	
-	
 	
 }

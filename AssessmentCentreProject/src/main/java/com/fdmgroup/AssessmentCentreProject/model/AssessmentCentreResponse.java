@@ -25,7 +25,7 @@ public class AssessmentCentreResponse {
 	private double points;
 	private String notes;
 	
-	// CONSTRUCTOR
+	// CONSTRUCTORS
 	public AssessmentCentreResponse() {
 		super();
 	}
@@ -91,6 +91,5 @@ public class AssessmentCentreResponse {
 		return "AssessmentCentreResponse [id=" + id + ", candidate=" + candidate + ", interviewer=" + interviewer
 				+ ", question=" + question + ", points=" + points + ", notes=" + notes + "]";
 	}
-	
 	
 }
