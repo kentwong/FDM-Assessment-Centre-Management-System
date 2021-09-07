@@ -10,9 +10,6 @@ class ApplicantsIndexPage extends Component {
                     <div className="col-6">
                         <ViewApplicants />
                     </div>
-                    <div className="col-6">
-                        <ViewApplicants />
-                    </div>
                 </div>
 
             </div>
