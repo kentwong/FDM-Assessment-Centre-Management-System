@@ -30,6 +30,13 @@ public class AssessmentCentreResponse {
 		super();
 	}
 	
+	public AssessmentCentreResponse(Candidate candidate, Interviewer interviewer, Question question) {
+		super();
+		this.candidate = candidate;
+		this.interviewer = interviewer;
+		this.question = question;
+	}
+	
 	// GETTERS & SETTERS
 	public int getId() {
 		return id;

@@ -44,8 +44,11 @@ public class ACCoordinatorTest {
 	@Test
 	public void that_removeCandidates_removesCandidatesPassedIn() {
 		Candidate can1 = new Candidate();
+		can1.setId(1);
 		Candidate can2 = new Candidate();
+		can2.setId(2);
 		Candidate can3 = new Candidate();
+		can3.setId(3);
 		List<Candidate> candidates = new ArrayList<>();
 		candidates.add(can1);
 		candidates.add(can2);
@@ -58,7 +61,8 @@ public class ACCoordinatorTest {
 		
 		coordinator.removeCandidates(remove);
 		
-		assertEquals(1, coordinator.getNewAC().getCandidates().size());		
+		assertEquals(1, coordinator.getNewAC().getCandidates().size());
+		assertEquals(2, coordinator.getNewAC().getCandidates().get(0).getId());
 	}
 	
 	// assignInterviewers
@@ -78,11 +82,48 @@ public class ACCoordinatorTest {
 	}
 	
 	// removeInterviewers
+	@Test
+	public void that_removeInterviewers_removesInterviewersPassedIn() {
+		Interviewer int1 = new Interviewer();
+		int1.setId(1);
+		Interviewer int2 = new Interviewer();
+		int2.setId(2);
+		Interviewer int3 = new Interviewer();
+		int3.setId(3);
+		List<Interviewer> interviewers = new ArrayList<>();
+		interviewers.add(int1);
+		interviewers.add(int2);
+		interviewers.add(int3);
+		coordinator.assignInterviewers(interviewers);
+		
+		List<Interviewer> remove = new ArrayList<>();
+		remove.add(int2);
+		remove.add(int1);
+		
+		coordinator.removeInterviewers(remove);
+		
+		assertEquals(1, coordinator.getNewAC().getInterviewers().size());
+		assertEquals(3, coordinator.getNewAC().getInterviewers().get(0).getId());
+	}
 	
-	
-	// chooseInterviewType
+	// chooseInterviewType -> not implemented*
 	
 	
 	// chooseInterviewerToCandidate
-	
+	@Test
+	public void that_chooseInterviewerToCandidate_assignsPassedQuestionsToInterviewerAndCandidate() {
+		Interviewer interviewer = new Interviewer();
+		Candidate candidate = new Candidate();
+		Question q1 = new Question();
+		Question q2 = new Question();
+		Question q3 = new Question();
+		List<Question> questions = new ArrayList<>();
+		questions.add(q1);
+		questions.add(q2);
+		questions.add(q3);
+		
+		coordinator.chooseInterviewerToCandidate(interviewer, candidate, questions);
+		
+		assertEquals(3, interviewer.getResponses().size());
+	}
 }

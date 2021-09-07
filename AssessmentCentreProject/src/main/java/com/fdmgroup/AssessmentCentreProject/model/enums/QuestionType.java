@@ -5,5 +5,4 @@ public enum QuestionType {
 	TECHNICAL,
 	BEHAVIOURAL,
 	CURVEBALL
-	
 }

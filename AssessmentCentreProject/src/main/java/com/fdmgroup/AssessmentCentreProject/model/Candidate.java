@@ -177,6 +177,14 @@ public class Candidate {
 	public void setHistory(List<Candidate> history) {
 		this.history = history;
 	}
+
+	@Override
+	public String toString() {
+		return "Candidate [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", dateOfBirth="
+				+ dateOfBirth + ", address=" + address + ", email=" + email + ", phoneNumber=" + phoneNumber
+				+ ", university=" + university + ", cv=" + cv + ", aptitudeScore=" + aptitudeScore + ", recruiter="
+				+ recruiter + ", stream=" + stream + ", history=" + history + "]";
+	}
 	
 	
 	// application status
