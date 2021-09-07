@@ -38,9 +38,14 @@
   right: 0 !important;
 }
 
+div.row.quick-access-link {
+  margin: 20px auto;
+}
+
 .quick-access-link {
   text-align: center;
-  margin-bottom: 10px;
+  width: 600px;
+  text-align: center;
 }
 
 .quick-access-link img {
