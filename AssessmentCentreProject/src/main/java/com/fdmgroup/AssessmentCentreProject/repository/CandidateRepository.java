@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.fdmgroup.AssessmentCentreProject.model.Candidate;
 
 @Repository
-public interface CandidateRepository extends JpaRepository<Integer, Candidate>{
+public interface CandidateRepository extends JpaRepository<Candidate, Integer>{
 
 }

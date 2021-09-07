@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.fdmgroup.AssessmentCentreProject.model.ACCoordinator;
 
 @Repository
-public interface ACCoordinatorRepository extends JpaRepository<Integer, ACCoordinator>{
+public interface ACCoordinatorRepository extends JpaRepository<ACCoordinator, Integer>{
 
 }
