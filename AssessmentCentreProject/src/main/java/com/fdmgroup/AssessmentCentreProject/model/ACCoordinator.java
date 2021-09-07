@@ -24,15 +24,25 @@ public class ACCoordinator extends Staff {
 	}
 	
 	// BEHAVIOURS
+	
+	/**
+	 * Sets the new AssessmentCentre with a @param date
+	 */
 	public void scheduleAC(Date date) {
 		newAC = new AssessmentCentre();
 		newAC.setDate(date);
 	}
 	
+	/**
+	 * Sets @param candidates for AC
+	 */
 	public void assignCandidates(List<Candidate> candidates) {
 		newAC.setCandidates(candidates);
 	}
 	
+	/**
+	 * Removes given @param candidates from AC
+	 */
 	public void removeCandidates(List<Candidate> candidates) {
 		List<Candidate> toBeRemoved = new ArrayList<>();
 		for (Candidate remove : candidates) {
@@ -49,10 +59,16 @@ public class ACCoordinator extends Staff {
 		newAC.setCandidates(updated);
 	}
 	
+	/**
+	 * Sets @param interviewers for AC
+	 */
 	public void assignInterviewers(List<Interviewer> interviewers) {
 		newAC.setInterviewers(interviewers);
 	}
 	
+	/**
+	 * Removes given @param interviewers from AC
+	 */
 	public void removeInterviewers(List<Interviewer> interviewers) {
 		List<Interviewer> toBeRemoved = new ArrayList<>();
 		for (Interviewer remove : interviewers) {
@@ -73,6 +89,10 @@ public class ACCoordinator extends Staff {
 //	public void chooseInterviewType(QuestionType qType) { 
 //	}
 	
+	/**
+	 * Gives @param interviewer a list of @param questions for @param candidate
+	 * A question bank to link questions to answers (AssessmentCentreResponse class)
+	 */
 	public void chooseInterviewerToCandidate(Interviewer interviewer, Candidate candidate, List<Question> questions) {
 		List<AssessmentCentreResponse> responses = new ArrayList<>();
 		for (Question question : questions) {
@@ -80,6 +100,14 @@ public class ACCoordinator extends Staff {
 			responses.add(response);
 		}
 		interviewer.setResponses(responses);
+	}
+	
+	/**
+	 * Finalise the AC
+	 */
+	public void saveAssessmentCentre() {
+		assessmentCentres.add(newAC);
+		newAC = new AssessmentCentre();
 	}
 
 	// GETTERS & SETTERS
@@ -101,7 +129,7 @@ public class ACCoordinator extends Staff {
 
 	@Override
 	public String toString() {
-		return "ACCoordinator [assessmentCentres=" + assessmentCentres + ", newAC=" + newAC + "]";
+		return "ACCoordinator [assessmentCentres=" + assessmentCentres + "]";
 	}
 	
 }

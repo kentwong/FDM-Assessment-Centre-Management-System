@@ -126,4 +126,11 @@ public class ACCoordinatorTest {
 		
 		assertEquals(3, interviewer.getResponses().size());
 	}
+	
+	@Test
+	public void that_saveAssessmentCentre_addsNewACToListAndCreatesNewInstance() {
+		coordinator.saveAssessmentCentre();
+		
+		assertEquals(1, coordinator.getAssessmentCentres().size());
+	}
 }
