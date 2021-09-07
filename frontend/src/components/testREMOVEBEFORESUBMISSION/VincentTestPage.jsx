@@ -10,4 +10,4 @@ class VincentTestPage extends Component {
     }
 }
 
-export default VincentTestPag;
+export default VincentTestPage;
