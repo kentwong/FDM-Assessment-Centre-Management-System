@@ -4,7 +4,7 @@ class SupportIndexPage extends Component {
     render() {
         return (
             <div className="custom-container">
-                This is the Supppot Page.
+                This is the Supppot Page.<br/>
             </div>
         );
     }
