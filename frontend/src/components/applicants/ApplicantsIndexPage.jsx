@@ -5,15 +5,14 @@ class ApplicantsIndexPage extends Component {
     render() {
         return (
             <div className="custom-container">
-                This is the applicant's page.
+
                 <div className="row">
-                    <div className="col-6">
-                        <ViewApplicants />
-                    </div>
-                    <div className="col-6">
+                    <div className="col-12">
                         <ViewApplicants />
                     </div>
                 </div>
+
+                <a href="/applicant/add"><button className="btn btn-primary">Add New Applicant</button></a>
 
             </div>
         );

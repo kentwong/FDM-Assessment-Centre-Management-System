@@ -28,5 +28,49 @@ public class AssessmentCentre {
 		inverseJoinColumns =	{ @JoinColumn(name="fk_interviewer_id") }
 	)
 	private List<Interviewer> interviewers;
+
+	// CONSTRUCTOR
+	public AssessmentCentre() {
+		super();
+	}
+
+	// GETTERS & SETTERS
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public List<Candidate> getCandidates() {
+		return candidates;
+	}
+
+	public void setCandidates(List<Candidate> candidates) {
+		this.candidates = candidates;
+	}
+
+	public List<Interviewer> getInterviewers() {
+		return interviewers;
+	}
+
+	public void setInterviewers(List<Interviewer> interviewers) {
+		this.interviewers = interviewers;
+	}
+
+	@Override
+	public String toString() {
+		return "AssessmentCentre [id=" + id + ", date=" + date + ", candidates=" + candidates + ", interviewers="
+				+ interviewers + "]";
+	}
 	
 }

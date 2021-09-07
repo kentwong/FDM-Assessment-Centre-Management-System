@@ -5,12 +5,21 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Recruiter extends Staff {
 	
 	@OneToMany(mappedBy="recruiter")
+	@JsonIgnore //This is to eliminate recursive JSON view for candidate's REST controller
 	private List<Candidate> candidates;
+	
+	// CONSTRUCTOR
+	public Recruiter() {
+		super();
+	}
 
+	// BEHAVIOURS *
 	public void recruit(Candidate candidate) {
 
 	}
@@ -22,12 +31,24 @@ public class Recruiter extends Staff {
 	public void removeCandidate(Candidate candidate) {
 
 	}
-
-	public List<Candidate> getAllCandidates() {
-		return null;
-	}
 	
 	public void sendStatusEmail(String status) {
 		
 	}
+
+	// GETTERS & SETTERS
+	public List<Candidate> getCandidates() {
+		return candidates;
+	}
+
+	public void setCandidates(List<Candidate> candidates) {
+		this.candidates = candidates;
+	}
+
+	@Override
+	public String toString() {
+		return "Recruiter [candidates=" + candidates + "]";
+	}
+	
+	
 }
