@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const CANDIDATE_API_URL = "http://localhost:9003/candidate";
+const CANDIDATE_API_URL = "http://localhost:9003/candidate/api/v1";
 
 class CandidateService {
 
