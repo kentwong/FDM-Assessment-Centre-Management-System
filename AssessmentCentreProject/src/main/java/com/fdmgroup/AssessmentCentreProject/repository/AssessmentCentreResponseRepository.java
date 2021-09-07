@@ -7,6 +7,6 @@ import com.fdmgroup.AssessmentCentreProject.model.AssessmentCentreResponse;
 
 
 @Repository
-public interface AssessmentCentreResponseRepository extends JpaRepository<Integer, AssessmentCentreResponse>{
+public interface AssessmentCentreResponseRepository extends JpaRepository<AssessmentCentreResponse, Integer>{
 
 }

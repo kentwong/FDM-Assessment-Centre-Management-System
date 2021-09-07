@@ -5,6 +5,7 @@ class CalenderIndexPage extends Component {
         return (
             <div className="custom-container">
                 This is the Calender Page.
+                <br/>ADD ASSESSMENT CENTRE
             </div>
         );
     }

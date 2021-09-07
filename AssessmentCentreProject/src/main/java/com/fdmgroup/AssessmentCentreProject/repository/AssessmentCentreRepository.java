@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.fdmgroup.AssessmentCentreProject.model.AssessmentCentre;
 
 @Repository
-public interface AssessmentCentreRepository extends JpaRepository<Integer, AssessmentCentre>{
+public interface AssessmentCentreRepository extends JpaRepository<AssessmentCentre, Integer>{
 
 }
