@@ -30,6 +30,9 @@ class Header extends Component {
                                     <li className="nav-item">
                                         <a className="nav-link" href="/support">Help &#38; Support</a>
                                     </li>
+                                    <li className="nav-item">  
+                                        <a className="nav-link" href="/testREMOVEBEFORESUBMISSION">VINCENT_TEST_PAGE</a>  
+                                    </li>
                                 </ul>
                                 <div className="navbar-nav ms-auto">
                                     <li className="nav-item navbar-right">
