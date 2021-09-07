@@ -33,7 +33,7 @@ class Login extends Component {
 
     validateUser = e => {
         e.preventDefault();
-
+        //StaffService.getStaff().
         //validate user
     }
 
