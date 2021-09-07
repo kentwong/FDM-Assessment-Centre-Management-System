@@ -2,6 +2,7 @@ package com.fdmgroup.AssessmentCentreProject.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -9,17 +10,17 @@ import javax.persistence.InheritanceType;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Staff {
-	
+
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String firstName;
 	private String lastName;
-	
+
 	private String email;
 	private String phoneNumber;
 //	private Object emailTemplate; // TODO define type
-	
+
 	// GETTERS & SETTERS
 	public int getId() {
 		return id;
@@ -66,6 +67,4 @@ public abstract class Staff {
 		return "Staff [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
 				+ ", phoneNumber=" + phoneNumber + "]";
 	}
-	
-	
 }

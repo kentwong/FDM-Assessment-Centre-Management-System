@@ -17,6 +17,12 @@ public class Address {
 	public Address() {
 		super();
 	}
+	
+	public Address(int id, String address) {
+		super();
+		this.id = id;
+		this.address = address;
+	}
 
 	// GETTERS & SETTERS
 	public int getId() {
@@ -39,5 +45,4 @@ public class Address {
 	public String toString() {
 		return "Address [id=" + id + ", address=" + address + "]";
 	}
-	
 }
