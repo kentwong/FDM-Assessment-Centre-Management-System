@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import CandidateService from '../../services/CandidateService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelopeOpenText, faDownload } from '@fortawesome/free-solid-svg-icons';
+import { faUserEdit, faEnvelopeOpenText, faDownload } from '@fortawesome/free-solid-svg-icons';
 
 class ViewApplicants extends Component {
     constructor(props) {
@@ -49,7 +49,7 @@ class ViewApplicants extends Component {
                                     candidate =>
                                         <tr key={candidate.id}>
                                             <td> {candidate.id} </td>
-                                            <td> {candidate.firstName} {candidate.lastName}</td>
+                                            <td> <a className="email" href='/applicant/edit'><FontAwesomeIcon className="fa-lg" icon={faUserEdit} color="#0d6efd" /> {candidate.firstName} {candidate.lastName}</a> </td>
                                             <td> {candidate.stream.streamName} </td>
                                             <td> {candidate.university} </td>
                                             <td> {candidate.phoneNumber} </td>
