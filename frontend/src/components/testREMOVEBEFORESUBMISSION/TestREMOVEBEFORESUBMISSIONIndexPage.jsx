@@ -19,7 +19,7 @@ class TestREMOVEBEFORESUBMISSIONIndexPage extends Component {
         
         return (
             <div className="custom-container">
-                <a href="/applicant/interviewform"><button className="btn btn-primary">interview form</button></a>
+                <a href="/applicant/interviewform"><button className="btn btn-primary">Interview Form</button></a>
             </div>
         );
     }
