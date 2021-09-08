@@ -29,6 +29,7 @@ class CalenderIndexPage extends Component {
                 <ScheduleComponent currentView='Month'>
                     <Inject services={[Day, Week, WorkWeek, Month, Agenda]}/>
                 </ScheduleComponent>
+                
                 <br/>ADD ASSESSMENT CENTRE - FOR AC COORDINATOR
                 
                 <ViewAssessmentCentres />

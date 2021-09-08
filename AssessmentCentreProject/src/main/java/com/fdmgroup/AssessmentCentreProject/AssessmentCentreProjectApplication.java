@@ -90,5 +90,7 @@ public class AssessmentCentreProjectApplication implements CommandLineRunner {
 		ac.setDate(new Date());
 		ac.setCoordinator(new ACCoordinator());
 		acRepo.save(ac);
+		
+		
 	}
 }
