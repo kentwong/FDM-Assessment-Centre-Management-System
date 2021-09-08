@@ -45,13 +45,24 @@ function CreateApplicant(props) {
         e.preventDefault();
 
         let candidate = {
-
+            firstName: firstName,
+            lastName: lastName,
+            dateOfBirth: dateOfBirth,
+            email: email,
+            phoneNumber: phoneNumber,
+            university: university,
+            cv: cv,
+            notes: notes,
+            address: address,
+            aptitudeScore: aptitudeScore,
+            stream: stream,
+            recruiter: recruiter
         };
         console.log(JSON.stringify(candidate));
 
-        // CandidateService.createCandidate(candidate).then(res => {
-        //     props.history.push('/applicants');
-        // });
+        CandidateService.createCandidate(candidate).then(res => {
+            props.history.push('/applicants');
+        });
     }
 
     return (
