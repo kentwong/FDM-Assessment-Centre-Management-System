@@ -26,3 +26,4 @@ class TestREMOVEBEFORESUBMISSIONIndexPage extends Component {
 }
 
 export default TestREMOVEBEFORESUBMISSIONIndexPage;
+
