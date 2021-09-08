@@ -39,7 +39,7 @@ function InterviewForm(props) {
                     </div>
                 </div>
 
-                <input type="button" value="Add New Question" onClick={addQuestion} />
+                <input type="button" value="Add New Question" onClick={addQuestion} /> <br />
                 {
                     questionState.map((val, idx) => {
                         return (
