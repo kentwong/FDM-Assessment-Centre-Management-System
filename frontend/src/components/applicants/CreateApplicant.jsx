@@ -53,10 +53,8 @@ function CreateApplicant(props) {
             university: university,
             cv: cv,
             notes: notes,
-            address: address,
-            aptitudeScore: aptitudeScore,
-            stream: stream,
-            recruiter: recruiter
+            address: { address: address },
+            aptitudeScore: aptitudeScore
         };
         console.log(JSON.stringify(candidate));
 
@@ -69,6 +67,12 @@ function CreateApplicant(props) {
         <div className="custom-container">
             <form onSubmit={addCandidate}>
                 <h2 className="mb-5">Create New Applicant</h2>
+                {/* <div className="row mb-3">
+                    <div className="col-md-6">
+                        <label htmlFor="stream" className="form-label">Stream <span className="text-danger">*</span></label>
+                        <input type="text" className="form-control" id="firstName" value={firstName} onChange={e => setFirstName(e.target.value)} required></input>
+                    </div>
+                </div> */}
                 <div className="row mb-3">
                     <div className="col-md-6">
                         <label htmlFor="firstName" className="form-label">First Name <span className="text-danger">*</span></label>

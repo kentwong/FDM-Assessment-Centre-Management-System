@@ -28,7 +28,7 @@ public class Candidate {
 	private String firstName;
 	private String lastName;
 	private String dateOfBirth;
-	@OneToOne(cascade = CascadeType.MERGE) // Change to MERGE to solve detached entity passed to persist error
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "fk_address_id")
 	private Address address;
 	private String email;

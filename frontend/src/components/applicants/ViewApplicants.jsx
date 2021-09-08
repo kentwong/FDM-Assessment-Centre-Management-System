@@ -50,7 +50,8 @@ class ViewApplicants extends Component {
                                         <tr key={candidate.id}>
                                             <td> {candidate.id} </td>
                                             <td> <a className="email" href='/applicant/edit'><FontAwesomeIcon className="fa-lg" icon={faUserEdit} color="#0d6efd" /> {candidate.firstName} {candidate.lastName}</a> </td>
-                                            <td> {candidate.stream.streamName} </td>
+                                            {/* <td> {candidate.stream.streamName} </td> */}
+                                            <td> Stream (pending)</td>
                                             <td> {candidate.university} </td>
                                             <td> {candidate.phoneNumber} </td>
                                             <td> <a className="email" href={'mailto:' + candidate.email}><FontAwesomeIcon className="fa-lg" icon={faEnvelopeOpenText} color="#0d6efd" /> {candidate.email}</a> </td>
