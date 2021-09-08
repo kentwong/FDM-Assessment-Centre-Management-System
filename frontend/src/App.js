@@ -13,6 +13,7 @@ import ResultIndexPage from './components/results/ResultIndexPage';
 import TestREMOVEBEFORESUBMISSIONIndexPage from './components/testREMOVEBEFORESUBMISSION/TestREMOVEBEFORESUBMISSIONIndexPage'
 import CreateApplicant from './components/applicants/CreateApplicant';
 import InterviewForm from './components/applicants/InterviewForm';
+import UpdateApplicant from './components/applicants/UpdateApplicant';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path="/results" exact component={ResultIndexPage}></Route>
           <Route path="/support" exact component={SupportIndexPage}></Route>
           <Route path="/applicant/add" exact component={CreateApplicant}></Route>
+          <Route path="/applicant/edit/:id" exact component={UpdateApplicant}></Route>
           <Route path="/applicant/interviewform" exact component={InterviewForm}></Route>
           <Route path="/TestREMOVEBEFORESUBMISSION" exact component={TestREMOVEBEFORESUBMISSIONIndexPage}></Route>
         </Switch>
