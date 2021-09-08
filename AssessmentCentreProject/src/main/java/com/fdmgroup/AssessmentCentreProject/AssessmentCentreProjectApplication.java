@@ -8,12 +8,14 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.fdmgroup.AssessmentCentreProject.model.Address;
+import com.fdmgroup.AssessmentCentreProject.model.AssessmentCentre;
 import com.fdmgroup.AssessmentCentreProject.model.Candidate;
 import com.fdmgroup.AssessmentCentreProject.model.Recruiter;
 import com.fdmgroup.AssessmentCentreProject.model.Staff;
 import com.fdmgroup.AssessmentCentreProject.model.Stream;
 import com.fdmgroup.AssessmentCentreProject.model.enums.AptitudeType;
 import com.fdmgroup.AssessmentCentreProject.repository.AddressRepository;
+import com.fdmgroup.AssessmentCentreProject.repository.AssessmentCentreRepository;
 import com.fdmgroup.AssessmentCentreProject.repository.CandidateRepository;
 import com.fdmgroup.AssessmentCentreProject.repository.RecruiterRepository;
 import com.fdmgroup.AssessmentCentreProject.repository.StaffRepository;
@@ -21,22 +23,21 @@ import com.fdmgroup.AssessmentCentreProject.repository.StreamRepository;
 
 
 @SpringBootApplication
-public class AssessmentCentreProjectApplication implements CommandLineRunner{
+public class AssessmentCentreProjectApplication implements CommandLineRunner {
 
 	@Autowired
 	private CandidateRepository candidateRepo;
-	
 	@Autowired
 	private AddressRepository addressRepo;
-	
 	@Autowired
 	private RecruiterRepository recruiterRepo;
-	
 	@Autowired
 	private StreamRepository streamRepo;
-	
 	@Autowired
 	private StaffRepository staffRepo;
+	
+	@Autowired
+	private AssessmentCentreRepository acRepo;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(AssessmentCentreProjectApplication.class, args);
@@ -81,5 +82,8 @@ public class AssessmentCentreProjectApplication implements CommandLineRunner{
 		candidateRepo.save(new Candidate(4, "Stephanie", "Hirshman", "04/04/1998", address4, "stephanie.hirshman@fdmgroup.com", "0402425863", "The University of Sydney", "http://res.cloudinary.com/fdmgroup/image/upload/v1631023592/fdmgroup/qpg8tqfo5xwaafcpy3gc.pdf", 30, "Available to work immediately", (Recruiter) staff1, softwareDev));
 		
 		candidateRepo.save(new Candidate(5, "David", "Ko", "05/05/1998", address5, "david.ko@fdmgroup.com", "0401230547", "The University of Auckland", "http://res.cloudinary.com/fdmgroup/image/upload/v1631023614/fdmgroup/ngsposgdizew0xd2gplm.pdf", 30, "Available to work immediately", (Recruiter) staff1, softwareDev));
+		
+		// assessment centre testing
+		acRepo.save(new AssessmentCentre());
 	}
 }
