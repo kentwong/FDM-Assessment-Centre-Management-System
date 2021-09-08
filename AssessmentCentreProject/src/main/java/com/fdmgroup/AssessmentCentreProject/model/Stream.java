@@ -17,7 +17,6 @@ public class Stream {
 	private int id;
 	private String streamName;
 	
-	private Date dateStart;
 	private int duration;
 	
 	private AptitudeType aptitudeTestType;
@@ -27,11 +26,10 @@ public class Stream {
 		super();
 	}
 	
-	public Stream(int id, String streamName, Date dateStart, int duration, AptitudeType aptitudeTestType) {
+	public Stream(int id, String streamName, int duration, AptitudeType aptitudeTestType) {
 		super();
 		this.id = id;
 		this.streamName = streamName;
-		this.dateStart = dateStart;
 		this.duration = duration;
 		this.aptitudeTestType = aptitudeTestType;
 	}
@@ -53,14 +51,12 @@ public class Stream {
 		this.streamName = streamName;
 	}
 
-	public Date getDateStart() {
-		return dateStart;
-	}
-
 	@Override
 	public String toString() {
-		return "Stream [id=" + id + ", streamName=" + streamName + ", dateStart=" + dateStart + ", duration=" + duration
-				+ ", aptitudeTestType=" + aptitudeTestType + "]";
+		return "Stream [id=" + id + ", streamName=" + streamName + ", duration=" + duration + ", aptitudeTestType="
+				+ aptitudeTestType + "]";
 	}
+
+	
 
 }

@@ -70,18 +70,20 @@ public class AssessmentCentreProjectApplication implements CommandLineRunner {
 		staff1.setPhoneNumber("0422336523");
 		staffRepo.save(staff1);
 		
-		Stream softwareDev = new Stream(1, "Software Development", new Date(), 90, AptitudeType.TECHNICAL);
+		Stream softwareDev = new Stream(1, "Software Development", 90, AptitudeType.TECHNICAL);
+		Stream businessAnalysis = new Stream(2, "Business Analysis & Business Intelligence", 90, AptitudeType.BUSINESS);
+		Stream technicalAnalysis = new Stream(3, "Technical Analysis", 90, AptitudeType.TECHNICAL);
+		Stream cloudComputing = new Stream(4, "Cloud Computing Engineering", 90, AptitudeType.TECHNICAL);
 		streamRepo.save(softwareDev);
+		streamRepo.save(businessAnalysis);
+		streamRepo.save(technicalAnalysis);
+		streamRepo.save(cloudComputing);
 		
-		candidateRepo.save(new Candidate(1, "Kent", "Wong", "01/01/1998", address1, "kent.wong@fdmgroup.com", "0478225632", "The Australian National University", "http://res.cloudinary.com/fdmgroup/image/upload/v1631021238/fdmgroup/s2getcumddnfe44tw6jg.pdf", 30, "Available to work immediately", (Recruiter) staff1, softwareDev));
-		
-		candidateRepo.save(new Candidate(2, "Vincent", "Chen", "02/02/1998", address2, "vincent.chen1@fdmgroup.com", "0415236254", "The University of Sydney", "http://res.cloudinary.com/fdmgroup/image/upload/v1631023545/fdmgroup/salj3stje2hnlt60citt.pdf", 30, "Available to work immediately", (Recruiter) staff1, softwareDev));
-		
-		candidateRepo.save(new Candidate(3, "Jeriel", "Bongco", "03/03/1998", address3, "jeriel.bongco@fdmgroup.com", "0452866951", "The University of Auckland", "http://res.cloudinary.com/fdmgroup/image/upload/v1631023572/fdmgroup/j0h4kq8csketvmwisrfk.pdf", 30, "Available to work immediately", (Recruiter) staff1, softwareDev));
-		
-		candidateRepo.save(new Candidate(4, "Stephanie", "Hirshman", "04/04/1998", address4, "stephanie.hirshman@fdmgroup.com", "0402425863", "The University of Sydney", "http://res.cloudinary.com/fdmgroup/image/upload/v1631023592/fdmgroup/qpg8tqfo5xwaafcpy3gc.pdf", 30, "Available to work immediately", (Recruiter) staff1, softwareDev));
-		
-		candidateRepo.save(new Candidate(5, "David", "Ko", "05/05/1998", address5, "david.ko@fdmgroup.com", "0401230547", "The University of Auckland", "http://res.cloudinary.com/fdmgroup/image/upload/v1631023614/fdmgroup/ngsposgdizew0xd2gplm.pdf", 30, "Available to work immediately", (Recruiter) staff1, softwareDev));
+		candidateRepo.save(new Candidate(1, "Kent", "Wong", "01/01/1998", address1, "kent.wong@fdmgroup.com", "0478225632", "The Australian National University", "http://res.cloudinary.com/fdmgroup/image/upload/v1631021238/fdmgroup/s2getcumddnfe44tw6jg.pdf", 30, "Available to work immediately", (Recruiter) staff1, softwareDev, "Pending Video Interview"));
+		candidateRepo.save(new Candidate(2, "Vincent", "Chen", "02/02/1998", address2, "vincent.chen1@fdmgroup.com", "0415236254", "The University of Sydney", "http://res.cloudinary.com/fdmgroup/image/upload/v1631023545/fdmgroup/salj3stje2hnlt60citt.pdf", 30, "Available to work immediately", (Recruiter) staff1, softwareDev, "Pending Video Interview"));
+		candidateRepo.save(new Candidate(3, "Jeriel", "Bongco", "03/03/1998", address3, "jeriel.bongco@fdmgroup.com", "0452866951", "The University of Auckland", "http://res.cloudinary.com/fdmgroup/image/upload/v1631023572/fdmgroup/j0h4kq8csketvmwisrfk.pdf", 30, "Available to work immediately", (Recruiter) staff1, softwareDev, "Pending Video Interview"));
+		candidateRepo.save(new Candidate(4, "Stephanie", "Hirshman", "04/04/1998", address4, "stephanie.hirshman@fdmgroup.com", "0402425863", "The University of Sydney", "http://res.cloudinary.com/fdmgroup/image/upload/v1631023592/fdmgroup/qpg8tqfo5xwaafcpy3gc.pdf", 30, "Available to work immediately", (Recruiter) staff1, softwareDev, "Pending Video Interview"));	
+		candidateRepo.save(new Candidate(5, "David", "Ko", "05/05/1998", address5, "david.ko@fdmgroup.com", "0401230547", "The University of Auckland", "http://res.cloudinary.com/fdmgroup/image/upload/v1631023614/fdmgroup/ngsposgdizew0xd2gplm.pdf", 30, "Available to work immediately", (Recruiter) staff1, softwareDev, "Pending Video Interview"));
 		
 		// assessment centre testing
 		acRepo.save(new AssessmentCentre());

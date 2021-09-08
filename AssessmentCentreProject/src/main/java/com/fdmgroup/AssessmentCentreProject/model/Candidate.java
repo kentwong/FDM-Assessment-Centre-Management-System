@@ -44,6 +44,8 @@ public class Candidate {
 	@ManyToOne
 	private Stream stream;
 	
+	private String status;
+	
 	@ManyToMany
 	@JoinTable(name = "candidate_history", 
 		joinColumns = { @JoinColumn(name="fk_candidate_id") }, 
@@ -57,7 +59,7 @@ public class Candidate {
 	
 	public Candidate(int id, String firstName, String lastName, String dateOfBirth, Address address, String email,
 			String phoneNumber, String university, String cv, double aptitudeScore, String notes, Recruiter recruiter,
-			Stream stream) {
+			Stream stream, String status) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -72,6 +74,7 @@ public class Candidate {
 		this.notes = notes;
 		this.recruiter = recruiter;
 		this.stream = stream;
+		this.status = status;
 	}
 
 	public int getId() {
@@ -177,14 +180,6 @@ public class Candidate {
 	public void setHistory(List<Candidate> history) {
 		this.history = history;
 	}
-
-	@Override
-	public String toString() {
-		return "Candidate [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", dateOfBirth="
-				+ dateOfBirth + ", address=" + address + ", email=" + email + ", phoneNumber=" + phoneNumber
-				+ ", university=" + university + ", cv=" + cv + ", aptitudeScore=" + aptitudeScore + ", recruiter="
-				+ recruiter + ", stream=" + stream + ", history=" + history + "]";
-	}
 	
 	public String getNotes() {
 		return notes;
@@ -193,6 +188,24 @@ public class Candidate {
 	public void setNotes(String notes) {
 		this.notes = notes;
 	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	@Override
+	public String toString() {
+		return "Candidate [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", dateOfBirth="
+				+ dateOfBirth + ", address=" + address + ", email=" + email + ", phoneNumber=" + phoneNumber
+				+ ", university=" + university + ", cv=" + cv + ", aptitudeScore=" + aptitudeScore + ", notes=" + notes
+				+ ", recruiter=" + recruiter + ", stream=" + stream + ", status=" + status + ", history=" + history
+				+ "]";
+	}
+	
 	
 	// application status
 	// assessmentCentre -> bidirectional
