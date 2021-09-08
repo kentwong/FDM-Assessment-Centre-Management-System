@@ -1,3 +1,4 @@
+
 INSERT INTO question (id, question_body, question_type) VALUES(1, 'Tell me about yourself.', 0);
 INSERT INTO question (id, question_body, question_type) VALUES(2, 'Why did you do [your degree]? How do you think it would fit if you were to become a [stream] consultant?', 0);
 INSERT INTO question (id, question_body, question_type) VALUES(3, 'Why do you have a passion for tech?', 0);
