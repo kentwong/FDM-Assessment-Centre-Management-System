@@ -14,6 +14,7 @@ import TestREMOVEBEFORESUBMISSIONIndexPage from './components/testREMOVEBEFORESU
 import CreateApplicant from './components/applicants/CreateApplicant';
 import InterviewForm from './components/applicants/InterviewForm';
 import UpdateApplicant from './components/applicants/UpdateApplicant';
+import ViewApplicants from './components/applicants/ViewApplicants';
 
 function App() {
   return (
