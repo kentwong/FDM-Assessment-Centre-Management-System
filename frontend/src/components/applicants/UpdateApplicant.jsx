@@ -28,9 +28,7 @@ function UpdateApplicant(props) {
             setId(candidate.id);
             setFirstName(candidate.firstName);
             setLastName(candidate.lastName);
-            let date = candidate.dateOfBirth.split('/');
-            setDateOfBirth(date[2] + '-' + date[1] + '-' + date[0]); // manipulate date format from dd/mm/yyyy to yyyy-mm-dd
-            console.log(dateOfBirth);
+            setDateOfBirth(candidate.dateOfBirth);
             setEmail(candidate.email);
             setPhoneNumber(candidate.phoneNumber);
             setUniversity(candidate.university);

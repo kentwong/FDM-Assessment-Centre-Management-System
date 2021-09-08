@@ -11,7 +11,7 @@ function ViewApplicants(props) {
         CandidateService.getCandidates().then((res) => {
             setCandidates(res.data);
         })
-    })
+    }, [])
 
     const deleteCandidate = (id) => {
         CandidateService.deleteCandidate(id);
