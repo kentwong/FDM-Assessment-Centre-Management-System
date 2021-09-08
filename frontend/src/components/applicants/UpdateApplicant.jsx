@@ -21,7 +21,7 @@ function UpdateApplicant(props) {
 
     useEffect(() => {
         CandidateService.getCandidateById(props.match.params.id).then(res => {
-            console.log(res.data)
+            console.log(res.data);
             let candidate = res.data;
             setFirstName(candidate.firstName);
             setLastName(candidate.lastName);
@@ -34,7 +34,7 @@ function UpdateApplicant(props) {
             setAddress(candidate.setAddress);
             setStream(candidate.stream);
         })
-    })
+    }, [])
 
     const uploadCV = async e => {
 

@@ -20,10 +20,10 @@ function ViewApplicants(props) {
 
     return (
         <div className="container my-5">
-            <div class="container-fluid col-5 me-0 pe-0 mb-5">
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                    <button class="btn btn-outline-success" type="submit">Search</button>
+            <div className="container-fluid col-5 me-0 pe-0 mb-5">
+                <form className="d-flex">
+                    <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                    <button className="btn btn-outline-success" type="submit">Search</button>
                 </form>
             </div>
             <h2 className="text-center">Candidates List</h2>
