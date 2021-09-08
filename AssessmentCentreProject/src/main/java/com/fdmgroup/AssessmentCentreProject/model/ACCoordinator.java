@@ -4,20 +4,21 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
-import com.fdmgroup.AssessmentCentreProject.model.enums.QuestionType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class ACCoordinator extends Staff {
 	
-	@OneToMany
+	@OneToMany (cascade=CascadeType.ALL, mappedBy="coordinator")
+	@JsonIgnore
 	private List<AssessmentCentre> assessmentCentres = new ArrayList<>();
 	@Transient
-	private AssessmentCentre newAC;
-	private boolean type = true;
+	private AssessmentCentre newAC = new AssessmentCentre();
 	
 	// CONSTRUCTOR
 	public ACCoordinator() {

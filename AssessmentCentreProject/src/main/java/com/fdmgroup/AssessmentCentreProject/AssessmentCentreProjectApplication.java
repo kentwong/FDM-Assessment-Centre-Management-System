@@ -7,6 +7,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.fdmgroup.AssessmentCentreProject.model.ACCoordinator;
 import com.fdmgroup.AssessmentCentreProject.model.Address;
 import com.fdmgroup.AssessmentCentreProject.model.AssessmentCentre;
 import com.fdmgroup.AssessmentCentreProject.model.Candidate;
@@ -86,6 +87,12 @@ public class AssessmentCentreProjectApplication implements CommandLineRunner {
 		candidateRepo.save(new Candidate(5, "David", "Ko", "05/05/1998", address5, "david.ko@fdmgroup.com", "0401230547", "The University of Auckland", "http://res.cloudinary.com/fdmgroup/image/upload/v1631023614/fdmgroup/ngsposgdizew0xd2gplm.pdf", 30, "Available to work immediately", (Recruiter) staff1, softwareDev, "Pending Video Interview"));
 		
 		// assessment centre testing
-		acRepo.save(new AssessmentCentre());
+		AssessmentCentre ac = new AssessmentCentre();
+		ac.setId(1);
+		ac.setDate(new Date());
+		ac.setCoordinator(new ACCoordinator());
+		acRepo.save(ac);
+		
+		
 	}
 }

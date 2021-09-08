@@ -3,7 +3,23 @@ import {Inject,ScheduleComponent,Day, Week, WorkWeek, Month, Agenda, EventSettin
 import ViewAssessmentCentres from './coordinator/ViewAssessmentCentres';
 import CreateAC from './coordinator/CreateAC';
 
-// const shouldDisplayCreateAC = user instanceof coordinator
+var user = {
+    id: 1,
+	firstName: 'Michael',
+	lastName: 'Mike',
+	email: 'email@fdm.com',
+	phoneNumber: '123456',
+}
+localStorage.setItem('user', JSON.stringify(user))
+localStorage.setItem('role', 'coordinator')
+
+// -----------
+
+const shouldDisplayCreateAC = localStorage.getItem('role') === 'coordinator'
+
+const heandleCreateACClick = () => {
+    alert("CREATE ASSESSMENT CENTRE")
+}
 
 class CalenderIndexPage extends Component {
     render() {
@@ -13,11 +29,12 @@ class CalenderIndexPage extends Component {
                 <ScheduleComponent currentView='Month'>
                     <Inject services={[Day, Week, WorkWeek, Month, Agenda]}/>
                 </ScheduleComponent>
+                
                 <br/>ADD ASSESSMENT CENTRE - FOR AC COORDINATOR
-                {}
+                
                 <ViewAssessmentCentres />
-                {/* { shouldDisplayCreateAC && <CreateAC />} */}
-                <CreateAC />
+                { shouldDisplayCreateAC && <button className="btn btn-primary" onClick={heandleCreateACClick}>Create Assessment Centre</button>}
+                { shouldDisplayCreateAC && <CreateAC />}
             </div>
         );
     }
