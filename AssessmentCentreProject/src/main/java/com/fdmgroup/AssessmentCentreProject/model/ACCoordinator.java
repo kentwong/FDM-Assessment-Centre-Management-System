@@ -17,6 +17,7 @@ public class ACCoordinator extends Staff {
 	private List<AssessmentCentre> assessmentCentres = new ArrayList<>();
 	@Transient
 	private AssessmentCentre newAC;
+	private boolean type = true;
 	
 	// CONSTRUCTOR
 	public ACCoordinator() {

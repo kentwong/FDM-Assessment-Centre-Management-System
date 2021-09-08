@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import CandidateService from '../../services/CandidateService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDownload } from '@fortawesome/free-solid-svg-icons';
+import { faUserEdit, faEnvelopeOpenText, faDownload } from '@fortawesome/free-solid-svg-icons';
 
 class ViewApplicants extends Component {
     constructor(props) {
@@ -35,8 +35,7 @@ class ViewApplicants extends Component {
                         <thead>
                             <tr>
                                 <th className="">ID</th>
-                                <th className="">First Name</th>
-                                <th className="">Last Name</th>
+                                <th className="">Name</th>
                                 <th className="">Stream</th>
                                 <th className="">University</th>
                                 <th className="">Phone</th>
@@ -50,13 +49,12 @@ class ViewApplicants extends Component {
                                     candidate =>
                                         <tr key={candidate.id}>
                                             <td> {candidate.id} </td>
-                                            <td> {candidate.firstName} </td>
-                                            <td> {candidate.lastName} </td>
+                                            <td> <a className="email" href='/applicant/edit'><FontAwesomeIcon className="fa-lg" icon={faUserEdit} color="#0d6efd" /> {candidate.firstName} {candidate.lastName}</a> </td>
                                             <td> {candidate.stream.streamName} </td>
                                             <td> {candidate.university} </td>
                                             <td> {candidate.phoneNumber} </td>
-                                            <td> {candidate.email} </td>
-                                            <td> <a href={candidate.cv}><FontAwesomeIcon className="fa-lg download" icon={faDownload} color="#0d6efd" /></a> </td>
+                                            <td> <a className="email" href={'mailto:' + candidate.email}><FontAwesomeIcon className="fa-lg" icon={faEnvelopeOpenText} color="#0d6efd" /> {candidate.email}</a> </td>
+                                            <td> <a className="download" href={candidate.cv}><FontAwesomeIcon className="fa-lg" icon={faDownload} color="#0d6efd" /></a> </td>
 
                                         </tr>
                                 )
