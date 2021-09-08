@@ -9,7 +9,33 @@ class InterviewFormSingleQuestion extends Component {
 
     render() {
         return (
-            <div>This is an interview question.</div>
+            <div>
+                <div className="row mb-3">
+                    <div className="col-md-6">
+                        <label htmlFor="firstName" className="form-label">Question</label>
+                        <input type="text" className="form-control" id="firstName"></input>
+                    </div>
+                    <div className="col-md-6">
+                        <label htmlFor="lastName" className="form-label">Grade</label>
+                        <input type="text" className="form-control" id="lastName"></input>
+                    </div>
+                </div>
+                <div className="row mb-3">
+                    <div className="col-md-6">
+                        <label htmlFor="firstName" className="form-label">Question Type</label>
+                        <input type="text" className="form-control" id="firstName"></input>
+                    </div>
+                    <div className="col-md-6">
+                        <label htmlFor="lastName" className="form-label">Points</label>
+                        <input type="text" className="form-control" id="lastName"></input>
+                    </div>
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="notes" className="form-label">Notes </label>
+                    <textarea className="form-control" id="notes" rows="3" ></textarea>
+                </div>
+                <hr />
+            </div>
         );
     }
 }
