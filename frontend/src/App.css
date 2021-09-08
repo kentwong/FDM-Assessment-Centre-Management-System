@@ -62,6 +62,7 @@ div.row.quick-access-link {
 
 .icon-link {
   cursor: pointer;
+  text-decoration: none;
 }
 
 .icon-link:hover {

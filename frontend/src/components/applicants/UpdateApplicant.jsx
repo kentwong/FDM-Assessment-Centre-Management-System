@@ -3,6 +3,7 @@ import CandidateService from '../../services/CandidateService';
 
 function UpdateApplicant(props) {
 
+    const [id, setId] = useState(0);
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [dateOfBirth, setDateOfBirth] = useState('');
@@ -16,23 +17,26 @@ function UpdateApplicant(props) {
     const [stream, setStream] = useState({}); //Stream object
     const [streamId, setStreamId] = useState(1);
     const [status, setStatus] = useState('Pending Video Interview');
-    const [recruiter, setRecruiter] = useState({}); //Recruiter object
+    // const [recruiter, setRecruiter] = useState({}); //Recruiter object
     const [loading, setLoading] = useState(false); //boolean - check status of cv upload
 
     useEffect(() => {
         CandidateService.getCandidateById(props.match.params.id).then(res => {
             console.log(res.data);
             let candidate = res.data;
+            setId(candidate.id);
             setFirstName(candidate.firstName);
             setLastName(candidate.lastName);
-            setDateOfBirth(candidate.dateOfBirth);
+            let date = candidate.dateOfBirth.split('/');
+            setDateOfBirth(date[2] + '-' + date[1] + '-' + date[0]); // manipulate date format from dd/mm/yyyy to yyyy-mm-dd
             setEmail(candidate.email);
             setPhoneNumber(candidate.phoneNumber);
             setUniversity(candidate.university);
             setCv(candidate.cv);
             setNotes(candidate.notes);
-            setAddress(candidate.setAddress);
+            setAddress(candidate.address.address);
             setStream(candidate.stream);
+            setAptitudeScore(candidate.aptitudeScore);
         })
     }, [])
 
@@ -78,7 +82,7 @@ function UpdateApplicant(props) {
         };
         console.log(JSON.stringify(candidate));
 
-        CandidateService.createCandidate(candidate).then(res => {
+        CandidateService.updateCandidate(candidate, id).then(res => {
             props.history.push('/applicants');
         });
     }
@@ -152,13 +156,14 @@ function UpdateApplicant(props) {
                 <div className="mb-3">
                     <label htmlFor="cv" className="form-label">Upload CV </label>
                     <input type="file" className="form-control" id="cv" onChange={uploadCV}></input>
+                    {cv === '' ? <p>No CV Uploaded</p> : <p><a className="icon-link" href={cv}>Download current CV</a></p>}
                 </div>
                 <div className="mb-3">
                     <label htmlFor="notes" className="form-label">Notes/ Remarks </label>
                     <textarea className="form-control" id="notes" rows="3" value={notes} onChange={e => setNotes(e.target.value)} ></textarea>
                 </div>
 
-                <button type="submit" className="btn btn-success me-2 mt-5">Add</button>
+                <button type="submit" className="btn btn-success me-2 mt-5">Update</button>
                 <button className="btn btn-danger mt-5" onClick={cancel}>Cancel</button>
             </form>
         </div>
