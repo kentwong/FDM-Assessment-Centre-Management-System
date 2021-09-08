@@ -3,6 +3,7 @@ import {Inject,ScheduleComponent,Day, Week, WorkWeek, Month, Agenda, EventSettin
 import ViewAssessmentCentres from './coordinator/ViewAssessmentCentres';
 import CreateAC from './coordinator/CreateAC';
 
+// ---------------
 var user = {
     id: 1,
 	firstName: 'Michael',
@@ -12,8 +13,7 @@ var user = {
 }
 localStorage.setItem('user', JSON.stringify(user))
 localStorage.setItem('role', 'coordinator')
-
-// -----------
+// ---------------
 
 const shouldDisplayCreateAC = localStorage.getItem('role') === 'coordinator'
 
@@ -36,8 +36,9 @@ class CalenderIndexPage extends Component {
                 <br/>ADD ASSESSMENT CENTRE - FOR AC COORDINATOR
                 
                 <ViewAssessmentCentres />
-                { shouldDisplayCreateAC && <button className="btn btn-primary" onClick={() => this.setState({ showCreate: true })}>Create Assessment Centre</button>}
+                { shouldDisplayCreateAC && <button className="btn btn-primary" onClick={() => this.setState({ showCreate: !this.state.showCreate })}>Create Assessment Centre</button>}
                 { this.state.showCreate && <CreateAC />}
+                
             </div>
         );
     }
