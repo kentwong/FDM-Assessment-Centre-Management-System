@@ -6,7 +6,7 @@ function CreateAC(props) {
 
     const storedCoordinator = localStorage.getItem('coordinator')
     let coordinator = JSON.parse(storedCoordinator)
-    
+
     const [candidates, setCandidates] = useState([])
 
     useEffect(() => {
@@ -18,15 +18,22 @@ function CreateAC(props) {
 
     return (
         <div>
-            <hr/>
-            Assessment Centre coordinator: {coordinator.firstName} {coordinator.lastName}<br/>
-            <br/>
-            {console.log("CANDIDATES LENGTH " + candidates)}
-            {candidates.map( candidate => {
+            <hr />
+            Assessment Centre coordinator: {coordinator.firstName} {coordinator.lastName}<br />
+            <br />
+
+            {/* {candidates.map(candidate => {
                 <div>
                     Candidate: {candidate.id}
                 </div>
-            })}
+            })} */}
+
+            {candidates.map(candidate =>
+                <div>
+                    Candidate: {candidate.id}
+                </div>
+            )}
+
         </div>
     )
 }
