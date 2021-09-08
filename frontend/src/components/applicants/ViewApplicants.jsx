@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import CandidateService from '../../services/CandidateService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDownload } from '@fortawesome/free-solid-svg-icons';
+import { faUserEdit, faEnvelopeOpenText, faDownload } from '@fortawesome/free-solid-svg-icons';
 
 class ViewApplicants extends Component {
     constructor(props) {
