@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, Component } from 'react';
 import {Inject,ScheduleComponent,Day, Week, WorkWeek, Month, Agenda, EventSettingsModel } from '@syncfusion/ej2-react-schedule';
 import ViewAssessmentCentres from './coordinator/ViewAssessmentCentres';
 import CreateAC from './coordinator/CreateAC';
@@ -17,11 +17,14 @@ localStorage.setItem('role', 'coordinator')
 
 const shouldDisplayCreateAC = localStorage.getItem('role') === 'coordinator'
 
-const heandleCreateACClick = () => {
-    alert("CREATE ASSESSMENT CENTRE")
-}
-
 class CalenderIndexPage extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+          showCreate: false,
+        };
+      }
+    
     render() {
         return (
             <div className="custom-container">
@@ -33,8 +36,8 @@ class CalenderIndexPage extends Component {
                 <br/>ADD ASSESSMENT CENTRE - FOR AC COORDINATOR
                 
                 <ViewAssessmentCentres />
-                { shouldDisplayCreateAC && <button className="btn btn-primary" onClick={heandleCreateACClick}>Create Assessment Centre</button>}
-                { shouldDisplayCreateAC && <CreateAC />}
+                { shouldDisplayCreateAC && <button className="btn btn-primary" onClick={() => this.setState({ showCreate: true })}>Create Assessment Centre</button>}
+                { this.state.showCreate && <CreateAC />}
             </div>
         );
     }
