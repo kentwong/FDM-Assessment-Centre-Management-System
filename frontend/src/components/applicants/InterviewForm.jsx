@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import CandidateService from '../../services/CandidateService';
+import InterviewFormSingleQuestion from './InterviewFormSingleQuestion';
 
 function InterviewForm(props) {
 
@@ -17,6 +18,11 @@ function InterviewForm(props) {
         e.preventDefault();
     }
 
+    const [questionState, setQuestionState] = useState([]);
+    const addQuestion = () => {
+        setQuestionState([...questionState, 1]);
+    };
+
     return (
         <div className="custom-container">
             <form onSubmit={submitInterviewForm}>
@@ -32,6 +38,17 @@ function InterviewForm(props) {
                         </datalist>
                     </div>
                 </div>
+
+                <input type="button" value="Add New Question" onClick={addQuestion} />
+                {
+                    questionState.map((val, idx) => {
+                        return (
+                            <div><InterviewFormSingleQuestion /></div>
+                        );
+                    })
+                }
+
+                <br />
 
                 <button type="submit" className="btn btn-success me-2 mt-5">Add</button>
                 <button className="btn btn-danger mt-5" onClick={nullFunction}>Cancel</button>
