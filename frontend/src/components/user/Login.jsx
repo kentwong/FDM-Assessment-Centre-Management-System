@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { Component } from 'react';
 import StaffService from '../../services/StaffService';
 
@@ -36,7 +37,10 @@ class Login extends Component {
 
     validateUser = e => {
         e.preventDefault();
-        
+        console.log(this.state.emailAddress);
+        console.log(this.state.password)
+        axios.post('http://localhost:9003/staff/api/v1/login', {data: JSON.stringify( { 'username': this.state.emailAddress,
+        'password': this.state.password }), headers: {'Content-Type': 'application/json'}}).then(res => console.log(res))
     }
 
     componentDidMount() {
@@ -56,12 +60,12 @@ class Login extends Component {
                     </div>}
                     <div className="mb-3">
                         <label htmlFor="emailAddress" className="form-label">Email Address <span className="text-danger">*</span></label>
-                        <input type="email" className="form-control" id="emailAddress" value={this.state.emailAddress} onChange={this.handleOnChange} required></input>
+                        <input type="email" className="form-control" name="emailAddress" id="emailAddress" value={this.state.emailAddress} onChange={this.handleOnChange} required></input>
                     </div>
 
                     <div className="mb-3">
                         <label htmlFor="password" className="form-label">Password <span className="text-danger">*</span></label>
-                        <input type="password" className="form-control" id="password" value={this.state.password} onChange={this.handleOnChange} required></input>
+                        <input type="password" className="form-control" name="password" id="password" value={this.state.password} onChange={this.handleOnChange} required></input>
                     </div>
 
                     <button type="submit" className="btn btn-success me-2">Login</button>

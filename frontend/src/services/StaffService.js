@@ -7,7 +7,11 @@ class StaffService {
     getStaff() {
         return axios.get(STAFF_API_URL + '/login');
     }
-    /*
+    
+    sendDetail() {
+        return axios.post(STAFF_API_URL + '/login', loginDetails);
+    }
+/*
     createStaff(staff) {
         return axios.post(CANDIDATE_API_URL + '/create', candidate);
     }
