@@ -54,7 +54,8 @@ div.row.quick-access-link {
 }
 
 .quick-access-link p,
-.quick-access-link a {
+.quick-access-link a,
+.email {
   text-decoration: none;
-  color: #444;
+  color: #212529;
 }
