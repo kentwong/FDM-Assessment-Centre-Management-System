@@ -22,11 +22,10 @@ function InterviewForm(props) {
             <form onSubmit={submitInterviewForm}>
                 <h2 className="mb-5">Assessment Centre - Interview Form</h2>
                 <div className="row mb-3">
-                    <div className="col-md-6">
-                        <label htmlFor="firstName" className="form-label">First Name <span className="text-danger">*</span></label>
-                        <input type="text" className="form-control" id="firstName" value={firstName} onChange={e => nullFunction} required></input>
-                        <input list="interviewType" />
-                        <datalist id="interviewType">
+                    <div className="col-md-2">
+                        <label htmlFor="firstName" className="form-label">Interview Type <span className="text-danger">*</span></label>
+                        <input list="interviewTypeList" className="form-control" id="interviewType" onChange={e => nullFunction} required />
+                        <datalist id="interviewTypeList">
                             <option value="Placeholder Type 1" />
                             <option value="Placeholder Type 2" />
                             <option value="Placeholder Type 3" />
