@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -21,6 +22,9 @@ public class AssessmentCentre {
 	
 	@OneToMany
 	private List<Candidate> candidates;
+	
+	@ManyToOne
+	private ACCoordinator coordinator;
 	
 	@ManyToMany
 	@JoinTable(name = "assessment_center_interviewers", 

@@ -45,19 +45,34 @@ function CreateApplicant(props) {
         e.preventDefault();
 
         let candidate = {
-
+            firstName: firstName,
+            lastName: lastName,
+            dateOfBirth: dateOfBirth,
+            email: email,
+            phoneNumber: phoneNumber,
+            university: university,
+            cv: cv,
+            notes: notes,
+            address: { address: address },
+            aptitudeScore: aptitudeScore
         };
         console.log(JSON.stringify(candidate));
 
-        // CandidateService.createCandidate(candidate).then(res => {
-        //     props.history.push('/applicants');
-        // });
+        CandidateService.createCandidate(candidate).then(res => {
+            props.history.push('/applicants');
+        });
     }
 
     return (
         <div className="custom-container">
             <form onSubmit={addCandidate}>
                 <h2 className="mb-5">Create New Applicant</h2>
+                {/* <div className="row mb-3">
+                    <div className="col-md-6">
+                        <label htmlFor="stream" className="form-label">Stream <span className="text-danger">*</span></label>
+                        <input type="text" className="form-control" id="firstName" value={firstName} onChange={e => setFirstName(e.target.value)} required></input>
+                    </div>
+                </div> */}
                 <div className="row mb-3">
                     <div className="col-md-6">
                         <label htmlFor="firstName" className="form-label">First Name <span className="text-danger">*</span></label>
