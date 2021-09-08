@@ -14,6 +14,8 @@ function CreateApplicant(props) {
     const [address, setAddress] = useState(''); //Address object
     const [aptitudeScore, setAptitudeScore] = useState(0.00); //double
     const [stream, setStream] = useState({}); //Stream object
+    const [streamId, setStreamId] = useState(1);
+    const [status, setStatus] = useState('Pending Video Interview');
     const [recruiter, setRecruiter] = useState({}); //Recruiter object
     const [loading, setLoading] = useState(false); //boolean - check status of cv upload
 
@@ -45,19 +47,52 @@ function CreateApplicant(props) {
         e.preventDefault();
 
         let candidate = {
-
+            firstName: firstName,
+            lastName: lastName,
+            dateOfBirth: dateOfBirth,
+            email: email,
+            phoneNumber: phoneNumber,
+            university: university,
+            cv: cv,
+            notes: notes,
+            address: { address: address },
+            stream: { id: parseInt(streamId) },
+            aptitudeScore: aptitudeScore,
+            status: status
         };
         console.log(JSON.stringify(candidate));
 
-        // CandidateService.createCandidate(candidate).then(res => {
-        //     props.history.push('/applicants');
-        // });
+        CandidateService.createCandidate(candidate).then(res => {
+            props.history.push('/applicants');
+        });
     }
 
     return (
         <div className="custom-container">
             <form onSubmit={addCandidate}>
                 <h2 className="mb-5">Create New Applicant</h2>
+                <div className="row mb-3">
+                    <div className="col-md-6">
+                        <label htmlFor="streamId" className="form-label">Stream <span className="text-danger">*</span></label>
+                        <select className="form-select" id="streamId" defaultValue="Software Development" onChange={e => setStreamId(e.target.value)}>
+                            <option value="1">Software Development</option>
+                            <option value="2">Business Analysis &#38; Business Intelligence</option>
+                            <option value="3">Technical Analysis</option>
+                            <option value="4">Cloud Computing Engineering</option>
+                        </select>
+                    </div>
+                    <div className="col-md-6">
+                        <label htmlFor="status" className="form-label">Applicant's Status <span className="text-danger">*</span></label>
+                        <select className="form-select" id="status" defaultValue="Pending Video Interview" onChange={e => setStatus(e.target.value)}>
+                            <option value="Pending Video Interview">Pending Video Interview</option>
+                            <option value="Pending AC">Pending AC</option>
+                            <option value="Applicant Rejected">Applicant Rejected</option>
+                            <option value="Pending CV">Pending CV</option>
+                            <option value="Pending Aptitude">Pending Aptitude</option>
+                            <option value="Offer Letter Sent">Offer Letter Sent</option>
+                        </select>
+                    </div>
+                </div>
                 <div className="row mb-3">
                     <div className="col-md-6">
                         <label htmlFor="firstName" className="form-label">First Name <span className="text-danger">*</span></label>
