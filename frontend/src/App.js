@@ -10,6 +10,8 @@ import ApplicantsIndexPage from './components/applicants/ApplicantsIndexPage';
 import CalenderIndexPage from './components/calender/CalenderIndexPage';
 import SupportIndexPage from './components/support/SupportIndexPage';
 import ResultIndexPage from './components/results/ResultIndexPage';
+import TestREMOVEBEFORESUBMISSIONIndexPage from './components/testREMOVEBEFORESUBMISSION/TestREMOVEBEFORESUBMISSIONIndexPage'
+import CreateApplicant from './components/applicants/CreateApplicant';
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
           <Route path="/calender" exact component={CalenderIndexPage}></Route>
           <Route path="/results" exact component={ResultIndexPage}></Route>
           <Route path="/support" exact component={SupportIndexPage}></Route>
+          <Route path="/applicant/add" exact component={CreateApplicant}></Route>
+          <Route path="/TestREMOVEBEFORESUBMISSION" exact component={TestREMOVEBEFORESUBMISSIONIndexPage}></Route>
         </Switch>
         <Footer />
       </Router>

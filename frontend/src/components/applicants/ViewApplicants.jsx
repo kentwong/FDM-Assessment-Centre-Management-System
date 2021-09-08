@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import CandidateService from '../../services/CandidateService';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserEdit, faEnvelopeOpenText, faDownload } from '@fortawesome/free-solid-svg-icons';
 
 class ViewApplicants extends Component {
     constructor(props) {
@@ -20,16 +22,24 @@ class ViewApplicants extends Component {
     render() {
         return (
             <div className="container my-5">
+                <div class="container-fluid col-5 me-0 pe-0 mb-5">
+                    <form class="d-flex">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                </div>
                 <h2 className="text-center">Candidates List</h2>
 
                 <div className="row">
                     <table className="table table-Striped table-bordered table-hover">
                         <thead>
                             <tr>
-                                <th className="">Candidate ID</th>
-                                <th className="">First Name</th>
-                                <th className="">Last Name</th>
+                                <th className="">ID</th>
+                                <th className="">Name</th>
+                                <th className="">Stream</th>
                                 <th className="">University</th>
+                                <th className="">Phone</th>
+                                <th className="">Email</th>
                                 <th className="">CV</th>
                             </tr>
                         </thead>
@@ -39,10 +49,12 @@ class ViewApplicants extends Component {
                                     candidate =>
                                         <tr key={candidate.id}>
                                             <td> {candidate.id} </td>
-                                            <td> {candidate.firstName} </td>
-                                            <td> {candidate.lastName} </td>
+                                            <td> <a className="email" href='/applicant/edit'><FontAwesomeIcon className="fa-lg" icon={faUserEdit} color="#0d6efd" /> {candidate.firstName} {candidate.lastName}</a> </td>
+                                            <td> {candidate.stream.streamName} </td>
                                             <td> {candidate.university} </td>
-                                            <td> {candidate.cv} </td>
+                                            <td> {candidate.phoneNumber} </td>
+                                            <td> <a className="email" href={'mailto:' + candidate.email}><FontAwesomeIcon className="fa-lg" icon={faEnvelopeOpenText} color="#0d6efd" /> {candidate.email}</a> </td>
+                                            <td> <a className="download" href={candidate.cv}><FontAwesomeIcon className="fa-lg" icon={faDownload} color="#0d6efd" /></a> </td>
 
                                         </tr>
                                 )

@@ -2,6 +2,7 @@ package com.fdmgroup.AssessmentCentreProject.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -11,11 +12,11 @@ import javax.persistence.InheritanceType;
 public abstract class Staff {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String firstName;
 	private String lastName;
-	
+
 	private String email;
 	private String password;
 	private String phoneNumber;
@@ -71,6 +72,12 @@ public abstract class Staff {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	@Override
+	public String toString() {
+		return "Staff [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+				+ ", phoneNumber=" + phoneNumber + "]";
 	}
 
 }

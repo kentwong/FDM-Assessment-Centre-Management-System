@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import Logo from '../../assets/images/FDMLogo-white.png';
-import ProfilePic from '../../assets/images/profilepic.png'
+import ProfilePic from '../../assets/images/profilepic.png';
+import JobTrain from '../../assets/images/JobTrain.png';
+import LaunchPadRecruits from '../../assets/images/LaunchPad.png';
+import LinkedIn from '../../assets/images/LinkedIn.png';
+import Outlook from '../../assets/images/Outlook.png';
+import Eploy from '../../assets/images/Eploy.png';
+import Vervoe from '../../assets/images/Vervoe.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTh } from '@fortawesome/free-solid-svg-icons';
 
@@ -33,13 +39,68 @@ class Header extends Component {
                                     <li className="nav-item">
                                         <a className="nav-link" href="/support">Help &#38; Support</a>
                                     </li>
-                                    <li className="nav-item">  
-                                        <a className="nav-link" href="/testREMOVEBEFORESUBMISSION">VINCENT_TEST_PAGE</a>  
+                                    <li className="nav-item">
+                                        <a className="nav-link" href="/testREMOVEBEFORESUBMISSION">VINCENT_TEST_PAGE</a>
                                     </li>
                                 </ul>
                                 <div className="navbar-nav ms-auto">
                                     <li >
-                                        <a className="nav-link text-light" href="#" role="button"> <FontAwesomeIcon className="fa-lg bin" icon={faTh} color="rgba(255,255,255,.55)" style={{ "fontSize": "35px" }} /></a>
+                                        <a className="nav-link text-light" href="#" data-bs-toggle="modal" data-bs-target="#modalFullscreen"> <FontAwesomeIcon className="fa-lg bin" icon={faTh} color="rgba(255,255,255,.55)" style={{ "fontSize": "35px" }} /></a>
+                                        <div className="modal fade" id="modalFullscreen" aria-hidden="true" aria-labelledby="modalFullscreenLabel" tabindex="-1">
+                                            <div className="modal-dialog modal-dialog-centered modal-lg">
+                                                <div className="modal-content">
+                                                    <div className="modal-header">
+                                                        <h5 className="modal-title" id="modalFullscreenLabel">Quick Access</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div className="modal-body">
+                                                        <div className="row quick-access-link">
+                                                            <div className="col-4">
+                                                                <a href="https://jobtrain.co.uk/" target="_blank">
+                                                                    <img src={JobTrain} />
+                                                                    <p>JobTrain</p>
+                                                                </a>
+                                                            </div>
+                                                            <div className="col-4">
+                                                                <a href="https://support.launchpadrecruits.com/en/login" target="_blank">
+                                                                    <img src={LaunchPadRecruits} />
+                                                                    <p>Launchpad Recruits</p>
+                                                                </a>
+                                                            </div>
+                                                            <div className="col-4">
+                                                                <a href="https://www.linkedin.com/login" target="_blank">
+                                                                    <img src={LinkedIn} />
+                                                                    <p>LinkedIn</p>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                        <div className="row quick-access-link">
+                                                            <div className="col-4">
+                                                                <a href="https://outlook.office365.com/mail/inbox" target="_blank">
+                                                                    <img src={Outlook} />
+                                                                    <p>Outlook</p>
+                                                                </a>
+                                                            </div>
+                                                            <div className="col-4">
+                                                                <a href="https://careers.eploy.co.uk/registration.aspx" target="_blank">
+                                                                    <img src={Eploy} />
+                                                                    <p>Eploy</p>
+                                                                </a>
+                                                            </div>
+                                                            <div className="col-4">
+                                                                <a href="https://app.vervoe.com/login" target="_blank">
+                                                                    <img src={Vervoe} />
+                                                                    <p>Vervoe</p>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="modal-footer">
+                                                        <button className="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </li>
                                     <li className="nav-item dropdown">
                                         <a className="nav-link text-light dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><img src={ProfilePic} style={{ "height": "35px", "borderRadius": "5px" }} /></a>

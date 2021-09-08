@@ -37,3 +37,24 @@
   left: auto !important;
   right: 0 !important;
 }
+
+div.row.quick-access-link {
+  margin: 20px auto;
+}
+
+.quick-access-link {
+  text-align: center;
+  width: 600px;
+  text-align: center;
+}
+
+.quick-access-link img {
+  width: 100px;
+}
+
+.quick-access-link p,
+.quick-access-link a,
+.email {
+  text-decoration: none;
+  color: #212529;
+}

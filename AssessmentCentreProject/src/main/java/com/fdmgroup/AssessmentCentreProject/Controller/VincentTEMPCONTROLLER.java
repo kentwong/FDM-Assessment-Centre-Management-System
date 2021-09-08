@@ -7,12 +7,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin(origins="http://localhost:3000")
 @RestController
-@RequestMapping("/testREMOVEBEFORESUBMISSION")
+@RequestMapping("/vincenttest/api/v1")
 public class VincentTEMPCONTROLLER {
 	
-	@GetMapping
-	public void testMethod() {
-		
+	@GetMapping("/")
+	public String testMethod() {
+		System.out.println("hello");
+		return "helloworld";
 	}
 	
 }
