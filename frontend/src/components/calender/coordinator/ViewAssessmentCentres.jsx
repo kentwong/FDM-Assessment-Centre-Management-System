@@ -6,7 +6,7 @@ class ViewAssessmentCentres extends Component{
         super(props)
 
         this.state = {
-            assessmentCentres: []
+            assessmentCentres: [],
         }
     }
 
@@ -20,16 +20,14 @@ class ViewAssessmentCentres extends Component{
     render() {
         return(
             <div>
-                <b>START</b><br/>
+                <b>Assessment Centres:</b><br/>
                     {this.state.assessmentCentres.map(
                         ac => 
                         <span>
                             Assessment Centre ID - {ac.id}<br/>
                             Date: {ac.date}
                         </span>
-                        
                     )}
-                <br/><b>END</b>
             </div>
         )
     }

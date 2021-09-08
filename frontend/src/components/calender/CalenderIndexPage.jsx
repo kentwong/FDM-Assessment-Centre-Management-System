@@ -32,7 +32,7 @@ class CalenderIndexPage extends Component {
                 <br/>ADD ASSESSMENT CENTRE - FOR AC COORDINATOR
                 
                 <ViewAssessmentCentres />
-                { shouldDisplayCreateAC && <button onClick={heandleCreateACClick}>Create Assessment Centre</button>}
+                { shouldDisplayCreateAC && <button className="btn btn-primary" onClick={heandleCreateACClick}>Create Assessment Centre</button>}
                 { shouldDisplayCreateAC && <CreateAC />}
             </div>
         );
