@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
+import StaffService from '../../services/StaffService';
 
 class Login extends Component {
     constructor(props) {
         super(props)
 
-        this.state = this.initialState;
+        this.state = {
+            staff : []
+        };
 
         this.handleOnChange = this.handleOnChange.bind(this);
         this.validateUser = this.validateUser.bind(this);
@@ -33,8 +36,13 @@ class Login extends Component {
 
     validateUser = e => {
         e.preventDefault();
-        //StaffService.getStaff().
-        //validate user
+        
+    }
+
+    componentDidMount() {
+        StaffService.getStaff().then((res) => {
+            this.setState({staff: res.data})
+        })
     }
 
     render() {
@@ -59,6 +67,28 @@ class Login extends Component {
                     <button type="submit" className="btn btn-success me-2">Login</button>
                     <button className="btn btn-danger" onClick={this.cancel.bind(this)}>Cancel</button>
                 </form>
+
+                <table className="table table-Striped">
+                    <thead>
+                        <tr>
+                            <th>Emails</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            this.state.staff.map(
+                                staff =>
+                                <tr key={staff.id}>
+                                    <td>hi: {staff.email}</td>
+                                </tr>
+                              
+                            )
+
+                        }
+                    </tbody>
+                </table>
+                
+
             </div>
         );
     }

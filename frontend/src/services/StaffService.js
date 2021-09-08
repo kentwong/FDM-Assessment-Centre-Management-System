@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const STAFF_API_URL = "http://localhost:9003/staff";
+const STAFF_API_URL = "http://localhost:9003/staff/api/v1";
 
 class StaffService {
 
