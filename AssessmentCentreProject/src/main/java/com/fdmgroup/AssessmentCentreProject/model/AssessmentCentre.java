@@ -3,6 +3,7 @@ package com.fdmgroup.AssessmentCentreProject.model;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -23,7 +24,8 @@ public class AssessmentCentre {
 	@OneToMany
 	private List<Candidate> candidates;
 	
-	@ManyToOne
+	@ManyToOne (cascade=CascadeType.ALL)
+	@JoinColumn(name = "fk_coordinator_id")
 	private ACCoordinator coordinator;
 	
 	@ManyToMany
@@ -61,6 +63,14 @@ public class AssessmentCentre {
 
 	public void setCandidates(List<Candidate> candidates) {
 		this.candidates = candidates;
+	}
+
+	public ACCoordinator getCoordinator() {
+		return coordinator;
+	}
+
+	public void setCoordinator(ACCoordinator coordinator) {
+		this.coordinator = coordinator;
 	}
 
 	public List<Interviewer> getInterviewers() {

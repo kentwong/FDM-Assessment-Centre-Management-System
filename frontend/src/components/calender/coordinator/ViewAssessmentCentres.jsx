@@ -10,22 +10,26 @@ class ViewAssessmentCentres extends Component{
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
         AssessmentCentreService.getAssessmentCentres().then((res) => {
-            console.log(res.data)
+            console.log(res.data);
             this.setState({ assessmentCentres: res.data })
         })
     }
 
-    render(){
+    render() {
         return(
             <div>
-                {this.state.assessmentCentres.map(
-                    assessmentCentre =>
-                    <div>
-                        <span>Assessment Centre ID - {assessmentCentre.id}</span><br/>
-                    </div>
-                )}
+                <b>START</b><br/>
+                    {this.state.assessmentCentres.map(
+                        ac => 
+                        <span>
+                            Assessment Centre ID - {ac.id}<br/>
+                            Date: {ac.date}
+                        </span>
+                        
+                    )}
+                <br/><b>END</b>
             </div>
         )
     }

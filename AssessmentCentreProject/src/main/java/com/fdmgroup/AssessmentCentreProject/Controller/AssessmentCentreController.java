@@ -32,14 +32,9 @@ public class AssessmentCentreController {
 		return acRepo.findAll();
 	}
 	
-	@GetMapping("/coordinator")
-	public List<AssessmentCentre> getCoordinatorAssessmentCentres(ACCoordinator coordinator){
-		return acRepo.findAll();
-	}
-	
-	@PostMapping("/create")
-	public AssessmentCentre createAc(@RequestBody AssessmentCentre ac) {
-		return acRepo.save(ac);
-	}
+//	@PostMapping("/create")
+//	public AssessmentCentre createAc(@RequestBody AssessmentCentre ac) {
+//		return acRepo.save(ac);
+//	}
 	
 }
