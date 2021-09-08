@@ -37,7 +37,7 @@ class ViewApplicants extends Component {
                                 <th className="">ID</th>
                                 <th className="">Name</th>
                                 <th className="">Stream</th>
-                                <th className="">University</th>
+                                <th className="">Status</th>
                                 <th className="">Phone</th>
                                 <th className="">Email</th>
                                 <th className="">CV</th>
@@ -51,7 +51,7 @@ class ViewApplicants extends Component {
                                             <td> {candidate.id} </td>
                                             <td> <a className="email" href={'/applicant/edit/' + candidate.id}><FontAwesomeIcon className="fa-lg" icon={faUserEdit} color="#0d6efd" /> {candidate.firstName} {candidate.lastName}</a> </td>
                                             <td> {candidate.stream.streamName} </td>
-                                            <td> {candidate.university} </td>
+                                            <td> {candidate.status} </td>
                                             <td> {candidate.phoneNumber} </td>
                                             <td> <a className="email" href={'mailto:' + candidate.email}><FontAwesomeIcon className="fa-lg" icon={faEnvelopeOpenText} color="#0d6efd" /> {candidate.email}</a> </td>
                                             <td> <a className="download" href={candidate.cv}><FontAwesomeIcon className="fa-lg" icon={faDownload} color="#0d6efd" /></a> </td>
