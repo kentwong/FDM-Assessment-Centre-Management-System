@@ -7,10 +7,6 @@
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@fortawesome/react-fontawesome": "^0.1.15",
     "@popperjs/core": "^2.10.1",
-<<<<<<< HEAD
-    "@syncfusion/ej2-react-calendars": "^19.2.55",
-=======
->>>>>>> master
     "@syncfusion/ej2-react-schedule": "^19.2.60",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
