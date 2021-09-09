@@ -8,6 +8,10 @@ class AssessmentCentreService {
         return axios.get(ASSESSMENT_CENTRE_API_URL + '/all');
     }
 
+    setupAC(selectedCandidates, selectedInterviewers){
+        return axios.post(ASSESSMENT_CENTRE_API_URL + '/next', selectedCandidates, selectedInterviewers);
+    }
+
     // getCoordinatorAssessmentCentres(coordinator, coordinatorId) {
     //     return axios.get(ASSESSMENT_CENTRE_API_URL + '/all/' + coordinatorId, coordinator);
     // }

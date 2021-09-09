@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import CandidateService from '../../../services/CandidateService'
 import StaffService from '../../../services/StaffService'
+import AssessmentCentreService from '../../../services/AssessmentCentreService'
 
 const CreateAC = (props) => {
 
@@ -16,6 +17,7 @@ const CreateAC = (props) => {
     const submitACHandler = () => {
         alert("SUBMITTED CANDIDATES - " + selectedCandidates)
         alert("SUBMITTED INTERVIEWERS - " + selectedInterviewers)
+        AssessmentCentreService.setupAC(selectedCandidates, selectedInterviewers)
     }
 
     useEffect(() => {

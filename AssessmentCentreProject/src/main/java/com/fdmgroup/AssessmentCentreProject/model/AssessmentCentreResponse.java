@@ -1,8 +1,10 @@
 package com.fdmgroup.AssessmentCentreProject.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
@@ -16,7 +18,8 @@ public class AssessmentCentreResponse {
 	@OneToOne // ONE acresponse TO ONE candidate
 	private Candidate candidate;
 	
-	@ManyToOne // MANY acresponse TO ONE interviewer
+	@ManyToOne (cascade=CascadeType.ALL) // MANY acresponse TO ONE interviewer
+	@JoinColumn(name = "fk_interviewer_id")
 	private Interviewer interviewer;
 	
 	@ManyToOne // MANY acresponse TO ONE question
