@@ -40,7 +40,8 @@ public class AssesmentCentreResponseController {
 	}
 	
 	@GetMapping("/questionType")
-	public ResponseEntity<List<AssessmentCentreResponse>> getAssessmentCentreResponseByCandidateId(int candidateId){
+	public ResponseEntity<List<AssessmentCentreResponse>> getAssessmentCentreResponseGrouped(){
+		logger.info("Return a custom query");
 		return ResponseEntity.ok(assessmentCentreResponseRepo.groupedAndJoined());
 
 		
