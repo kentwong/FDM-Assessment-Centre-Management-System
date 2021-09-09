@@ -11,9 +11,11 @@ const CreateAC = (props) => {
     const [staff, setStaff] = useState([])
 
     const [selectedCandidates, setSelectedCandidates] = useState([])
+    const [selectedInterviewers, setSelectedInterviewers] = useState([])
 
     const submitACHandler = () => {
-        alert("SUBMITTED")
+        alert("SUBMITTED CANDIDATES - " + selectedCandidates)
+        alert("SUBMITTED INTERVIEWERS - " + selectedInterviewers)
     }
 
     useEffect(() => {
@@ -39,7 +41,7 @@ const CreateAC = (props) => {
                 <div className="col"><b>Candidates: </b>
                     {candidates.map( candidate => 
                         <div>
-                            <input type="checkbox" name="candidate" />
+                            <input type="checkbox" name="candidate" value={candidate.id} onChange={(e)=>setSelectedCandidates([...selectedCandidates, e.target.value])} />
                             <label for="candidate">&nbsp;{candidate.firstName} {candidate.lastName}</label><br/>
                         </div>
                     )}
@@ -49,7 +51,7 @@ const CreateAC = (props) => {
                     {/* going to be an interviewer */}
                     {staff.map( interviewer => 
                         <div>
-                            <input type="checkbox" name="interviewer" />
+                            <input type="checkbox" name="interviewer" value={interviewer.id} onChange={(e)=>setSelectedInterviewers([...selectedInterviewers, e.target.value])} />
                             <label for="candidate">&nbsp;{interviewer.firstName} {interviewer.lastName}</label><br/>
                         </div>
                     )}

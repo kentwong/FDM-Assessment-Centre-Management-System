@@ -90,7 +90,12 @@ public class AssessmentCentreProjectApplication implements CommandLineRunner {
 		AssessmentCentre ac = new AssessmentCentre();
 		ac.setId(1);
 		ac.setDate(new Date());
-		ac.setCoordinator(new ACCoordinator());
+		ACCoordinator coordinator = new ACCoordinator();
+		coordinator.setFirstName("Michael");
+		coordinator.setLastName("Mike");
+		coordinator.setEmail("mike@fdm.com");
+		coordinator.setPhoneNumber("1234");
+		ac.setCoordinator(coordinator);
 		acRepo.save(ac);
 		
 		
