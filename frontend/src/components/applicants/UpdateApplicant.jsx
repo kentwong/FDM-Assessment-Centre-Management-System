@@ -158,7 +158,7 @@ function UpdateApplicant(props) {
                     <div className="mb-3">
                         <label htmlFor="cv" className="form-label">Upload CV </label>
                         <input type="file" className="form-control" id="cv" onChange={uploadCV}></input>
-                        {cv === '' ? <p>No CV Uploaded</p> : <p><a className="icon-link" href={cv}>Download current CV</a></p>}
+                        {cv === '' ? <p>No CV Uploaded</p> : loading === true ? <p className="text-danger"> uploading...</p> : <p><a className="icon-link" href={cv}>Download current CV</a></p>}
                     </div>
                     <div className="mb-3">
                         <label htmlFor="notes" className="form-label">Notes/ Remarks </label>
