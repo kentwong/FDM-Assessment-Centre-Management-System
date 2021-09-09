@@ -13,15 +13,12 @@ function CreateApplicant(props) {
     const [notes, setNotes] = useState('');
     const [address, setAddress] = useState(''); //Address object
     const [aptitudeScore, setAptitudeScore] = useState(0.00); //double
-    const [stream, setStream] = useState({}); //Stream object
     const [streamId, setStreamId] = useState(1);
     const [status, setStatus] = useState('Pending Video Interview');
-    const [recruiter, setRecruiter] = useState({}); //Recruiter object
-    const [loading, setLoading] = useState(false); //boolean - check status of cv upload
-
+    // const [recruiter, setRecruiter] = useState({}); //Recruiter object - for later use
+    const [loading, setLoading] = useState(); //boolean - check status of cv upload
 
     const uploadCV = async e => {
-
         const files = e.target.files;
         const data = new FormData();
         data.append('file', files[0]);
@@ -136,6 +133,7 @@ function CreateApplicant(props) {
                 <div className="mb-3">
                     <label htmlFor="cv" className="form-label">Upload CV </label>
                     <input type="file" className="form-control" id="cv" onChange={uploadCV}></input>
+                    {loading === true ? <p className="text-danger"> uploading...</p> : <p className="text-success">{cv}</p>}
                 </div>
                 <div className="mb-3">
                     <label htmlFor="notes" className="form-label">Notes/ Remarks </label>
