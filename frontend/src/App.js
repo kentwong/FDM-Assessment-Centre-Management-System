@@ -13,6 +13,7 @@ import TestREMOVEBEFORESUBMISSIONIndexPage from './components/testREMOVEBEFORESU
 import CreateApplicant from './components/applicants/CreateApplicant';
 import InterviewForm from './components/applicants/InterviewForm';
 import UpdateApplicant from './components/applicants/UpdateApplicant';
+import SetupAC from './components/calender/coordinator/SetupAC'
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           <Route path="/applicant/edit/:id" exact component={UpdateApplicant}></Route>
           <Route path="/applicant/interviewform" exact component={InterviewForm}></Route>
           <Route path="/TestREMOVEBEFORESUBMISSION" exact component={TestREMOVEBEFORESUBMISSIONIndexPage}></Route>
+          <Route path="/setupAC" exact component={SetupAC}></Route>
         </Switch>
         <Footer />
       </Router>

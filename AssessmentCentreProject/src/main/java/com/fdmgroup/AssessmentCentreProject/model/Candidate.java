@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,7 +29,7 @@ public class Candidate {
 	private String firstName;
 	private String lastName;
 	private String dateOfBirth;
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "fk_address_id")
 	private Address address;
 	private String email;
@@ -39,14 +40,14 @@ public class Candidate {
 	private double aptitudeScore;
 	private String notes;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Recruiter recruiter;
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Stream stream;
 	
 	private String status;
 	
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name = "candidate_history", 
 		joinColumns = { @JoinColumn(name="fk_candidate_id") }, 
 		inverseJoinColumns =	{ @JoinColumn(name="fk_old_id") }

@@ -8,9 +8,28 @@ class AssessmentCentreService {
         return axios.get(ASSESSMENT_CENTRE_API_URL + '/all');
     }
 
-    setupAC(selectedCandidates, selectedInterviewers){
-        return axios.post(ASSESSMENT_CENTRE_API_URL + '/next', selectedCandidates, selectedInterviewers);
+    getInterviewers(){
+        return axios.get(ASSESSMENT_CENTRE_API_URL + '/allInterviewers')
     }
+
+    sendCoordinatorID(userID){
+        axios.post(ASSESSMENT_CENTRE_API_URL + '/setAC', {userID});
+    }
+
+    sendIds(selectedCandidates, selectedInterviewers, userID){
+        axios.post(ASSESSMENT_CENTRE_API_URL + '/acCandidates', selectedCandidates, {headers:{"Authorization": userID}});
+        axios.post(ASSESSMENT_CENTRE_API_URL + '/acInterviewers', selectedInterviewers, {headers:{"Authorization": userID}});
+    }
+
+    getSelectedCandidates(){
+        axios.get(ASSESSMENT_CENTRE_API_URL + '/selectedCandidates')
+    }
+
+    getSelectedInterviewers(){
+        axios.get(ASSESSMENT_CENTRE_API_URL + '/selectedInterviewers')
+    }
+
+
 
     // getCoordinatorAssessmentCentres(coordinator, coordinatorId) {
     //     return axios.get(ASSESSMENT_CENTRE_API_URL + '/all/' + coordinatorId, coordinator);

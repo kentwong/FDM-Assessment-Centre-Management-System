@@ -11,6 +11,7 @@ import com.fdmgroup.AssessmentCentreProject.model.ACCoordinator;
 import com.fdmgroup.AssessmentCentreProject.model.Address;
 import com.fdmgroup.AssessmentCentreProject.model.AssessmentCentre;
 import com.fdmgroup.AssessmentCentreProject.model.Candidate;
+import com.fdmgroup.AssessmentCentreProject.model.Interviewer;
 import com.fdmgroup.AssessmentCentreProject.model.Recruiter;
 import com.fdmgroup.AssessmentCentreProject.model.Staff;
 import com.fdmgroup.AssessmentCentreProject.model.Stream;
@@ -18,6 +19,7 @@ import com.fdmgroup.AssessmentCentreProject.model.enums.AptitudeType;
 import com.fdmgroup.AssessmentCentreProject.repository.AddressRepository;
 import com.fdmgroup.AssessmentCentreProject.repository.AssessmentCentreRepository;
 import com.fdmgroup.AssessmentCentreProject.repository.CandidateRepository;
+import com.fdmgroup.AssessmentCentreProject.repository.InterviewerRepository;
 import com.fdmgroup.AssessmentCentreProject.repository.RecruiterRepository;
 import com.fdmgroup.AssessmentCentreProject.repository.StaffRepository;
 import com.fdmgroup.AssessmentCentreProject.repository.StreamRepository;
@@ -39,6 +41,8 @@ public class AssessmentCentreProjectApplication implements CommandLineRunner {
 	
 	@Autowired
 	private AssessmentCentreRepository acRepo;
+	@Autowired
+	private InterviewerRepository intRepo;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(AssessmentCentreProjectApplication.class, args);
@@ -89,8 +93,8 @@ public class AssessmentCentreProjectApplication implements CommandLineRunner {
 		// assessment centre testing
 		AssessmentCentre ac = new AssessmentCentre();
 		ac.setId(1);
-		Date date = new Date(2021, 10, 5);
-		ac.setDate(date);
+//		Date date = new Date(2021, 10, 5);
+//		ac.setDate(date);
 		Staff coordinator = new ACCoordinator();
 		coordinator.setId(10);
 		coordinator.setFirstName("Michael");
@@ -99,6 +103,23 @@ public class AssessmentCentreProjectApplication implements CommandLineRunner {
 		coordinator.setPhoneNumber("1234");
 		ac.setCoordinator((ACCoordinator) coordinator);
 		acRepo.save(ac);
+		
+		Interviewer int1 = new Interviewer();
+		int1.setFirstName("Steph");
+		int1.setLastName("Curry");
+		Interviewer int2 = new Interviewer();
+		int2.setFirstName("Klay");
+		int2.setLastName("Thompson");
+		Interviewer int3 = new Interviewer();
+		int3.setFirstName("Andre");
+		int3.setLastName("Iguodala");
+		Interviewer int4 = new Interviewer();
+		int4.setFirstName("Dray");
+		int4.setLastName("Green");
+		intRepo.save(int1);
+		intRepo.save(int2);
+		intRepo.save(int3);
+		intRepo.save(int4);
 		
 	}
 }
