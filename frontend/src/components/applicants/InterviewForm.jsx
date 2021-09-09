@@ -4,7 +4,11 @@ import InterviewFormSingleQuestion from './InterviewFormSingleQuestion';
 
 function InterviewForm(props) {
 
-    const [firstName, setFirstName] = useState('');
+    const blankQuestion = { questionText: '', questionType: '', points: '' }
+    const [questionState, setQuestionState] = useState([]);
+    const addQuestion = () => {
+        setQuestionState([...questionState, 1]);
+    };
 
     const submitInterviewForm = e => {
         e.preventDefault();
@@ -17,11 +21,6 @@ function InterviewForm(props) {
     const nullFunction = e => {
         e.preventDefault();
     }
-
-    const [questionState, setQuestionState] = useState([]);
-    const addQuestion = () => {
-        setQuestionState([...questionState, 1]);
-    };
 
     return (
         <div className="custom-container">
@@ -39,7 +38,7 @@ function InterviewForm(props) {
                     </div>
                 </div>
 
-                <input type="button" value="Add New Question" onClick={addQuestion} /> <br />
+                <input type="button" value="Add New Question" onClick={addQuestion} />
                 {
                     questionState.map((val, idx) => {
                         return (
@@ -50,7 +49,7 @@ function InterviewForm(props) {
 
                 <br />
 
-                <button type="submit" className="btn btn-success me-2 mt-5">Add</button>
+                <button type="submit" className="btn btn-success me-2 mt-5">Submit</button>
                 <button className="btn btn-danger mt-5" onClick={nullFunction}>Cancel</button>
             </form>
         </div>
