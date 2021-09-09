@@ -14,7 +14,7 @@ function CreateApplicant(props) {
     const [address, setAddress] = useState(''); //Address object
     const [aptitudeScore, setAptitudeScore] = useState(0.00); //double
     const [streamId, setStreamId] = useState(1);
-    const [status, setStatus] = useState('');
+    const [status, setStatus] = useState('Pending CV Screening');
     // const [recruiter, setRecruiter] = useState({}); //Recruiter object - for later use
     const [loading, setLoading] = useState(); //boolean - check status of cv upload
 
