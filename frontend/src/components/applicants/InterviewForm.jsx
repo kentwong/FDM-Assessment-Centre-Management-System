@@ -5,10 +5,10 @@ import InterviewFormSingleQuestion from './InterviewFormSingleQuestion';
 function InterviewForm(props) {
 
     const blankQuestion = { questionText: '', questionType: '', points: '' }
-    const [questionState, setQuestionState] = useState([{...blankQuestion}]);
+    const [questionState, setQuestionState] = useState([{ ...blankQuestion }]);
 
     const addQuestion = () => {
-        setQuestionState([...questionState, 1]);
+        setQuestionState([...questionState, { ...blankQuestion }]);
     };
 
     const submitInterviewForm = e => {
@@ -39,7 +39,6 @@ function InterviewForm(props) {
                     </div>
                 </div>
 
-                <input type="button" value="Add New Question" onClick={addQuestion} />
                 {
                     questionState.map((val, idx) => {
                         return (
@@ -47,6 +46,8 @@ function InterviewForm(props) {
                         );
                     })
                 }
+
+                <input type="button" value="Add New Question" onClick={addQuestion} />
 
                 <br />
 
