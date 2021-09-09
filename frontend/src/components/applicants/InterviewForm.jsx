@@ -5,7 +5,8 @@ import InterviewFormSingleQuestion from './InterviewFormSingleQuestion';
 function InterviewForm(props) {
 
     const blankQuestion = { questionText: '', questionType: '', points: '' }
-    const [questionState, setQuestionState] = useState([]);
+    const [questionState, setQuestionState] = useState([{...blankQuestion}]);
+
     const addQuestion = () => {
         setQuestionState([...questionState, 1]);
     };
