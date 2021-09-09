@@ -103,6 +103,7 @@ public class CandidateController {
 		candidate.setRecruiter(candidateUpdates.getRecruiter());
 		candidate.setStream(candidateUpdates.getStream());
 		candidate.setUniversity(candidateUpdates.getUniversity());
+		candidate.setStatus(candidateUpdates.getStatus());
 		
 		Candidate updatedCandidate = candidateRepo.save(candidate);
 		return ResponseEntity.ok(updatedCandidate);

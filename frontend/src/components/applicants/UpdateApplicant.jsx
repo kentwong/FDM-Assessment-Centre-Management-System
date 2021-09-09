@@ -15,9 +15,8 @@ function UpdateApplicant(props) {
     const [notes, setNotes] = useState('');
     const [address, setAddress] = useState(''); //Address object
     const [aptitudeScore, setAptitudeScore] = useState(0.00); //double
-    const [stream, setStream] = useState({}); //Stream object
-    const [streamId, setStreamId] = useState(1);
-    const [status, setStatus] = useState('Pending Video Interview');
+    const [streamId, setStreamId] = useState();
+    const [status, setStatus] = useState('');
     // const [recruiter, setRecruiter] = useState({}); //Recruiter object
     const [loading, setLoading] = useState(false); //boolean - check status of cv upload
 
@@ -35,8 +34,9 @@ function UpdateApplicant(props) {
             setCv(candidate.cv);
             setNotes(candidate.notes);
             setAddress(candidate.address.address);
-            setStream(candidate.stream);
+            setStreamId(candidate.stream.id);
             setAptitudeScore(candidate.aptitudeScore);
+            setStatus(candidate.status);
         })
     }, [])
 
@@ -95,7 +95,7 @@ function UpdateApplicant(props) {
                     <div className="row mb-3">
                         <div className="col-md-6">
                             <label htmlFor="streamId" className="form-label">Stream <span className="text-danger">*</span></label>
-                            <select className="form-select" id="streamId" defaultValue="Software Development" onChange={e => setStreamId(e.target.value)}>
+                            <select className="form-select" id="streamId" value={streamId} onChange={e => setStreamId(e.target.value)}>
                                 <option value="1">Software Development</option>
                                 <option value="2">Business Analysis &#38; Business Intelligence</option>
                                 <option value="3">Technical Analysis</option>
@@ -104,13 +104,14 @@ function UpdateApplicant(props) {
                         </div>
                         <div className="col-md-6">
                             <label htmlFor="status" className="form-label">Applicant's Status <span className="text-danger">*</span></label>
-                            <select className="form-select" id="status" defaultValue="Pending Video Interview" onChange={e => setStatus(e.target.value)}>
+                            <select className="form-select" id="status" value={status} onChange={e => setStatus(e.target.value)}>
+                                <option value="Pending CV Screening">Pending CV Screening</option>
+                                <option value="Pending Phone Screening">Pending Phone Screening</option>
+                                <option value="Pending Aptitude Test">Pending Aptitude Test</option>
                                 <option value="Pending Video Interview">Pending Video Interview</option>
                                 <option value="Pending AC">Pending AC</option>
-                                <option value="Applicant Rejected">Applicant Rejected</option>
-                                <option value="Pending CV">Pending CV</option>
-                                <option value="Pending Aptitude">Pending Aptitude</option>
-                                <option value="Offer Letter Sent">Offer Letter Sent</option>
+                                <option value="Applicant Rejected" className="text-danger">Applicant Rejected</option>
+                                <option value="Offer Letter Sent" className="text-success">Offer Letter Sent</option>
                             </select>
                         </div>
                     </div>
