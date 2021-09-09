@@ -2,13 +2,21 @@ import React, { useState } from 'react';
 import CandidateService from '../../services/CandidateService';
 import InterviewFormSingleQuestion from './InterviewFormSingleQuestion';
 
+import REMOVEBEFORESUBMISSIONService from '../../services/REMOVEBEFORESUBMISSIONService';
+
 function InterviewForm(props) {
 
-    const blankQuestion = { questionText: '', questionType: '', points: '' }
+    const blankQuestion = { questionText: '', questionType: '', points: '', grade: '' }
     const [questionState, setQuestionState] = useState([{ ...blankQuestion }]);
 
     const addQuestion = () => {
         setQuestionState([...questionState, { ...blankQuestion }]);
+    };
+
+    const handleQuestionChange = (e) => {
+        const updatedQuestions = [...questionState];
+        updatedQuestions[e.target.dataset.idx][e.target.className] = e.target.value;
+        setQuestionState(updatedQuestions);         REMOVEBEFORESUBMISSIONService.w();
     };
 
     const submitInterviewForm = e => {
@@ -20,7 +28,7 @@ function InterviewForm(props) {
     }
 
     const nullFunction = e => {
-        e.preventDefault();
+        e.preventDefault(); 
     }
 
     return (
@@ -42,7 +50,11 @@ function InterviewForm(props) {
                 {
                     questionState.map((val, idx) => {
                         return (
-                            <div><InterviewFormSingleQuestion /></div>
+                            <InterviewFormSingleQuestion
+                                key={'question-${idx}'}
+                                idx={idx}
+                                questionState={questionState}
+                                handleQuestionChange={handleQuestionChange} />
                         );
                     })
                 }

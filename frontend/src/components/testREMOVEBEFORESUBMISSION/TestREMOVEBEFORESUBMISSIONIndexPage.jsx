@@ -14,7 +14,6 @@ class TestREMOVEBEFORESUBMISSIONIndexPage extends Component {
 
     render() {
 
-        var e = REMOVEBEFORESUBMISSIONService.w();
         var r = "variable";
         
         return (
@@ -24,6 +23,8 @@ class TestREMOVEBEFORESUBMISSIONIndexPage extends Component {
         );
     }
 }
+
+
 
 export default TestREMOVEBEFORESUBMISSIONIndexPage;
 
