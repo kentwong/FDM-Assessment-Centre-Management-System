@@ -10,14 +10,14 @@ import javax.persistence.OneToMany;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Recruiter extends Staff {
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy="recruiter")
-	@LazyCollection(LazyCollectionOption.FALSE)
-	@JsonIgnore //This is to eliminate recursive JSON view for candidate's REST controller
+	@OneToMany(mappedBy="recruiter")
+	@JsonBackReference
 	private List<Candidate> candidates;
 	
 	// CONSTRUCTOR
