@@ -45,7 +45,7 @@ function ViewApplicants(props) {
                     <button className="btn btn-outline-primary" type="button" onClick={() => handleSearch()}>Search</button>
                 </form>
             </div>
-            <h2 className="text-center">Candidates List</h2>
+            <h2 className="text-center">Candidates List <span className="fs-6 float-end mt-3">Found {candidates.length} candidates</span></h2>
 
             <div className="row">
                 <table className="table table-Striped table-bordered table-hover">
