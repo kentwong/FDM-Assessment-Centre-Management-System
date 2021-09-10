@@ -6,26 +6,28 @@ class ViewAssessmentCentres extends Component{
         super(props)
 
         this.state = {
-            assessmentCentres: []
+            assessmentCentres: [],
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
         AssessmentCentreService.getAssessmentCentres().then((res) => {
-            console.log(res.data)
+            console.log(res.data);
             this.setState({ assessmentCentres: res.data })
         })
     }
 
-    render(){
+    render() {
         return(
             <div>
-                {this.state.assessmentCentres.map(
-                    assessmentCentre =>
-                    <div>
-                        <span>Assessment Centre ID - {assessmentCentre.id}</span><br/>
-                    </div>
-                )}
+                <b>Assessment Centres:</b><br/>
+                    {this.state.assessmentCentres.map(
+                        ac => 
+                        <span>
+                            Assessment Centre ID - {ac.id}<br/>
+                            Date: {ac.date}
+                        </span>
+                    )}
             </div>
         )
     }

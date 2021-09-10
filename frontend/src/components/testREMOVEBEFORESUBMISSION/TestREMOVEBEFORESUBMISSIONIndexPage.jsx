@@ -14,15 +14,17 @@ class TestREMOVEBEFORESUBMISSIONIndexPage extends Component {
 
     render() {
 
-        var e = REMOVEBEFORESUBMISSIONService.w();
         var r = "variable";
         
         return (
             <div className="custom-container">
-                TESTING PAGE dsfsdfdsfdsdcac {r}
+                <a href="/applicant/interviewform"><button className="btn btn-primary">Interview Form</button></a>
             </div>
         );
     }
 }
 
+
+
 export default TestREMOVEBEFORESUBMISSIONIndexPage;
+

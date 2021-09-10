@@ -1,22 +1,73 @@
-import React from 'react'
-import AssessmentCentreService from '../../../services/AssessmentCentreService'
+import React, { useState, useEffect } from 'react'
+import CandidateService from '../../../services/CandidateService'
+import StaffService from '../../../services/StaffService'
 
-var user = {
-    id: 1,
-	firstName: 'Michael',
-	lastName: 'Mike',
-	email: 'email@fdm.com',
-	phoneNumber: '123456',
-}
-localStorage.setItem('coordinator', JSON.stringify(user))
+const CreateAC = (props) => {
 
-const CreateAC = () => {
+    const storedCoordinator = localStorage.getItem('coordinator')
+    let coordinator = JSON.parse(storedCoordinator)
+    
+    const [candidates, setCandidates] = useState([])
+    const [staff, setStaff] = useState([])
 
-    const coordinator = localStorage.getItem('coordinator')
+    const [selectedCandidates, setSelectedCandidates] = useState([])
+
+    const submitACHandler = () => {
+        alert("SUBMITTED")
+    }
+
+    useEffect(() => {
+        CandidateService.getCandidates().then((res) => {
+            console.log(res.data)
+            setCandidates(res.data)
+        })
+
+        StaffService.getStaff().then((res) => {
+            console.log(res.data)
+            setStaff(res.data)
+        })
+    }, [])
+
     return (
-    <div>
-        AC COORDINATOR: {coordinator}
-    </div>
+        <div className="custom-container">
+            <b>Assessment Centre coordinator:</b> {coordinator.firstName} {coordinator.lastName}<br/>
+            <br/>
+
+            <form onSubmit={submitACHandler} className="row">
+                <h2 className="mb-5">Create Assessment Centre</h2>
+
+                <div className="col"><b>Candidates: </b>
+                    {candidates.map( candidate => 
+                        <div>
+                            <input type="checkbox" name="candidate" />
+                            <label for="candidate">&nbsp;{candidate.firstName} {candidate.lastName}</label><br/>
+                        </div>
+                    )}
+                </div>
+
+                <div className="col"><b>Interviewers: </b>
+                    {/* going to be an interviewer */}
+                    {staff.map( interviewer => 
+                        <div>
+                            <input type="checkbox" name="interviewer" />
+                            <label for="candidate">&nbsp;{interviewer.firstName} {interviewer.lastName}</label><br/>
+                        </div>
+                    )}
+                </div>
+                <input type="submit" value="Next" className="btn btn-success me-2 mt-5" />
+            </form>
+            
+            <div>
+                <label for="interviewTypes">Choose Interview Type:</label><br/>
+                <select name="interviewTypes">
+                    <option value="General">General</option>
+                    <option value="Technical">Technical</option>
+                    <option value="Behavioural">Behavioural</option>
+                    <option value="Curveball">Curveball</option>
+                </select>
+            </div>
+
+        </div>
     )
 }
 

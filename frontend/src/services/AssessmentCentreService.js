@@ -8,9 +8,9 @@ class AssessmentCentreService {
         return axios.get(ASSESSMENT_CENTRE_API_URL + '/all');
     }
 
-    getCoordinatorAssessmentCentres(coordinator, coordinatorId) {
-        return axios.get(ASSESSMENT_CENTRE_API_URL + '/all/' + coordinatorId, coordinator);
-    }
+    // getCoordinatorAssessmentCentres(coordinator, coordinatorId) {
+    //     return axios.get(ASSESSMENT_CENTRE_API_URL + '/all/' + coordinatorId, coordinator);
+    // }
 
     // createAssessmentCentre(assessmentCentre) {
     //     return axios.post(ASSESSMENT_CENTRE_API_URL + '/create', assessmentCentre);

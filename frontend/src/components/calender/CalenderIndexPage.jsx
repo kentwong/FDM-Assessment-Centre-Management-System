@@ -1,11 +1,30 @@
-import React, { Component } from 'react';
+import React, { useState, Component } from 'react';
 import {Inject,ScheduleComponent,Day, Week, WorkWeek, Month, Agenda, EventSettingsModel } from '@syncfusion/ej2-react-schedule';
 import ViewAssessmentCentres from './coordinator/ViewAssessmentCentres';
 import CreateAC from './coordinator/CreateAC';
 
-// const shouldDisplayCreateAC = user instanceof coordinator
+var user = {
+    id: 1,
+	firstName: 'Michael',
+	lastName: 'Mike',
+	email: 'email@fdm.com',
+	phoneNumber: '123456',
+}
+localStorage.setItem('user', JSON.stringify(user))
+localStorage.setItem('role', 'coordinator')
+
+// -----------
+
+const shouldDisplayCreateAC = localStorage.getItem('role') === 'coordinator'
 
 class CalenderIndexPage extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+          showCreate: false,
+        };
+      }
+    
     render() {
         return (
             <div className="custom-container">
@@ -13,11 +32,12 @@ class CalenderIndexPage extends Component {
                 <ScheduleComponent currentView='Month'>
                     <Inject services={[Day, Week, WorkWeek, Month, Agenda]}/>
                 </ScheduleComponent>
+                
                 <br/>ADD ASSESSMENT CENTRE - FOR AC COORDINATOR
-                {}
+                
                 <ViewAssessmentCentres />
-                {/* { shouldDisplayCreateAC && <CreateAC />} */}
-                <CreateAC />
+                { shouldDisplayCreateAC && <button className="btn btn-primary" onClick={() => this.setState({ showCreate: true })}>Create Assessment Centre</button>}
+                { this.state.showCreate && <CreateAC />}
             </div>
         );
     }

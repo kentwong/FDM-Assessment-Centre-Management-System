@@ -59,3 +59,12 @@ div.row.quick-access-link {
   text-decoration: none;
   color: #212529;
 }
+
+.icon-link {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.icon-link:hover {
+  color: #0b5ed7;
+}
