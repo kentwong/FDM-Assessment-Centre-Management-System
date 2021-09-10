@@ -1,5 +1,9 @@
 package com.fdmgroup.AssessmentCentreProject.model;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,9 +20,8 @@ public abstract class Staff {
 	private int id;
 	private String firstName;
 	private String lastName;
-
 	private String email;
-	private String password;
+	private String encyptedPassword;
 	private String phoneNumber;
 //	private Object emailTemplate; // TODO define type
 
@@ -66,12 +69,32 @@ public abstract class Staff {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public String getPassword() {
-		return password;
+	public String getEncyptedPassword() {
+		return encyptedPassword;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setEncyptedPassword(String password) {
+		this.encyptedPassword = encryptPassword(password);
+	}
+	
+	public String encryptPassword(String password) {
+		try {
+			MessageDigest m = MessageDigest.getInstance("MD5");
+			m.update(password.getBytes());
+			byte[] bytes = m.digest();
+
+			StringBuilder s = new StringBuilder();  
+            for(int i=0; i< bytes.length ;i++)  
+            {  
+                s.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));  
+            }  
+            return s.toString();
+			
+		} catch (NoSuchAlgorithmException e) {
+			System.err.println("Failed to hash password");
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	@Override

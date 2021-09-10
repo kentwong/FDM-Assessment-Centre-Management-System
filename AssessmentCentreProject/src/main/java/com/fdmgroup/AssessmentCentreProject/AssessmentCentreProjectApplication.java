@@ -15,6 +15,7 @@ import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 import com.fdmgroup.AssessmentCentreProject.model.Address;
 import com.fdmgroup.AssessmentCentreProject.model.AssessmentCentre;
 import com.fdmgroup.AssessmentCentreProject.model.Candidate;
+import com.fdmgroup.AssessmentCentreProject.model.Interviewer;
 import com.fdmgroup.AssessmentCentreProject.model.Recruiter;
 import com.fdmgroup.AssessmentCentreProject.model.Staff;
 import com.fdmgroup.AssessmentCentreProject.model.Stream;
@@ -68,12 +69,22 @@ public class AssessmentCentreProjectApplication implements CommandLineRunner {
 		addressRepo.save(address5);
 		
 		Staff staff1 = new Recruiter();
-		staff1.setId(1);
+		//staff1.setId(1);
 		staff1.setFirstName("Mary");
 		staff1.setLastName("Brown");
 		staff1.setEmail("mary@fdmgroup.com");
 		staff1.setPhoneNumber("0422336523");
+		staff1.setEncyptedPassword("password");
 		staffRepo.save(staff1);
+		
+		Staff staff2 = new Interviewer();
+		//staff2.setId(3);
+		staff2.setFirstName("John");
+		staff2.setLastName("Doe");
+		staff2.setEmail("john@fdmgroup.com");
+		staff2.setPhoneNumber("043245671");
+		staff2.setEncyptedPassword("password");
+		staffRepo.save(staff2);
 		
 		Stream softwareDev = new Stream(1, "Software Development", new Date(), 90, AptitudeType.TECHNICAL);
 		streamRepo.save(softwareDev);
@@ -92,18 +103,5 @@ public class AssessmentCentreProjectApplication implements CommandLineRunner {
 		acRepo.save(new AssessmentCentre());
 	}
 	
-	/*@Bean // this can be used to configure CORS to solve CORS issues
-    public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        // allowed origins (frontend URL)
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST"));
-        // include 'Authorization' as it is the header that we will be sending
-        // the token with
-        configuration.setAllowedHeaders(Arrays.asList("Content-Type", "Authorization"));
-        configuration.setAllowCredentials(true);
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
-    }*/
+	
 }

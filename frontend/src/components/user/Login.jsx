@@ -1,18 +1,24 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 import StaffService from '../../services/StaffService';
+import { MD5 } from 'crypto-js';
 
 class Login extends Component {
+
     constructor(props) {
         super(props)
 
         this.state = {
-            staff : []
+           emailAddress: '',
+           password: '',
+           error: ''
         };
 
         this.handleOnChange = this.handleOnChange.bind(this);
         this.validateUser = this.validateUser.bind(this);
+        this.cancel = this.cancel.bind(this);
     }
+
 
     initialState = {
         emailAddress: '',
@@ -37,15 +43,23 @@ class Login extends Component {
 
     validateUser = e => {
         e.preventDefault();
-        console.log(this.state.emailAddress);
-        console.log(this.state.password)
-        axios.post('http://localhost:9003/staff/api/v1/login', {data: JSON.stringify( { 'username': this.state.emailAddress,
-        'password': this.state.password }), headers: {'Content-Type': 'application/json'}}).then(res => console.log(res))
-    }
 
-    componentDidMount() {
-        StaffService.getStaff().then((res) => {
-            this.setState({staff: res.data})
+        let LoginDetails = {
+            emailAddress: this.state.emailAddress,
+            password: this.state.password
+        };
+
+        StaffService.sendDetails(LoginDetails).then(res => {
+            console.log(JSON.stringify(res));
+            if(res.data) {
+                localStorage.setItem('user', res.data.staffId);
+                localStorage.setItem('role', res.data.role);
+                window.location.reload(false);
+                
+            }
+            else {
+                this.setState({ error: 'Incorrect username or password'})
+            }
         })
     }
 
@@ -71,26 +85,6 @@ class Login extends Component {
                     <button type="submit" className="btn btn-success me-2">Login</button>
                     <button className="btn btn-danger" onClick={this.cancel.bind(this)}>Cancel</button>
                 </form>
-
-                <table className="table table-Striped">
-                    <thead>
-                        <tr>
-                            <th>Emails</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            this.state.staff.map(
-                                staff =>
-                                <tr key={staff.id}>
-                                    <td>hi: {staff.email}</td>
-                                </tr>
-                              
-                            )
-
-                        }
-                    </tbody>
-                </table>
                 
 
             </div>
