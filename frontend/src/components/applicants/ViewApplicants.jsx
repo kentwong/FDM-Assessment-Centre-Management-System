@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import CandidateService from '../../services/CandidateService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserEdit, faEnvelopeOpenText, faDownload, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { faUserEdit, faEnvelopeOpenText, faDownload, faTrashAlt, faSearch } from '@fortawesome/free-solid-svg-icons';
 import OfferOfEmploymentTemplate from '../templates/OfferOfEmploymentTemplate';
 import FollowUpTemplate from '../templates/FollowUpTemplate';
 import RejectionTemplate from '../templates/RejectionTemplate';
@@ -12,7 +12,7 @@ import AptitudeTestTemplate from '../templates/AptitudeTestTemplate';
 function ViewApplicants(props) {
 
     const [candidates, setCandidates] = useState([]);
-    const [searchStr, setSearchStr] = useState('');
+    const excludeSearchColumns = ['id', 'aptitude_score', 'cv', 'notes', 'recruiter']
 
     useEffect(() => {
         CandidateService.getCandidates().then((res) => {
@@ -25,24 +25,24 @@ function ViewApplicants(props) {
         setCandidates(candidates.filter(candidate => candidate.id !== id));
     }
 
-    const handleSearch = () => {
+    const handleSearch = (search) => {
         CandidateService.getCandidates().then((res) => {
-            setCandidates(res.data
+            let filtered = res.data
                 .filter(candidate => {
                     return Object.keys(candidate).some(key => {
-                        return candidate[key].toString().toLowerCase().includes(searchStr.toLowerCase().trim())
+                        return excludeSearchColumns.includes(key) ? false : candidate[key].toString().toLowerCase().includes(search.toLowerCase().trim())
                     })
-                })
-            )
+                });
+            setCandidates(filtered);
         })
     }
 
     return (
         <div className="container my-5">
-            <div className="container-fluid col-5 me-0 pe-0 mb-5">
+            <div className="container-fluid col-4 ms-0 ps-0 mb-5">
                 <form className="d-flex">
-                    <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" onChange={e => setSearchStr(e.target.value)} />
-                    <button className="btn btn-outline-primary" type="button" onClick={() => handleSearch()}>Search</button>
+                    <FontAwesomeIcon className="fa-lg icon-link me-2" icon={faSearch} color="#0d6efd" style={{ "marginTop": "8px" }} />
+                    <input className="form-control me-2 search-bar-input" type="search" placeholder="Search" aria-label="Search" onChange={e => handleSearch(e.target.value)} />
                 </form>
             </div>
             <h2 className="text-center">Candidates List <span className="fs-6 float-end mt-3">Found {candidates.length} candidates</span></h2>
