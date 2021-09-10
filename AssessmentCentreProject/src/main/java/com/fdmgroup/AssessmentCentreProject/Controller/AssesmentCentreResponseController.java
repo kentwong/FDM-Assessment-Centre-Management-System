@@ -32,18 +32,14 @@ public class AssesmentCentreResponseController {
 		this.assessmentCentreResponseRepo = assessmentCentreResponseRepo;
 	}
 
-	/**The getAllAssesmentCentreResponses will return a list of AssesmentCentreResponses
+	/**
+	 * The getAllAssesmentCentreResponses will return a list of
+	 * AssesmentCentreResponses
+	 * 
 	 * @return List of AssesmentCentreResponse objects
 	 */
 	@GetMapping("/all")
-	public ResponseEntity<List<AssessmentCentreResponse>> getAllAssessmentCentreResponses() {
-		logger.info("GET request for /all acR");
-		return ResponseEntity.ok(assessmentCentreResponseRepo.findAll());
-
-	}
-	
-	@GetMapping("/questionType")
-	public ResponseEntity<List<CandidateACResult>> getAssessmentCentreResponseGrouped(){
+	public ResponseEntity<List<CandidateACResult>> getAllAssessmentCentreResponses() {
 		logger.info("Return a custom query");
 		List<AssessmentCentreResponse> responses = assessmentCentreResponseRepo.findAll();
 		List<CandidateACResult> groupedResponses = new ArrayList<>();
@@ -68,4 +64,36 @@ public class AssesmentCentreResponseController {
 
 		
 	}
-}
+
+	@GetMapping("/questionType")
+	public ResponseEntity<List<CandidateACResult>> getAssessmentCentreResponseGrouped() {
+		logger.info("Return a custom query");
+		List<AssessmentCentreResponse> responses = assessmentCentreResponseRepo.findAll();
+		List<CandidateACResult> groupedResponses = new ArrayList<>();
+		for (AssessmentCentreResponse response : responses) {
+				if (response.getCandidate().getId() == result.getCandidate().getId()) {
+					
+				} else {
+					CandidateACResult newResult = new CandidateACResult();
+					newResult.setCandidate(response.getCandidate());
+					newResult.setInterviewer(response.getInterviewer());
+					newResult.setQuestion(response.getQuestion());
+					if (response.getQuestion().getQuestionType().equals(QuestionType.GENERAL)) {
+						newResult.setGeneral(response.getPoints());
+					} else if (response.getQuestion().getQuestionType().equals(QuestionType.TECHNICAL)) {
+						newResult.setTechnical(response.getPoints());
+					} else if (response.getQuestion().getQuestionType().equals(QuestionType.BEHAVIOURAL)) {
+						newResult.setBehavioural(response.getPoints());
+					} else if (response.getQuestion().getQuestionType().equals(QuestionType.CURVEBALL)) {
+						newResult.setCurveball(response.getPoints());
+					}
+					newResult.setOverall(response.getPoints());
+					groupedResponses.add(newResult);
+
+				}
+			}
+		}
+		logger.info(groupedResponses);
+		return ResponseEntity.ok(groupedResponses);
+
+	}}
