@@ -17,6 +17,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -30,9 +31,11 @@ public class Candidate {
 	private String firstName;
 	private String lastName;
 	private String dateOfBirth;
+	
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "fk_address_id")
 	private Address address;
+	
 	private String email;
 	private String phoneNumber;
 	private String university;
@@ -40,15 +43,16 @@ public class Candidate {
 	private String cv; // URL to CV, stored externally
 	private double aptitudeScore;
 	private String notes;
+	private String status;
 	
 //	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@ManyToOne
 	@JsonManagedReference
 	private Recruiter recruiter;
+	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Stream stream;
 	
-	private String status;
 	
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name = "candidate_history", 
@@ -177,13 +181,13 @@ public class Candidate {
 		this.stream = stream;
 	}
 
-	public List<Candidate> getHistory() {
-		return history;
-	}
-
-	public void setHistory(List<Candidate> history) {
-		this.history = history;
-	}
+//	public List<Candidate> getHistory() {
+//		return history;
+//	}
+//
+//	public void setHistory(List<Candidate> history) {
+//		this.history = history;
+//	}
 	
 	public String getNotes() {
 		return notes;

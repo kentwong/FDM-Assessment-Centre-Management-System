@@ -110,22 +110,29 @@ public class AssessmentCentreController {
 	
 	@GetMapping("selectedCandidates")
 	public List<Candidate> getSelectedCandidates(){
-		System.out.println("WORKING: " + coordinator);
+//		System.out.println("WORKING: " + coordinator);
 		List<Candidate> candidates = coordinator.getNewAC().getCandidates();
 		List<Candidate> result = new ArrayList<>();
 		for (Candidate candidate : candidates) {
 			System.out.println("CANDIDATE: " + candidate.getFirstName());
-			result.add((Candidate) candidateRepo.getById(candidate.getId()));
+			result.add((Candidate) candidateRepo.findById(candidate.getId()).orElseThrow());
 		}
-		System.out.println("RESULTS: " + result.size());
-//		result = candidates;
+//		System.out.println("RESULTS: " + result.size());
 		return result;
 	}
 	
-//	@GetMapping("selectedInterviewers")
-//	public List<Interviewer> getSelectedInterviewers(){
-//		return coordinator.getNewAC().getInterviewers();
-//	}
+	@GetMapping("selectedInterviewers")
+	public List<Interviewer> getSelectedInterviewers(){
+		System.out.println("WORKING: " + coordinator);
+		List<Interviewer> interviewers = coordinator.getNewAC().getInterviewers();
+		List<Interviewer> result = new ArrayList<>();
+		for (Interviewer interviewer : interviewers) {
+			System.out.println("INTERVIEWER: " + interviewer.getFirstName());
+			result.add((Interviewer) interviewerRepo.findById(interviewer.getId()).orElseThrow());
+		}
+		System.out.println("RESULTS: " + result.size());
+		return result;
+	}
 	
 //	@PostMapping("/create")
 //	public AssessmentCentre createAc(@RequestBody AssessmentCentre ac) {

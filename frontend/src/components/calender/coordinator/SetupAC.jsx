@@ -9,6 +9,10 @@ const SetupAC = (props) => {
         AssessmentCentreService.getSelectedCandidates().then((res) => {
             setCandidates(res.data);
         })
+
+        AssessmentCentreService.getSelectedInterviewers().then((res) => {
+            setInterviewers(res.data);
+        })
     }, [])
 
 
@@ -21,17 +25,24 @@ const SetupAC = (props) => {
                 <option value="General">General</option>
                 <option value="Technical">Technical</option>
                 <option value="Behavioural">Behavioural</option>
-                <option value="Curveball">Curveball</option>
             </select><br/>
 
+            <br/>
             <div className="col"><b>Candidates: </b>
-                    {candidates.map( (candidate) => 
-                        <div key={candidate.id}>
-                            Candidate {candidate.firstName} {candidate.lastName}<br/>
-                        </div>
-                    )}
-                </div> 
+                {candidates.map( (candidate) => 
+                    <div key={candidate.id}>
+                        Candidate: {candidate.firstName} {candidate.lastName}<br/>
+                    </div>
+                )}
+            </div><br/>
 
+            <div className="col"><b>Interviewers: </b>
+                {interviewers.map( (interviewer) => 
+                    <div key={interviewer.id}>
+                        Candidate: {interviewer.firstName} {interviewer.lastName}<br/>
+                    </div>
+                )}
+            </div>
             </form>
         </div>
     )
