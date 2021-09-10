@@ -1,6 +1,7 @@
 
 package com.fdmgroup.AssessmentCentreProject.Controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fdmgroup.AssessmentCentreProject.model.AssessmentCentreResponse;
+import com.fdmgroup.AssessmentCentreProject.model.CandidateACResult;
+import com.fdmgroup.AssessmentCentreProject.model.enums.QuestionType;
 import com.fdmgroup.AssessmentCentreProject.repository.AssessmentCentreResponseRepository;
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -40,9 +43,28 @@ public class AssesmentCentreResponseController {
 	}
 	
 	@GetMapping("/questionType")
-	public ResponseEntity<List<AssessmentCentreResponse>> getAssessmentCentreResponseGrouped(){
+	public ResponseEntity<List<CandidateACResult>> getAssessmentCentreResponseGrouped(){
 		logger.info("Return a custom query");
-		return ResponseEntity.ok(assessmentCentreResponseRepo.groupedAndJoined());
+		List<AssessmentCentreResponse> responses = assessmentCentreResponseRepo.findAll();
+		List<CandidateACResult> groupedResponses = new ArrayList<>();
+		for (AssessmentCentreResponse response : responses) {
+			CandidateACResult result = new CandidateACResult();
+			result.setCandidate(response.getCandidate());
+			result.setInterviewer(response.getInterviewer());
+			result.setQuestion(response.getQuestion());
+			if(response.getQuestion().getQuestionType().equals(QuestionType.GENERAL)){
+				result.setGeneral(response.getPoints());
+			}else if(response.getQuestion().getQuestionType().equals(QuestionType.TECHNICAL)){
+				result.setTechnical(response.getPoints());
+			}else if(response.getQuestion().getQuestionType().equals(QuestionType.BEHAVIOURAL)){
+				result.setBehavioural(response.getPoints());
+			}else if(response.getQuestion().getQuestionType().equals(QuestionType.CURVEBALL)){
+				result.setCurveball(response.getPoints());
+			}
+			result.setOverall(response.getPoints());
+			groupedResponses.add(result);
+		}
+		return ResponseEntity.ok(groupedResponses);
 
 		
 	}
