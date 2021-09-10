@@ -20,26 +20,41 @@ const SetupAC = (props) => {
         <div className="custom-container">
             <b>Finalise Assessment Centre:</b><br/>
             <form>
-            <label for="interviewTypes">Choose Interview Type:</label><br/>
-            <select name="interviewTypes">
-                <option value="General">General</option>
-                <option value="Technical">Technical</option>
-                <option value="Behavioural">Behavioural</option>
-            </select><br/>
+            
 
             <br/>
-            <div className="col"><b>Candidates: </b>
+            <div className="container"><b>Candidates: </b><hr/>
                 {candidates.map( (candidate) => 
                     <div key={candidate.id}>
-                        Candidate: {candidate.firstName} {candidate.lastName}<br/>
-                    </div>
-                )}
-            </div><br/>
+                        <div className="row"><i>{candidate.firstName} {candidate.lastName}</i>
+                            <div className="col">
+                                <b>Technical Interview</b><br/>
+                                <select name="acInterviewers" className="col">
+                                {interviewers.map( (interviewer) => 
+                                    <option value={interviewer.id}>{interviewer.firstName} {interviewer.lastName}</option>
+                                )}
+                                </select><br/>
+                            </div>
 
-            <div className="col"><b>Interviewers: </b>
-                {interviewers.map( (interviewer) => 
-                    <div key={interviewer.id}>
-                        Candidate: {interviewer.firstName} {interviewer.lastName}<br/>
+                            <div className="col">
+                                <b>HR Interview</b><br/>
+                                <select name="acInterviewers" className="col">
+                                {interviewers.map( (interviewer) => 
+                                    <option value={interviewer.id}>{interviewer.firstName} {interviewer.lastName}</option>
+                                )}
+                                </select><br/>
+                            </div>
+
+                            <div className="col">
+                                <b>Sales Interview</b><br/>
+                                <select name="acInterviewers" className="col">
+                                {interviewers.map( (interviewer) => 
+                                    <option value={interviewer.id}>{interviewer.firstName} {interviewer.lastName}</option>
+                                )}
+                                </select><br/>
+                            </div>
+                        </div>
+                        <hr/>
                     </div>
                 )}
             </div>
