@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import CandidateService from '../../services/CandidateService';
+import RecruiterService from '../../services/RecruiterService';
 
 function CreateApplicant(props) {
 
@@ -15,8 +16,15 @@ function CreateApplicant(props) {
     const [aptitudeScore, setAptitudeScore] = useState(0.00); //double
     const [streamId, setStreamId] = useState(1);
     const [status, setStatus] = useState('Pending CV Screening');
+    const [recruiters, setRecruiters] = useState([]);
     // const [recruiter, setRecruiter] = useState({}); //Recruiter object - for later use
     const [loading, setLoading] = useState(); //boolean - check status of cv upload
+
+    // useEffect(() => {
+    //     RecruiterService.getRecruiters(res => {
+    //         setRecruiters(res.data);
+    //     })
+    // }, []);
 
     const uploadCV = async e => {
         const files = e.target.files;

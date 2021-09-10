@@ -73,7 +73,36 @@ function ViewApplicants(props) {
                                 <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div className="modal-body">
-                                Assign Actions
+                                The following candidates do not have recruiter assigned:
+                                <ul>
+                                    {unassignedCandidates.map(
+                                        candidate =>
+                                            <li>{candidate.firstName}</li>
+                                    )}
+                                </ul>
+
+                                Choose recruiters to randomly assign {unassignedCandidates.length} candidates:
+                                <div className="form-check">
+                                    <input className="form-check-input" type="checkbox" value="" id="recruiter1" />
+                                    <label className="form-check-label" for="recruiter1">
+                                        Recruiter 1
+                                        <input type="number" min="0" className="ms-3" />
+                                    </label>
+                                </div>
+                                <div className="form-check">
+                                    <input className="form-check-input" type="checkbox" value="" id="recruiter2" />
+                                    <label className="form-check-label" for="recruiter2">
+                                        Recruiter 2
+                                        <input type="number" min="0" className="ms-3" />
+                                    </label>
+                                </div>
+                                <div className="form-check">
+                                    <input className="form-check-input" type="checkbox" value="" id="recruiter3" />
+                                    <label className="form-check-label" for="recruiter3">
+                                        Recruiter 3
+                                        <input type="number" min="0" className="ms-3" />
+                                    </label>
+                                </div>
                             </div>
                             <div className="modal-footer">
                                 <button className="btn btn-danger" data-bs-dismiss="modal" aria-label="Assign" onClick={() => assignCandidate()}>Assign</button>
