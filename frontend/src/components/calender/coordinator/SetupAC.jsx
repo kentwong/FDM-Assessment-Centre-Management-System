@@ -5,14 +5,11 @@ const SetupAC = (props) => {
     const [candidates, setCandidates] = useState([])
     const [interviewers, setInterviewers] = useState([])
 
-    useEffect(() => {
-        AssessmentCentreService.getSelectedCandidates().then((res) => {
-            console.log(res.data)
-            setCandidates(res.data)
-        })
-
-        console.log("WORKING")
-    })
+    // useEffect(() => {
+    //     AssessmentCentreService.getSelectedCandidates().then((res) => {
+    //         setCandidates(res.data);
+    //     })
+    // }, [])
 
 
     return (
@@ -26,14 +23,14 @@ const SetupAC = (props) => {
                 <option value="Behavioural">Behavioural</option>
                 <option value="Curveball">Curveball</option>
             </select>
-
+{/* 
             <div className="col"><b>Candidates: </b>
                     {candidates.map( (candidate) => 
                         <div key={candidate.id}>
                             Candidate {candidate.firstName} {candidate.lastName}<br/>
                         </div>
                     )}
-                </div>
+                </div> */}
 
                 
 

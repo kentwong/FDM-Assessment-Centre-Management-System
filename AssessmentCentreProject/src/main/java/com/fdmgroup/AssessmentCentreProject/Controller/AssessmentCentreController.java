@@ -111,10 +111,14 @@ public class AssessmentCentreController {
 	@GetMapping("selectedCandidates")
 	public List<Candidate> getSelectedCandidates(){
 		System.out.println("WORKING: " + coordinator);
-		List<Candidate> result = coordinator.getNewAC().getCandidates();
-		for (Candidate candidate : result) {
+		List<Candidate> candidates = coordinator.getNewAC().getCandidates();
+		List<Candidate> result = new ArrayList<>();
+		for (Candidate candidate : candidates) {
 			System.out.println("CANDIDATE: " + candidate.getFirstName());
+			result.add((Candidate) candidateRepo.getById(candidate.getId()));
 		}
+		System.out.println("RESULTS: " + result.size());
+//		result = candidates;
 		return result;
 	}
 	

@@ -17,7 +17,7 @@ const CreateAC = (props) => {
     const submitACHandler = () => {
         console.log("SUBMITTED CANDIDATES - " + selectedCandidates);
         console.log("SUBMITTED INTERVIEWERS - " + selectedInterviewers);
-        AssessmentCentreService.sendIds(selectedCandidates, selectedInterviewers, coordinator.id).then(res => {
+        AssessmentCentreService.sendIds(selectedCandidates, selectedInterviewers).then(res => {
             props.history.push('/setupAC')
         });
     }
@@ -62,7 +62,8 @@ const CreateAC = (props) => {
                         </div>
                     )}
                 </div>
-                <button type="submit" className="btn btn-success me-2 mt-5">Next</button>
+                
+                <a href="/setupAC"><button className="btn btn-success me-2 mt-5">Next</button></a>
 
             </form>
             

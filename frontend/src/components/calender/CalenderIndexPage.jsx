@@ -58,7 +58,7 @@ class CalenderIndexPage extends Component {
     render() {
         return (
             <div className="custom-container">
-            <a href="/setupAC">Next</a>
+            {/* <a href="/setupAC">Next</a> */}
                 This is the Calender Page.
                 <ScheduleComponent currentView='Month' selectedDate={new Date(2018, 1, 15)} eventSettings={{ dataSource: this.data }} >
                     <Inject services={[Day, Week, WorkWeek, Month, Agenda]}/>
