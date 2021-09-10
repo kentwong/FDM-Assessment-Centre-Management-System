@@ -14,12 +14,14 @@ const CreateAC = (props) => {
     const [selectedCandidates, setSelectedCandidates] = useState([])
     const [selectedInterviewers, setSelectedInterviewers] = useState([])
 
-    const submitACHandler = () => {
-        console.log("SUBMITTED CANDIDATES - " + selectedCandidates);
-        console.log("SUBMITTED INTERVIEWERS - " + selectedInterviewers);
-        AssessmentCentreService.sendIds(selectedCandidates, selectedInterviewers).then(res => {
-            props.history.push('/setupAC')
-        });
+    const submitACHandler = (e) => {
+        e.preventDefault()
+        // console.log("SUBMITTED CANDIDATES - " + selectedCandidates);
+        // console.log("SUBMITTED INTERVIEWERS - " + selectedInterviewers);
+        AssessmentCentreService.sendIds(selectedCandidates, selectedInterviewers).then((res) => {
+            alert("FIRST CHECKPOINT")
+            alert("SECOND CHECKPOINT")
+        })
     }
 
     useEffect(() => {
@@ -62,8 +64,7 @@ const CreateAC = (props) => {
                         </div>
                     )}
                 </div>
-                
-                <a href="/setupAC"><button className="btn btn-success me-2 mt-5">Next</button></a>
+                <button type="submit" className="btn btn-success me-2 mt-5">Next</button>
 
             </form>
             

@@ -13,20 +13,20 @@ class AssessmentCentreService {
     }
 
     sendCoordinatorID(userID){
-        axios.post(ASSESSMENT_CENTRE_API_URL + '/setAC', {userID});
+        return axios.post(ASSESSMENT_CENTRE_API_URL + '/setAC', {userID});
     }
 
-    sendIds(selectedCandidates, selectedInterviewers, userID){
-        axios.post(ASSESSMENT_CENTRE_API_URL + '/acCandidates', selectedCandidates, {headers:{"Authorization": userID}});
-        axios.post(ASSESSMENT_CENTRE_API_URL + '/acInterviewers', selectedInterviewers, {headers:{"Authorization": userID}});
+    sendIds(selectedCandidates, selectedInterviewers){
+        axios.post(ASSESSMENT_CENTRE_API_URL + '/acCandidates', selectedCandidates)
+        return axios.post(ASSESSMENT_CENTRE_API_URL + '/acInterviewers', selectedInterviewers)
     }
 
     getSelectedCandidates(){
-        axios.get(ASSESSMENT_CENTRE_API_URL + '/selectedCandidates')
+        return axios.get(ASSESSMENT_CENTRE_API_URL + '/selectedCandidates')
     }
 
     getSelectedInterviewers(){
-        axios.get(ASSESSMENT_CENTRE_API_URL + '/selectedInterviewers')
+        return axios.get(ASSESSMENT_CENTRE_API_URL + '/selectedInterviewers')
     }
 
 
