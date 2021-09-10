@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import CandidateService from '../../services/CandidateService';
+import RecruiterService from '../../services/RecruiterService';
 
 function CreateApplicant(props) {
 
@@ -14,9 +15,16 @@ function CreateApplicant(props) {
     const [address, setAddress] = useState(''); //Address object
     const [aptitudeScore, setAptitudeScore] = useState(0.00); //double
     const [streamId, setStreamId] = useState(1);
-    const [status, setStatus] = useState('Pending Video Interview');
+    const [status, setStatus] = useState('Pending CV Screening');
+    const [recruiters, setRecruiters] = useState([]);
     // const [recruiter, setRecruiter] = useState({}); //Recruiter object - for later use
     const [loading, setLoading] = useState(); //boolean - check status of cv upload
+
+    // useEffect(() => {
+    //     RecruiterService.getRecruiters(res => {
+    //         setRecruiters(res.data);
+    //     })
+    // }, []);
 
     const uploadCV = async e => {
         const files = e.target.files;
@@ -80,12 +88,13 @@ function CreateApplicant(props) {
                     </div>
                     <div className="col-md-6">
                         <label htmlFor="status" className="form-label">Applicant's Status <span className="text-danger">*</span></label>
-                        <select className="form-select" id="status" defaultValue="Pending Video Interview" onChange={e => setStatus(e.target.value)}>
+                        <select className="form-select" id="status" defaultValue="Pending CV Screening" onChange={e => setStatus(e.target.value)}>
+                            <option value="Pending CV Screening">Pending CV Screening</option>
+                            <option value="Pending Phone Screening">Pending Phone Screening</option>
+                            <option value="Pending Aptitude Test">Pending Aptitude Test</option>
                             <option value="Pending Video Interview">Pending Video Interview</option>
                             <option value="Pending AC">Pending AC</option>
                             <option value="Applicant Rejected">Applicant Rejected</option>
-                            <option value="Pending CV">Pending CV</option>
-                            <option value="Pending Aptitude">Pending Aptitude</option>
                             <option value="Offer Letter Sent">Offer Letter Sent</option>
                         </select>
                     </div>
