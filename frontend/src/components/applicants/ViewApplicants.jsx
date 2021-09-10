@@ -12,12 +12,18 @@ import AptitudeTestTemplate from '../templates/AptitudeTestTemplate';
 function ViewApplicants(props) {
 
     const [candidates, setCandidates] = useState([]);
+    const [unassignedCandidates, setUnassignedCandidates] = useState([]);
     const excludeSearchColumns = ['id', 'aptitude_score', 'cv', 'notes', 'recruiter']
 
     useEffect(() => {
         CandidateService.getCandidates().then((res) => {
             setCandidates(res.data);
+
+            let filtered = res.data.filter(candidate => candidate.recruiter === null);
+            setUnassignedCandidates(filtered);
         })
+
+
     }, [])
 
     const deleteCandidate = (id) => {
@@ -37,13 +43,45 @@ function ViewApplicants(props) {
         })
     }
 
+    const assignCandidate = () => {
+
+    }
+
     return (
         <div className="container my-5">
-            <div className="container-fluid col-4 ms-0 ps-0 mb-5">
-                <form className="d-flex">
-                    <FontAwesomeIcon className="fa-lg icon-link me-2" icon={faSearch} color="#0d6efd" style={{ "marginTop": "8px" }} />
-                    <input className="form-control me-2 search-bar-input" type="search" placeholder="Search" aria-label="Search" onChange={e => handleSearch(e.target.value)} />
-                </form>
+            <div className="row">
+                <div className="col-6">
+                    <div className="container-fluid ms-0 ps-0 mb-5">
+                        <form className="d-flex">
+                            <FontAwesomeIcon className="fa-lg icon-link me-2" icon={faSearch} color="#0d6efd" style={{ "marginTop": "8px" }} />
+                            <input className="form-control me-2 search-bar-input" type="search" placeholder="Search" aria-label="Search" onChange={e => handleSearch(e.target.value)} />
+                        </form>
+                    </div>
+                </div>
+                <div className="col-6">
+                    <div className="float-end">
+                        {unassignedCandidates.length === 0 ?
+                            <button className="btn btn-success">{unassignedCandidates.length} Unassigned Applicants</button> :
+                            <button className="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalAssignCandidates">{unassignedCandidates.length} Unassigned Applicants</button>}
+                    </div>
+                </div>
+                <div className="modal fade" id="modalAssignCandidates" aria-hidden="true" aria-labelledby="modalAssignCandidatesLabel" tabIndex="-1">
+                    <div className="modal-dialog modal-dialog-centered modal-lg">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title" id="modalAssignCandidatesLabel">Assigned Candidates to Recruiter</h5>
+                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div className="modal-body">
+                                Assign Actions
+                            </div>
+                            <div className="modal-footer">
+                                <button className="btn btn-danger" data-bs-dismiss="modal" aria-label="Assign" onClick={() => assignCandidate()}>Assign</button>
+                                <button className="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <h2 className="text-center">Candidates List <span className="fs-6 float-end mt-3">Found {candidates.length} candidates</span></h2>
 
