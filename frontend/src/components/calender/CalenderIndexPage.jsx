@@ -10,8 +10,8 @@ var user = {
 	email: 'email@fdm.com',
 	phoneNumber: '123456',
 }
-localStorage.setItem('user', JSON.stringify(user))
-localStorage.setItem('role', 'coordinator')
+// localStorage.setItem('user', JSON.stringify(user))
+// localStorage.setItem('role', 'coordinator')
 
 // -----------
 
