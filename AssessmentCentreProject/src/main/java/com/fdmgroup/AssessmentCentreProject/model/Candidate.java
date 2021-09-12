@@ -181,13 +181,13 @@ public class Candidate {
 		this.stream = stream;
 	}
 
-//	public List<Candidate> getHistory() {
-//		return history;
-//	}
-//
-//	public void setHistory(List<Candidate> history) {
-//		this.history = history;
-//	}
+	public List<Candidate> getHistory() {
+		return history;
+	}
+
+	public void setHistory(List<Candidate> history) {
+		this.history = history;
+	}
 	
 	public String getNotes() {
 		return notes;

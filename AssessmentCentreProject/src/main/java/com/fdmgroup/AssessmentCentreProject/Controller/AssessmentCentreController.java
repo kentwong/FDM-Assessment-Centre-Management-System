@@ -19,6 +19,7 @@ import com.fdmgroup.AssessmentCentreProject.model.ACCoordinator;
 import com.fdmgroup.AssessmentCentreProject.model.AssessmentCentre;
 import com.fdmgroup.AssessmentCentreProject.model.Candidate;
 import com.fdmgroup.AssessmentCentreProject.model.Interviewer;
+import com.fdmgroup.AssessmentCentreProject.model.ResponseTemplate;
 import com.fdmgroup.AssessmentCentreProject.repository.ACCoordinatorRepository;
 import com.fdmgroup.AssessmentCentreProject.repository.AssessmentCentreRepository;
 import com.fdmgroup.AssessmentCentreProject.repository.CandidateRepository;
@@ -108,7 +109,7 @@ public class AssessmentCentreController {
 		System.out.println("TEST INTERVIEWERS LIST - " + coordinator.getNewAC().getInterviewers().size());
 	}
 	
-	@GetMapping("selectedCandidates")
+	@GetMapping("/selectedCandidates")
 	public List<Candidate> getSelectedCandidates(){
 //		System.out.println("WORKING: " + coordinator);
 		List<Candidate> candidates = coordinator.getNewAC().getCandidates();
@@ -121,7 +122,7 @@ public class AssessmentCentreController {
 		return result;
 	}
 	
-	@GetMapping("selectedInterviewers")
+	@GetMapping("/selectedInterviewers")
 	public List<Interviewer> getSelectedInterviewers(){
 		System.out.println("WORKING: " + coordinator);
 		List<Interviewer> interviewers = coordinator.getNewAC().getInterviewers();
@@ -134,9 +135,15 @@ public class AssessmentCentreController {
 		return result;
 	}
 	
-//	@PostMapping("/create")
-//	public AssessmentCentre createAc(@RequestBody AssessmentCentre ac) {
-//		return acRepo.save(ac);
-//	}
+	@PostMapping("/createAC")
+	public void createAssessmentCentre(@RequestBody List<ResponseTemplate> responses) {
+		for (ResponseTemplate temp : responses) {
+			System.out.println("CANDIDATE: " + temp.getCandidate());
+			System.out.println("INTERVIEW TYPE: " + temp.getInterviewType());
+			System.out.println("INTERVIEWER: " + temp.getInterviewer());
+			System.out.println("========");
+		}
+	}
+	
 	
 }

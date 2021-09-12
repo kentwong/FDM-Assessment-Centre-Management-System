@@ -17,10 +17,7 @@ const CreateAC = (props) => {
 
     const submitACHandler = (e) => {
         e.preventDefault()
-        // console.log("SUBMITTED CANDIDATES - " + selectedCandidates);
-        // console.log("SUBMITTED INTERVIEWERS - " + selectedInterviewers);
         AssessmentCentreService.sendIds(selectedCandidates, selectedInterviewers).then((res) => {
-            // alert("FIRST CHECKPOINT")
             props.history.push('/setupAC')
         })
     }
