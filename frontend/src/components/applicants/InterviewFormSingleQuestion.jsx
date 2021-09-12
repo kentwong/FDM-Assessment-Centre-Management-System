@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import CandidateService from '../../services/CandidateService';
 
-const InterviewFormSingleQuestion = ({ idx, questionState, handleQuestionChange }) => {
+const InterviewFormSingleQuestion = ({ idx, questionState, handleQuestionChange, onDelete }) => {
     const questionId = 'question-${idx}';
     const pointsId = 'points-${idx}';
     const gradeId = 'grade-${idx}';
@@ -33,6 +33,7 @@ const InterviewFormSingleQuestion = ({ idx, questionState, handleQuestionChange 
                 <label htmlFor="notes" className="form-label">Notes</label>
                 <textarea className="form-control" id="notes" rows="3" ></textarea>
             </div>
+            <input type="button" value="Delete Question" onClick={() => onDelete(idx)} />
             <hr />
         </div>
     );
