@@ -17,6 +17,7 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "candidate")
@@ -40,6 +41,7 @@ public class Candidate {
 	private String notes;
 	
 	@ManyToOne
+	@JsonManagedReference
 	private Recruiter recruiter;
 	@ManyToOne
 	private Stream stream;
@@ -197,14 +199,14 @@ public class Candidate {
 		this.status = status;
 	}
 
-	@Override
-	public String toString() {
-		return "Candidate [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", dateOfBirth="
-				+ dateOfBirth + ", address=" + address + ", email=" + email + ", phoneNumber=" + phoneNumber
-				+ ", university=" + university + ", cv=" + cv + ", aptitudeScore=" + aptitudeScore + ", notes=" + notes
-				+ ", recruiter=" + recruiter + ", stream=" + stream + ", status=" + status + ", history=" + history
-				+ "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "Candidate [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", dateOfBirth="
+//				+ dateOfBirth + ", address=" + address + ", email=" + email + ", phoneNumber=" + phoneNumber
+//				+ ", university=" + university + ", cv=" + cv + ", aptitudeScore=" + aptitudeScore + ", notes=" + notes
+//				+ ", recruiter=" + recruiter + ", stream=" + stream + ", status=" + status + ", history=" + history
+//				+ "]";
+//	}
 	
 	
 	// application status
