@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
@@ -14,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 public class ACCoordinator extends Staff {
 	
-	@OneToMany (cascade=CascadeType.ALL, mappedBy="coordinator")
+	@OneToMany (cascade=CascadeType.ALL, mappedBy="coordinator", fetch = FetchType.EAGER)
 	@JsonIgnore
 	private List<AssessmentCentre> assessmentCentres = new ArrayList<>();
 	@Transient
@@ -31,7 +32,7 @@ public class ACCoordinator extends Staff {
 	 */
 	public void scheduleAC(Date date) {
 		newAC = new AssessmentCentre();
-		newAC.setDate(date);
+//		newAC.setDate(date);
 	}
 	
 	/**
@@ -130,7 +131,7 @@ public class ACCoordinator extends Staff {
 
 	@Override
 	public String toString() {
-		return "ACCoordinator [assessmentCentres=" + assessmentCentres + "]";
+		return "ACCoordinator [id=" + super.getId() + ", firstName=" + super.getFirstName() + ", lastName=" + super.getLastName() +  "]";
 	}
 	
 }

@@ -24,6 +24,7 @@ import com.fdmgroup.AssessmentCentreProject.model.enums.AptitudeType;
 import com.fdmgroup.AssessmentCentreProject.repository.AddressRepository;
 import com.fdmgroup.AssessmentCentreProject.repository.AssessmentCentreRepository;
 import com.fdmgroup.AssessmentCentreProject.repository.CandidateRepository;
+import com.fdmgroup.AssessmentCentreProject.repository.InterviewerRepository;
 import com.fdmgroup.AssessmentCentreProject.repository.RecruiterRepository;
 import com.fdmgroup.AssessmentCentreProject.repository.StaffRepository;
 import com.fdmgroup.AssessmentCentreProject.repository.StreamRepository;
@@ -45,6 +46,8 @@ public class AssessmentCentreProjectApplication implements CommandLineRunner {
 	
 	@Autowired
 	private AssessmentCentreRepository acRepo;
+	@Autowired
+	private InterviewerRepository intRepo;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(AssessmentCentreProjectApplication.class, args);
@@ -107,10 +110,33 @@ public class AssessmentCentreProjectApplication implements CommandLineRunner {
 		// assessment centre testing
 		AssessmentCentre ac = new AssessmentCentre();
 		ac.setId(1);
-		ac.setDate(new Date());
-		ac.setCoordinator(new ACCoordinator());
+//		Date date = new Date(2021, 10, 5);
+//		ac.setDate(date);
+		Staff coordinator = new ACCoordinator();
+		coordinator.setId(10);
+		coordinator.setFirstName("Michael");
+		coordinator.setLastName("Mike");
+		coordinator.setEmail("mike@fdm.com");
+		coordinator.setPhoneNumber("1234");
+		ac.setCoordinator((ACCoordinator) coordinator);
 		acRepo.save(ac);
 		
+		Interviewer int1 = new Interviewer();
+		int1.setFirstName("Steph");
+		int1.setLastName("Curry");
+		Interviewer int2 = new Interviewer();
+		int2.setFirstName("Klay");
+		int2.setLastName("Thompson");
+		Interviewer int3 = new Interviewer();
+		int3.setFirstName("Andre");
+		int3.setLastName("Iguodala");
+		Interviewer int4 = new Interviewer();
+		int4.setFirstName("Dray");
+		int4.setLastName("Green");
+		intRepo.save(int1);
+		intRepo.save(int2);
+		intRepo.save(int3);
+		intRepo.save(int4);
 		
 	}
 	
