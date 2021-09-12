@@ -42,11 +42,11 @@ public class Candidate {
 	private double aptitudeScore;
 	private String notes;
 	
-//	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@ManyToOne
-	@JsonManagedReference
-	private Recruiter recruiter;
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonBackReference // kent: Should be backreference instead of managedreference
+	private Recruiter recruiter;
+//	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER) //Kent: why Cascade ALL? causing detached entity passed to persist exception
+	@ManyToOne
 	private Stream stream;
 	
 	private String status;
