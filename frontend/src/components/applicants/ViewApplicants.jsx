@@ -84,21 +84,21 @@ function ViewApplicants(props) {
                                 Choose recruiters to randomly assign {unassignedCandidates.length} candidates:
                                 <div className="form-check">
                                     <input className="form-check-input" type="checkbox" value="" id="recruiter1" />
-                                    <label className="form-check-label" for="recruiter1">
+                                    <label className="form-check-label" htmlFor="recruiter1">
                                         Recruiter 1
                                         <input type="number" min="0" className="ms-3" />
                                     </label>
                                 </div>
                                 <div className="form-check">
                                     <input className="form-check-input" type="checkbox" value="" id="recruiter2" />
-                                    <label className="form-check-label" for="recruiter2">
+                                    <label className="form-check-label" htmlFor="recruiter2">
                                         Recruiter 2
                                         <input type="number" min="0" className="ms-3" />
                                     </label>
                                 </div>
                                 <div className="form-check">
                                     <input className="form-check-input" type="checkbox" value="" id="recruiter3" />
-                                    <label className="form-check-label" for="recruiter3">
+                                    <label className="form-check-label" htmlFor="recruiter3">
                                         Recruiter 3
                                         <input type="number" min="0" className="ms-3" />
                                     </label>
