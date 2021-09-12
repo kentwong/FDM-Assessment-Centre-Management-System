@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -19,14 +20,14 @@ public class AssessmentCentre {
 	@Id
 	@GeneratedValue
 	private int id;
-	private Date date;
-	
-	@OneToMany
-	private List<Candidate> candidates;
+//	private Date date;
 	
 	@ManyToOne (cascade=CascadeType.ALL)
 	@JoinColumn(name = "fk_coordinator_id")
 	private ACCoordinator coordinator;
+	
+	@OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+	private List<Candidate> candidates;
 	
 	@ManyToMany
 	@JoinTable(name = "assessment_center_interviewers", 
@@ -40,6 +41,13 @@ public class AssessmentCentre {
 		super();
 	}
 
+	public AssessmentCentre(List<Candidate> candidates, ACCoordinator coordinator, List<Interviewer> interviewers) {
+		super();
+		this.candidates = candidates;
+		this.coordinator = coordinator;
+		this.interviewers = interviewers;
+	}
+
 	// GETTERS & SETTERS
 	public int getId() {
 		return id;
@@ -49,13 +57,13 @@ public class AssessmentCentre {
 		this.id = id;
 	}
 
-	public Date getDate() {
-		return date;
-	}
-
-	public void setDate(Date date) {
-		this.date = date;
-	}
+//	public Date getDate() {
+//		return date;
+//	}
+//
+//	public void setDate(Date date) {
+//		this.date = date;
+//	}
 
 	public List<Candidate> getCandidates() {
 		return candidates;
@@ -81,10 +89,10 @@ public class AssessmentCentre {
 		this.interviewers = interviewers;
 	}
 
-	@Override
-	public String toString() {
-		return "AssessmentCentre [id=" + id + ", date=" + date + ", candidates=" + candidates + ", interviewers="
-				+ interviewers + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "AssessmentCentre [id=" + id + ", date=" + date + ", candidates=" + candidates + ", interviewers="
+//				+ interviewers + "]";
+//	}
 	
 }
