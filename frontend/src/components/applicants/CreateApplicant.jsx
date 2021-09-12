@@ -16,15 +16,16 @@ function CreateApplicant(props) {
     const [aptitudeScore, setAptitudeScore] = useState(0.00); //double
     const [streamId, setStreamId] = useState(1);
     const [status, setStatus] = useState('Pending CV Screening');
-    const [recruiters, setRecruiters] = useState([]);
+    const [availRecruiters, setAvailRecruiters] = useState([]);
+    const [recruiterId, setRecruiterId] = useState(0);
     // const [recruiter, setRecruiter] = useState({}); //Recruiter object - for later use
     const [loading, setLoading] = useState(); //boolean - check status of cv upload
 
-    // useEffect(() => {
-    //     RecruiterService.getRecruiters(res => {
-    //         setRecruiters(res.data);
-    //     })
-    // }, []);
+    useEffect(() => {
+        RecruiterService.getRecruiters().then(res => {
+            setAvailRecruiters(res.data);
+        })
+    }, []);
 
     const uploadCV = async e => {
         const files = e.target.files;
@@ -62,6 +63,7 @@ function CreateApplicant(props) {
             notes: notes,
             address: { address: address },
             stream: { id: parseInt(streamId) },
+            // recruiter: { id: parseInt(recruiterId) },
             aptitudeScore: aptitudeScore,
             status: status
         };
@@ -76,6 +78,19 @@ function CreateApplicant(props) {
         <div className="custom-container">
             <form onSubmit={addCandidate}>
                 <h2 className="mb-5">Create New Applicant</h2>
+                <div className="row mb-3">
+
+
+                    <div className="col-md-6">
+                        <label htmlFor="recruiterId" className="form-label">Recruiter </label>
+                        <select className="form-select" id="recruiterId" defaultValue="NA" onChange={e => setRecruiterId(e.target.value)}>
+                            {availRecruiters.map(
+                                recruiter => (
+                                    <option value={recruiter.id}>{recruiter.firstName} {recruiter.lastName}</option>
+                                ))}
+                        </select>
+                    </div>
+                </div>
                 <div className="row mb-3">
                     <div className="col-md-6">
                         <label htmlFor="streamId" className="form-label">Stream <span className="text-danger">*</span></label>
