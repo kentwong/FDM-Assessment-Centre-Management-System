@@ -4,24 +4,30 @@ import InterviewFormSingleQuestion from './InterviewFormSingleQuestion';
 
 function InterviewForm(props) {
 
-    const [firstName, setFirstName] = useState('');
+    const blankQuestion = { questionText: '', questionType: '', points: '', grade: '' }
+    const [questionState, setQuestionState] = useState([{ ...blankQuestion }]);
+
+    const addQuestion = () => {
+        setQuestionState([...questionState, { ...blankQuestion }]);
+        console.log(questionState);
+    };
+
+    const handleQuestionChange = (e) => {
+        
+    };
+
+    const deleteQuestion = (idx) => {
+        setQuestionState(questionState.splice(idx, 1));
+        console.log(questionState);
+    }
 
     const submitInterviewForm = e => {
         e.preventDefault();
-
-        // CandidateService.createCandidate(candidate).then(res => {
-        //     props.history.push('/applicants');
-        // });
     }
 
     const nullFunction = e => {
-        e.preventDefault();
+        e.preventDefault(); 
     }
-
-    const [questionState, setQuestionState] = useState([]);
-    const addQuestion = () => {
-        setQuestionState([...questionState, 1]);
-    };
 
     return (
         <div className="custom-container">
@@ -39,18 +45,24 @@ function InterviewForm(props) {
                     </div>
                 </div>
 
-                <input type="button" value="Add New Question" onClick={addQuestion} /> <br />
                 {
                     questionState.map((val, idx) => {
                         return (
-                            <div><InterviewFormSingleQuestion /></div>
-                        );
+                            <InterviewFormSingleQuestion
+                                key={'question-${idx}'}
+                                idx={idx}
+                                questionState={questionState}
+                                handleQuestionChange={handleQuestionChange}
+                                onDelete={deleteQuestion} /> 
+                        ); console.log(idx);
                     })
                 }
 
+                <input type="button" value="Add New Question" onClick={addQuestion} />
+
                 <br />
 
-                <button type="submit" className="btn btn-success me-2 mt-5">Add</button>
+                <button type="submit" className="btn btn-success me-2 mt-5">Submit</button>
                 <button className="btn btn-danger mt-5" onClick={nullFunction}>Cancel</button>
             </form>
         </div>

@@ -1,14 +1,24 @@
+import axios from 'axios';
 import React, { Component } from 'react';
+import StaffService from '../../services/StaffService';
+import { MD5 } from 'crypto-js';
 
 class Login extends Component {
+
     constructor(props) {
         super(props)
 
-        this.state = this.initialState;
+        this.state = {
+           emailAddress: '',
+           password: '',
+           error: ''
+        };
 
         this.handleOnChange = this.handleOnChange.bind(this);
         this.validateUser = this.validateUser.bind(this);
+        this.cancel = this.cancel.bind(this);
     }
+
 
     initialState = {
         emailAddress: '',
@@ -33,8 +43,24 @@ class Login extends Component {
 
     validateUser = e => {
         e.preventDefault();
-        //StaffService.getStaff().
-        //validate user
+
+        let LoginDetails = {
+            emailAddress: this.state.emailAddress,
+            password: this.state.password
+        };
+
+        StaffService.sendDetails(LoginDetails).then(res => {
+            console.log(JSON.stringify(res));
+            if(res.data) {
+                localStorage.setItem('user', res.data.staffId);
+                localStorage.setItem('role', res.data.role);
+                window.location.reload(false);
+                
+            }
+            else {
+                this.setState({ error: 'Incorrect username or password'})
+            }
+        })
     }
 
     render() {
@@ -48,17 +74,19 @@ class Login extends Component {
                     </div>}
                     <div className="mb-3">
                         <label htmlFor="emailAddress" className="form-label">Email Address <span className="text-danger">*</span></label>
-                        <input type="email" className="form-control" id="emailAddress" value={this.state.emailAddress} onChange={this.handleOnChange} required></input>
+                        <input type="email" className="form-control" name="emailAddress" id="emailAddress" value={this.state.emailAddress} onChange={this.handleOnChange} required></input>
                     </div>
 
                     <div className="mb-3">
                         <label htmlFor="password" className="form-label">Password <span className="text-danger">*</span></label>
-                        <input type="password" className="form-control" id="password" value={this.state.password} onChange={this.handleOnChange} required></input>
+                        <input type="password" className="form-control" name="password" id="password" value={this.state.password} onChange={this.handleOnChange} required></input>
                     </div>
 
                     <button type="submit" className="btn btn-success me-2">Login</button>
                     <button className="btn btn-danger" onClick={this.cancel.bind(this)}>Cancel</button>
                 </form>
+                
+
             </div>
         );
     }

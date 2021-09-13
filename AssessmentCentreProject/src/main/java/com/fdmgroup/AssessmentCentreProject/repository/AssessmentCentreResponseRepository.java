@@ -13,7 +13,11 @@ import com.fdmgroup.AssessmentCentreProject.model.AssessmentCentreResponse;
 public interface AssessmentCentreResponseRepository extends JpaRepository<AssessmentCentreResponse, Integer>{
 
 	@Query(
-			value="select * from assessment_centre_response a inner join question q on a.question_id=q.id",
+			value="select a.*, q.question_type, sum(a.points) as Problem\r\n" + 
+					"from assessment_centre_response a\r\n" + 
+					"inner join question q \r\n" + 
+					"on a.question_id=q.id\r\n" + 
+					"group by a.candidate_id",
 			nativeQuery = true)
 	List<AssessmentCentreResponse> groupedAndJoined();
 }

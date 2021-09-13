@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import CandidateService from '../../services/CandidateService';
+import RecruiterService from '../../services/RecruiterService';
 
 function CreateApplicant(props) {
 
@@ -14,9 +15,17 @@ function CreateApplicant(props) {
     const [address, setAddress] = useState(''); //Address object
     const [aptitudeScore, setAptitudeScore] = useState(0.00); //double
     const [streamId, setStreamId] = useState(1);
-    const [status, setStatus] = useState('Pending Video Interview');
+    const [status, setStatus] = useState('Pending CV Screening');
+    const [availRecruiters, setAvailRecruiters] = useState([]);
+    const [recruiterId, setRecruiterId] = useState(0);
     // const [recruiter, setRecruiter] = useState({}); //Recruiter object - for later use
     const [loading, setLoading] = useState(); //boolean - check status of cv upload
+
+    useEffect(() => {
+        RecruiterService.getRecruiters().then(res => {
+            setAvailRecruiters(res.data);
+        })
+    }, []);
 
     const uploadCV = async e => {
         const files = e.target.files;
@@ -54,6 +63,7 @@ function CreateApplicant(props) {
             notes: notes,
             address: { address: address },
             stream: { id: parseInt(streamId) },
+            // recruiter: { id: parseInt(recruiterId) },
             aptitudeScore: aptitudeScore,
             status: status
         };
@@ -69,6 +79,19 @@ function CreateApplicant(props) {
             <form onSubmit={addCandidate}>
                 <h2 className="mb-5">Create New Applicant</h2>
                 <div className="row mb-3">
+
+
+                    <div className="col-md-6">
+                        <label htmlFor="recruiterId" className="form-label">Recruiter </label>
+                        <select className="form-select" id="recruiterId" defaultValue="NA" onChange={e => setRecruiterId(e.target.value)}>
+                            {availRecruiters.map(
+                                recruiter => (
+                                    <option value={recruiter.id}>{recruiter.firstName} {recruiter.lastName}</option>
+                                ))}
+                        </select>
+                    </div>
+                </div>
+                <div className="row mb-3">
                     <div className="col-md-6">
                         <label htmlFor="streamId" className="form-label">Stream <span className="text-danger">*</span></label>
                         <select className="form-select" id="streamId" defaultValue="Software Development" onChange={e => setStreamId(e.target.value)}>
@@ -80,12 +103,13 @@ function CreateApplicant(props) {
                     </div>
                     <div className="col-md-6">
                         <label htmlFor="status" className="form-label">Applicant's Status <span className="text-danger">*</span></label>
-                        <select className="form-select" id="status" defaultValue="Pending Video Interview" onChange={e => setStatus(e.target.value)}>
+                        <select className="form-select" id="status" defaultValue="Pending CV Screening" onChange={e => setStatus(e.target.value)}>
+                            <option value="Pending CV Screening">Pending CV Screening</option>
+                            <option value="Pending Phone Screening">Pending Phone Screening</option>
+                            <option value="Pending Aptitude Test">Pending Aptitude Test</option>
                             <option value="Pending Video Interview">Pending Video Interview</option>
                             <option value="Pending AC">Pending AC</option>
                             <option value="Applicant Rejected">Applicant Rejected</option>
-                            <option value="Pending CV">Pending CV</option>
-                            <option value="Pending Aptitude">Pending Aptitude</option>
                             <option value="Offer Letter Sent">Offer Letter Sent</option>
                         </select>
                     </div>

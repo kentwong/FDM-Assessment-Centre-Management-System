@@ -1,5 +1,9 @@
 package com.fdmgroup.AssessmentCentreProject.model;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,55 +20,87 @@ public abstract class Staff {
 	private int id;
 	private String firstName;
 	private String lastName;
-
 	private String email;
+	private String encyptedPassword;
 	private String phoneNumber;
 //	private Object emailTemplate; // TODO define type
 
-	// GETTERS & SETTERS
+	public Staff() {
+		super();
+	}
+
 	public int getId() {
 		return id;
 	}
-	
+
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 	public String getFirstName() {
 		return firstName;
 	}
-	
+
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
-	
+
 	public String getLastName() {
 		return lastName;
 	}
-	
+
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	
+
 	public String getEmail() {
 		return email;
 	}
-	
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
-	
+
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
+
+	public String getEncyptedPassword() {
+		return encyptedPassword;
+	}
+
+	public void setEncyptedPassword(String password) {
+		this.encyptedPassword = encryptPassword(password);
+	}
 	
+	public String encryptPassword(String password) {
+		try {
+			MessageDigest m = MessageDigest.getInstance("MD5");
+			m.update(password.getBytes());
+			byte[] bytes = m.digest();
+
+			StringBuilder s = new StringBuilder();  
+            for(int i=0; i< bytes.length ;i++)  
+            {  
+                s.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));  
+            }  
+            return s.toString();
+			
+		} catch (NoSuchAlgorithmException e) {
+			System.err.println("Failed to hash password");
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 	@Override
 	public String toString() {
 		return "Staff [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
 				+ ", phoneNumber=" + phoneNumber + "]";
 	}
+
 }

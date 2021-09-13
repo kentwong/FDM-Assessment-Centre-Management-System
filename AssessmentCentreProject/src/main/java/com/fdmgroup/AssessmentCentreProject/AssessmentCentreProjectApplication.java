@@ -1,11 +1,16 @@
 package com.fdmgroup.AssessmentCentreProject;
 
+import java.util.Arrays;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.reactive.CorsConfigurationSource;
+import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 
 import com.fdmgroup.AssessmentCentreProject.model.ACCoordinator;
 import com.fdmgroup.AssessmentCentreProject.model.Address;
@@ -67,18 +72,98 @@ public class AssessmentCentreProjectApplication implements CommandLineRunner {
 		addressRepo.save(address4);
 		addressRepo.save(address5);
 		
+		// Keep the setId() because this is just a demo info. 
+		// It will be duplicated if there is no id set when we run the Java application the 2nd time.
+		// Recruiter x 3ppl -> Real names
 		Staff staff1 = new Recruiter();
 		staff1.setId(1);
-		staff1.setFirstName("Mary");
-		staff1.setLastName("Brown");
-		staff1.setEmail("mary@fdmgroup.com");
-		staff1.setPhoneNumber("0422336523");
+		staff1.setFirstName("Hannah");
+		staff1.setLastName("Cope");
+		staff1.setEmail("hannah.cope@fdmgroup.com");
+		staff1.setPhoneNumber("0444555666");
+		staff1.setEncyptedPassword("password");
 		staffRepo.save(staff1);
 		
+		Staff staff2 = new Recruiter();
+		staff2.setId(2);
+		staff2.setFirstName("Caitlin");
+		staff2.setLastName("Hargraves");
+		staff2.setEmail("caitlin.hargraves@fdmgroup.com");
+		staff2.setPhoneNumber("0411222333");
+		staff2.setEncyptedPassword("password");
+		staffRepo.save(staff2);
+		
+		Staff staff3 = new Recruiter();
+		staff3.setId(3);
+		staff3.setFirstName("Celina");
+		staff3.setLastName("Gonzales");
+		staff3.setEmail("celina.gonzales@fdmgroup.com");
+		staff3.setPhoneNumber("0422333444");
+		staff3.setEncyptedPassword("password");
+		staffRepo.save(staff3);
+		
+		// Interviewer x 6ppl -> for HR, Sales, Technical interviews - Real names
+		Staff int1 = new Interviewer();
+		int1.setId(4);
+		int1.setFirstName("Matthew"); //Technical
+		int1.setLastName("Hircock");
+		int1.setEmail("matthew.hircock@fdmgroup.com");
+		int1.setPhoneNumber("0411555999");
+		int1.setEncyptedPassword("password");
+		staffRepo.save(int1);
+		
+		Staff int2 = new Interviewer();
+		int2.setId(5);
+		int2.setFirstName("Dylan"); //Technical
+		int2.setLastName("Yoo");
+		int2.setEmail("dylan.yoo@fdmgroup.com");
+		int2.setPhoneNumber("0422666888");
+		int2.setEncyptedPassword("password");
+		staffRepo.save(int2);
+		
+		Staff int3 = new Interviewer();
+		int3.setId(6);
+		int3.setFirstName("Edwina"); //HR
+		int3.setLastName("Than-Aye");
+		int3.setEmail("edwina.than-aye@fdmgroup.com");
+		int3.setPhoneNumber("0444555222");
+		int3.setEncyptedPassword("password");
+		staffRepo.save(int3);
+		
+		Staff int4 = new Interviewer();
+		int4.setId(7);
+		int4.setFirstName("Anisha"); //HR
+		int4.setLastName("Balu");
+		int4.setEmail("anisha.balu@fdmgroup.com");
+		int4.setPhoneNumber("0466333444");
+		int4.setEncyptedPassword("password");
+		staffRepo.save(int4);
+		
+		Staff int5 = new Interviewer();
+		int5.setId(8);
+		int5.setFirstName("Nicholas"); //Sales - Account Manager
+		int5.setLastName("Lloyd");
+		int5.setEmail("nicholas.llyod@fdmgroup.com");
+		int5.setPhoneNumber("0488222444");
+		int5.setEncyptedPassword("password");
+		staffRepo.save(int5);
+		
+		Staff int6 = new Interviewer();
+		int6.setId(9);
+		int6.setFirstName("Eoin"); //Sales - Account Manager
+		int6.setLastName("Doyle");
+		int6.setEmail("eoin.doyle@fdmgroup.com");
+		int6.setPhoneNumber("0433666220");
+		int6.setEncyptedPassword("password");
+		staffRepo.save(int6);
+		
+		
+		// Stream -> Set 4 streams for demo
 		Stream softwareDev = new Stream(1, "Software Development", 90, AptitudeType.TECHNICAL);
 		Stream businessAnalysis = new Stream(2, "Business Analysis & Business Intelligence", 90, AptitudeType.BUSINESS);
 		Stream technicalAnalysis = new Stream(3, "Technical Analysis", 90, AptitudeType.TECHNICAL);
 		Stream cloudComputing = new Stream(4, "Cloud Computing Engineering", 90, AptitudeType.TECHNICAL);
+		
 		streamRepo.save(softwareDev);
 		streamRepo.save(businessAnalysis);
 		streamRepo.save(technicalAnalysis);
@@ -97,29 +182,33 @@ public class AssessmentCentreProjectApplication implements CommandLineRunner {
 //		ac.setDate(date);
 		Staff coordinator = new ACCoordinator();
 		coordinator.setId(10);
-		coordinator.setFirstName("Michael");
-		coordinator.setLastName("Mike");
-		coordinator.setEmail("mike@fdm.com");
-		coordinator.setPhoneNumber("1234");
+		coordinator.setFirstName("Anureet"); // Change to real name so that the stakeholder will feel more involved during presentation
+		coordinator.setLastName("Kaur");
+		coordinator.setEmail("anureet.kaur@fdmgroup.com");
+		coordinator.setPhoneNumber("0401111252");
+		coordinator.setEncyptedPassword("password");
 		ac.setCoordinator((ACCoordinator) coordinator);
 		acRepo.save(ac);
 		
-		Interviewer int1 = new Interviewer();
-		int1.setFirstName("Steph");
-		int1.setLastName("Curry");
-		Interviewer int2 = new Interviewer();
-		int2.setFirstName("Klay");
-		int2.setLastName("Thompson");
-		Interviewer int3 = new Interviewer();
-		int3.setFirstName("Andre");
-		int3.setLastName("Iguodala");
-		Interviewer int4 = new Interviewer();
-		int4.setFirstName("Dray");
-		int4.setLastName("Green");
-		intRepo.save(int1);
-		intRepo.save(int2);
-		intRepo.save(int3);
-		intRepo.save(int4);
+		// Interviewer created with full details above
+//		Interviewer int1 = new Interviewer();
+//		int1.setFirstName("Steph");
+//		int1.setLastName("Curry");
+//		Interviewer int2 = new Interviewer();
+//		int2.setFirstName("Klay");
+//		int2.setLastName("Thompson");
+//		Interviewer int3 = new Interviewer();
+//		int3.setFirstName("Andre");
+//		int3.setLastName("Iguodala");
+//		Interviewer int4 = new Interviewer();
+//		int4.setFirstName("Dray");
+//		int4.setLastName("Green");
+//		intRepo.save(int1);
+//		intRepo.save(int2);
+//		intRepo.save(int3);
+//		intRepo.save(int4);
 		
 	}
+	
+	
 }

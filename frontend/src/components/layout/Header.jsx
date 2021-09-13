@@ -11,6 +11,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTh } from '@fortawesome/free-solid-svg-icons';
 
 class Header extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.logoutUser = this.logoutUser.bind(this);
+    }
+
+    logoutUser () {
+        localStorage.removeItem('user');
+        localStorage.removeItem('role');
+        window.location.reload(false);
+    }
+
     render() {
         return (
             <div>
@@ -107,7 +120,13 @@ class Header extends Component {
                                         <ul className="dropdown-menu">
                                             <li><a className="dropdown-item" href="/" >Manage Profile</a></li>
                                             <li><hr className="dropdown-divider" /></li>
-                                            <li><a className="dropdown-item" href="/">Log out</a></li>
+                                            <li>
+                                                <div className="dropdown-item">
+                                                    <button style={{all: 'unset'}} onClick={this.logoutUser}>
+                                                        Log Out
+                                                    </button>
+                                                </div>
+                                            </li>
                                         </ul>
                                     </li>
                                 </div>

@@ -18,9 +18,12 @@ function Responses(props) {
                    
                                     <tr>
                                         <td>Id</td>
-                                        <td> Notes </td>
                                         <td> Name </td>
-                                        <td> Points </td>
+                                        <td> General </td>
+                                        <td> Technical </td>
+                                        <td> Behavioural </td>
+                                        <td> Curveball </td>  
+                                        <td> Overall </td>
                                         <td> Question type</td>
                                     </tr>
                             
@@ -30,12 +33,15 @@ function Responses(props) {
                         {
                             responses.map(
                                 response =>
-                                    <tr key={response.id}>
-                                        <td> {response.id} </td>
-                                        <td> {response.notes} </td>
+                                    <tr key={response.candidate.id}>
+                                        <td> {response.candidate.id} </td>
                                         <td> {response.candidate.firstName} {response.candidate.lastName}</td>
-                                        <td> {response.points} </td>
-                                        <td> {response.questionType} </td>
+                                        <td> {response.general} </td>
+                                        <td> {response.technical} </td>
+                                        <td> {response.behavioural} </td>
+                                        <td> {response.curveball} </td>
+                                        <td> {response.overall} </td>
+                                        <td> {response.question.questionType} </td>
                                     </tr>
                             )
                         }
