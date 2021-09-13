@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CandidateService from '../../services/CandidateService';
+import RecruiterService from '../../services/RecruiterService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserEdit, faEnvelopeOpenText, faDownload, faTrashAlt, faSearch } from '@fortawesome/free-solid-svg-icons';
 import OfferOfEmploymentTemplate from '../templates/OfferOfEmploymentTemplate';
@@ -13,7 +14,13 @@ function ViewApplicants(props) {
 
     const [candidates, setCandidates] = useState([]);
     const [unassignedCandidates, setUnassignedCandidates] = useState([]);
-    const excludeSearchColumns = ['id', 'aptitude_score', 'cv', 'notes', 'recruiter']
+    const excludeSearchColumns = ['id', 'aptitude_score', 'cv', 'notes', 'recruiter'];
+    const [availRecruiters, setAvailRecruiters] = useState([]);
+
+    const [checkedState, setCheckedState] = useState(
+        new Array(availRecruiters.length).fill(false)
+    );
+
 
     useEffect(() => {
         CandidateService.getCandidates().then((res) => {
@@ -23,7 +30,9 @@ function ViewApplicants(props) {
             setUnassignedCandidates(filtered);
         })
 
-
+        RecruiterService.getRecruiters().then(res => {
+            setAvailRecruiters(res.data);
+        })
     }, [])
 
     const deleteCandidate = (id) => {
@@ -43,8 +52,9 @@ function ViewApplicants(props) {
         })
     }
 
-    const assignCandidate = () => {
-
+    const assignCandidate = (e) => {
+        e.preventDefault();
+        console.log(e.target);
     }
 
     return (
@@ -68,47 +78,52 @@ function ViewApplicants(props) {
                 </div>
                 <div className="modal fade" id="modalAssignCandidates" aria-hidden="true" aria-labelledby="modalAssignCandidatesLabel" tabIndex="-1">
                     <div className="modal-dialog modal-dialog-centered modal-lg">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <h5 className="modal-title" id="modalAssignCandidatesLabel">Assigned Candidates to Recruiter</h5>
-                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div className="modal-body">
-                                The following candidates do not have recruiter assigned:
-                                <ul>
-                                    {unassignedCandidates.map(
-                                        candidate =>
-                                            <li>{candidate.firstName}</li>
-                                    )}
-                                </ul>
 
-                                Choose recruiters to randomly assign {unassignedCandidates.length} candidates:
-                                <div className="form-check">
-                                    <input className="form-check-input" type="checkbox" value="" id="recruiter1" />
-                                    <label className="form-check-label" htmlFor="recruiter1">
-                                        Recruiter 1
-                                        <input type="number" min="0" className="ms-3" />
-                                    </label>
+                        <div className="modal-content">
+                            <form onSubmit={(e) => assignCandidate(e)}>
+                                <div className="modal-header">
+                                    <h5 className="modal-title" id="modalAssignCandidatesLabel">Assigned Candidates to Recruiter</h5>
+                                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <div className="form-check">
-                                    <input className="form-check-input" type="checkbox" value="" id="recruiter2" />
-                                    <label className="form-check-label" htmlFor="recruiter2">
-                                        Recruiter 2
-                                        <input type="number" min="0" className="ms-3" />
-                                    </label>
+                                <div className="modal-body">
+                                    The following candidates do not have recruiter assigned:
+                                    <ul>
+                                        {unassignedCandidates.map(
+                                            candidate =>
+                                                <li key={candidate.id}>{candidate.firstName}</li>
+                                        )}
+                                    </ul>
+
+                                    Choose recruiters to randomly assign {unassignedCandidates.length} candidates:
+
+                                    {availRecruiters.map(
+                                        recruiter => (
+                                            <div key={recruiter.id}>
+                                                <div className="form-check my-3">
+                                                    <input className="form-check-input my-2" type="checkbox" value="" id={"checkbox" + recruiter.id} />
+                                                    <label className="form-check-label" htmlFor={"checkbox" + recruiter.id}>
+                                                        Assign
+                                                        {console.log(checkedState)}
+                                                        <input id={"input" + recruiter.id} type="number" min="0" defaultValue="0" className="mx-2 text-center" maxLength="4" size="4" />
+                                                        {/* {document.getElementById("checkbox" + recruiter.id).checked ? (
+                                                            <input id={"input" + recruiter.id} type="number" min="0" defaultValue="0" className="mx-2 text-center" maxLength="4" size="4" />
+                                                        ) : (
+                                                            <input id={"input" + recruiter.id} type="number" min="0" defaultValue="0" className="mx-2 text-center" maxLength="4" size="4" disabled />
+                                                        )} */}
+
+                                                        applicants to {recruiter.firstName} {recruiter.lastName}
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        ))}
+
+
                                 </div>
-                                <div className="form-check">
-                                    <input className="form-check-input" type="checkbox" value="" id="recruiter3" />
-                                    <label className="form-check-label" htmlFor="recruiter3">
-                                        Recruiter 3
-                                        <input type="number" min="0" className="ms-3" />
-                                    </label>
+                                <div className="modal-footer">
+                                    <button type="submit" className="btn btn-danger" data-bs-dismiss="modal" aria-label="Close">Assign</button>
+                                    <button className="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">Close</button>
                                 </div>
-                            </div>
-                            <div className="modal-footer">
-                                <button className="btn btn-danger" data-bs-dismiss="modal" aria-label="Assign" onClick={() => assignCandidate()}>Assign</button>
-                                <button className="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">Close</button>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
