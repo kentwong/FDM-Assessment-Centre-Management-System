@@ -12,19 +12,25 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.reactive.CorsConfigurationSource;
 import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 
+import com.fdmgroup.AssessmentCentreProject.Controller.AssesmentCentreResponseController;
 import com.fdmgroup.AssessmentCentreProject.model.ACCoordinator;
 import com.fdmgroup.AssessmentCentreProject.model.Address;
 import com.fdmgroup.AssessmentCentreProject.model.AssessmentCentre;
+import com.fdmgroup.AssessmentCentreProject.model.AssessmentCentreResponse;
 import com.fdmgroup.AssessmentCentreProject.model.Candidate;
 import com.fdmgroup.AssessmentCentreProject.model.Interviewer;
+import com.fdmgroup.AssessmentCentreProject.model.Question;
 import com.fdmgroup.AssessmentCentreProject.model.Recruiter;
 import com.fdmgroup.AssessmentCentreProject.model.Staff;
 import com.fdmgroup.AssessmentCentreProject.model.Stream;
 import com.fdmgroup.AssessmentCentreProject.model.enums.AptitudeType;
+import com.fdmgroup.AssessmentCentreProject.model.enums.QuestionType;
 import com.fdmgroup.AssessmentCentreProject.repository.AddressRepository;
 import com.fdmgroup.AssessmentCentreProject.repository.AssessmentCentreRepository;
+import com.fdmgroup.AssessmentCentreProject.repository.AssessmentCentreResponseRepository;
 import com.fdmgroup.AssessmentCentreProject.repository.CandidateRepository;
 import com.fdmgroup.AssessmentCentreProject.repository.InterviewerRepository;
+import com.fdmgroup.AssessmentCentreProject.repository.QuestionRepository;
 import com.fdmgroup.AssessmentCentreProject.repository.RecruiterRepository;
 import com.fdmgroup.AssessmentCentreProject.repository.StaffRepository;
 import com.fdmgroup.AssessmentCentreProject.repository.StreamRepository;
@@ -42,10 +48,13 @@ public class AssessmentCentreProjectApplication implements CommandLineRunner {
 	@Autowired
 	private StreamRepository streamRepo;
 	@Autowired
+	private QuestionRepository questionRepo;
+	@Autowired
 	private StaffRepository staffRepo;
-	
 	@Autowired
 	private AssessmentCentreRepository acRepo;
+	@Autowired
+	private AssessmentCentreResponseRepository acrRepo;
 	@Autowired
 	private InterviewerRepository intRepo;
 	
@@ -207,7 +216,6 @@ public class AssessmentCentreProjectApplication implements CommandLineRunner {
 //		intRepo.save(int2);
 //		intRepo.save(int3);
 //		intRepo.save(int4);
-		
 	}
 	
 	
