@@ -19,6 +19,8 @@ function Responses(props) {
                                     <tr>
                                         <td>Id</td>
                                         <td> Name </td>
+                                        <td> Stream </td>
+                                        <td> Aptitude </td>
                                         <td> General </td>
                                         <td> Technical </td>
                                         <td> Behavioural </td>
@@ -36,6 +38,8 @@ function Responses(props) {
                                     <tr key={response.candidate.id}>
                                         <td> {response.candidate.id} </td>
                                         <td> {response.candidate.firstName} {response.candidate.lastName}</td>
+                                        <td> {response.candidate.stream.streamName} </td>
+                                        <td> {response.candidate.aptitudeScore} </td>
                                         <td> {response.general} </td>
                                         <td> {response.technical} </td>
                                         <td> {response.behavioural} </td>
