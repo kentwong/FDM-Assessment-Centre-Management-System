@@ -2,16 +2,23 @@ package com.fdmgroup.AssessmentCentreProject.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Recruiter extends Staff {
 	
 	@OneToMany(mappedBy="recruiter")
-	@JsonIgnore //This is to eliminate recursive JSON view for candidate's REST controller
+	@JsonManagedReference
 	private List<Candidate> candidates;
 	
 	// CONSTRUCTOR

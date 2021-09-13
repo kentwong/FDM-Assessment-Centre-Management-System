@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,6 +18,7 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "candidate")
@@ -28,8 +30,9 @@ public class Candidate {
 	private String firstName;
 	private String lastName;
 	private String dateOfBirth;
+
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "fk_address_id")
+	@JoinColumn(name = "fk_address_id", referencedColumnName="id")
 	private Address address;
 	private String email;
 	private String phoneNumber;
@@ -39,14 +42,16 @@ public class Candidate {
 	private double aptitudeScore;
 	private String notes;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonBackReference // kent: Should be backreference instead of managedreference
 	private Recruiter recruiter;
+//	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER) //Kent: why Cascade ALL? causing detached entity passed to persist exception
 	@ManyToOne
 	private Stream stream;
 	
 	private String status;
 	
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name = "candidate_history", 
 		joinColumns = { @JoinColumn(name="fk_candidate_id") }, 
 		inverseJoinColumns =	{ @JoinColumn(name="fk_old_id") }
@@ -197,14 +202,14 @@ public class Candidate {
 		this.status = status;
 	}
 
-	@Override
-	public String toString() {
-		return "Candidate [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", dateOfBirth="
-				+ dateOfBirth + ", address=" + address + ", email=" + email + ", phoneNumber=" + phoneNumber
-				+ ", university=" + university + ", cv=" + cv + ", aptitudeScore=" + aptitudeScore + ", notes=" + notes
-				+ ", recruiter=" + recruiter + ", stream=" + stream + ", status=" + status + ", history=" + history
-				+ "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "Candidate [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", dateOfBirth="
+//				+ dateOfBirth + ", address=" + address + ", email=" + email + ", phoneNumber=" + phoneNumber
+//				+ ", university=" + university + ", cv=" + cv + ", aptitudeScore=" + aptitudeScore + ", notes=" + notes
+//				+ ", recruiter=" + recruiter + ", stream=" + stream + ", status=" + status + ", history=" + history
+//				+ "]";
+//	}
 	
 	
 	// application status

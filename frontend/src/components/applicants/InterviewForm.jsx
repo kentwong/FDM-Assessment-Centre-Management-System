@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import CandidateService from '../../services/CandidateService';
 import InterviewFormSingleQuestion from './InterviewFormSingleQuestion';
 
-import REMOVEBEFORESUBMISSIONService from '../../services/REMOVEBEFORESUBMISSIONService';
-
 function InterviewForm(props) {
 
     const blankQuestion = { questionText: '', questionType: '', points: '', grade: '' }
@@ -11,20 +9,20 @@ function InterviewForm(props) {
 
     const addQuestion = () => {
         setQuestionState([...questionState, { ...blankQuestion }]);
+        console.log(questionState);
     };
 
     const handleQuestionChange = (e) => {
-        const updatedQuestions = [...questionState];
-        updatedQuestions[e.target.dataset.idx][e.target.className] = e.target.value;
-        setQuestionState(updatedQuestions);         REMOVEBEFORESUBMISSIONService.w();
+        
     };
+
+    const deleteQuestion = (idx) => {
+        setQuestionState(questionState.splice(idx, 1));
+        console.log(questionState);
+    }
 
     const submitInterviewForm = e => {
         e.preventDefault();
-
-        // CandidateService.createCandidate(candidate).then(res => {
-        //     props.history.push('/applicants');
-        // });
     }
 
     const nullFunction = e => {
@@ -54,8 +52,9 @@ function InterviewForm(props) {
                                 key={'question-${idx}'}
                                 idx={idx}
                                 questionState={questionState}
-                                handleQuestionChange={handleQuestionChange} />
-                        );
+                                handleQuestionChange={handleQuestionChange}
+                                onDelete={deleteQuestion} /> 
+                        ); console.log(idx);
                     })
                 }
 
