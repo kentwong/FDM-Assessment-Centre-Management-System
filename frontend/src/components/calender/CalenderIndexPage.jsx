@@ -29,6 +29,7 @@ const shouldDisplayCreateAC = localStorage.getItem('role') === 'ACCoordinator'
 class CalenderIndexPage extends Component {
     constructor(props) {
         super(props);
+        
         this.state = {
           showCreate: false,
         };
