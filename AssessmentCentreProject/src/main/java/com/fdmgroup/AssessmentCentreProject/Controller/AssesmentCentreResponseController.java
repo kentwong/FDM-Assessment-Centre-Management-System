@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fdmgroup.AssessmentCentreProject.model.AssessmentCentreResponse;
 import com.fdmgroup.AssessmentCentreProject.model.CandidateACResult;
+import com.fdmgroup.AssessmentCentreProject.model.Question;
 import com.fdmgroup.AssessmentCentreProject.model.enums.QuestionType;
 import com.fdmgroup.AssessmentCentreProject.repository.AssessmentCentreResponseRepository;
+import com.fdmgroup.AssessmentCentreProject.repository.QuestionRepository;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -26,6 +28,9 @@ public class AssesmentCentreResponseController {
 
 	@Autowired
 	private AssessmentCentreResponseRepository assessmentCentreResponseRepo;
+	
+	@Autowired
+	private QuestionRepository questionRepo;
 
 	public AssesmentCentreResponseController(AssessmentCentreResponseRepository assessmentCentreResponseRepo) {
 		super();
@@ -105,6 +110,14 @@ public class AssesmentCentreResponseController {
 			}
 		}
 		return ResponseEntity.ok(groupedResponses);
+
+	}
+	
+	@GetMapping("/getAllQuestions")
+	public ResponseEntity<List<Question>> getAllQuestions() {
+		logger.info("Return all questions");
+		List<Question> questions = questionRepo.findAll();
+		return ResponseEntity.ok(questions);
 
 	}
 	

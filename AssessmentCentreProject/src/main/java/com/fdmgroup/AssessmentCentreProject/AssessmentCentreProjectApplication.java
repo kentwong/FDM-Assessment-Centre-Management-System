@@ -1,22 +1,13 @@
 package com.fdmgroup.AssessmentCentreProject;
 
-import java.util.Arrays;
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.reactive.CorsConfigurationSource;
-import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 
-import com.fdmgroup.AssessmentCentreProject.Controller.AssesmentCentreResponseController;
 import com.fdmgroup.AssessmentCentreProject.model.ACCoordinator;
 import com.fdmgroup.AssessmentCentreProject.model.Address;
 import com.fdmgroup.AssessmentCentreProject.model.AssessmentCentre;
-import com.fdmgroup.AssessmentCentreProject.model.AssessmentCentreResponse;
 import com.fdmgroup.AssessmentCentreProject.model.Candidate;
 import com.fdmgroup.AssessmentCentreProject.model.Interviewer;
 import com.fdmgroup.AssessmentCentreProject.model.Question;
@@ -216,6 +207,14 @@ public class AssessmentCentreProjectApplication implements CommandLineRunner {
 //		intRepo.save(int2);
 //		intRepo.save(int3);
 //		intRepo.save(int4);
+		
+		
+		// Demo interview questions
+		Question question1 = new Question(1, "Why are you interested in applying to FDM?", QuestionType.GENERAL);
+		Question question2 = new Question(2, "How to list the files in the current directory in UNIX?", QuestionType.TECHNICAL);
+		
+		questionRepo.save(question1);
+		questionRepo.save(question2);
 	}
 	
 	
