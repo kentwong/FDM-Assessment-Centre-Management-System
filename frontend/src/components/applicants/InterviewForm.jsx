@@ -59,7 +59,7 @@ function InterviewForm(props) {
                     })
                 }
 
-                <input type="button" value="Add New Question" onClick={addQuestion} /><div>{questionBank}</div>
+                <input type="button" value="Add New Question" onClick={addQuestion} />
 
                 <br />
 
