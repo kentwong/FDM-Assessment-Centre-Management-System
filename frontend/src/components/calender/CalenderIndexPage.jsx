@@ -1,5 +1,5 @@
 import React, { useState, Component } from 'react';
-import {Inject,ScheduleComponent,Day, Week, WorkWeek, Month, Agenda, EventSettingsModel } from '@syncfusion/ej2-react-schedule';
+import {Inject, ScheduleComponent, Day, Week, WorkWeek, Month, Agenda, ViewsDirective, ViewDirective } from '@syncfusion/ej2-react-schedule';
 import ViewAssessmentCentres from './coordinator/ViewAssessmentCentres';
 import CreateAC from './coordinator/CreateAC';
 
@@ -30,43 +30,48 @@ class CalenderIndexPage extends Component {
 
         this.data =  [{
                 Id: 1,
-                Subject: 'Explosion of Betelgeuse Star',
-                StartTime: new Date(2018, 1, 15, 9, 30),
-                EndTime: new Date(2018, 1, 15, 11, 0)
+                Subject: 'FIRST TEST',
+                StartTime: new Date(2021, 8, 15, 9, 30),
+                EndTime: new Date(2021, 8, 15, 11, 0)
             }, {
                 Id: 2,
-                Subject: 'Thule Air Crash Report',
-                StartTime: new Date(2018, 1, 12, 12, 0),
-                EndTime: new Date(2018, 1, 12, 14, 0)
+                Subject: 'SECOND TEST',
+                StartTime: new Date(2021, 8, 12, 12, 0),
+                EndTime: new Date(2021, 8, 12, 14, 0)
             }, {
                 Id: 3,
-                Subject: 'Blue Moon Eclipse',
-                StartTime: new Date(2018, 1, 13, 9, 30),
-                EndTime: new Date(2018, 1, 13, 11, 0)
+                Subject: 'THIRD TEST',
+                StartTime: new Date(2021, 8, 13, 9, 30),
+                EndTime: new Date(2021, 8, 13, 11, 0)
             }, {
                 Id: 4,
-                Subject: 'Meteor Showers in 2018',
-                StartTime: new Date(2018, 1, 14, 13, 0),
-                EndTime: new Date(2018, 1, 14, 14, 30)
+                Subject: 'FOURTH TEST',
+                StartTime: new Date(2021, 8, 14, 13, 0),
+                EndTime: new Date(2021, 8, 14, 14, 30)
             }];
       }
     
     displayCreateACHandler = () => {
         this.setState({ showCreate: !this.state.showCreate })
     }
-    
+
     render() {
         return (
             <div className="custom-container">
-            <a href="/setupAC">Next</a>
                 This is the Calender Page.
-                <ScheduleComponent currentView='Month' selectedDate={new Date(2018, 1, 15)} eventSettings={{ dataSource: this.data }} >
+                <ScheduleComponent currentView='Month' selectedDate={new Date()} eventSettings={{ dataSource: this.data }} >
+                    <ViewsDirective>
+                        <ViewDirective option='Day'></ViewDirective>
+                        <ViewDirective option='Week'></ViewDirective>
+                        <ViewDirective option='Month'></ViewDirective>
+                        <ViewDirective option='Agenda'></ViewDirective>
+                    </ViewsDirective>
                     <Inject services={[Day, Week, WorkWeek, Month, Agenda]}/>
                 </ScheduleComponent>
                 
-                <br/>ADD ASSESSMENT CENTRE - FOR AC COORDINATOR
+                <br/>*ADD ASSESSMENT CENTRE - AC COORDINATOR ONLY*<br/>
                 
-                <ViewAssessmentCentres />
+                {/* <ViewAssessmentCentres /> */}
                 { shouldDisplayCreateAC && <button className="btn btn-primary" onClick={this.displayCreateACHandler}>Create Assessment Centre</button>}
                 { this.state.showCreate && <CreateAC />}
                 

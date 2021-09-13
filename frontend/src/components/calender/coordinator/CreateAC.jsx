@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { withRouter } from "react-router-dom";
 import CandidateService from '../../../services/CandidateService'
 import AssessmentCentreService from '../../../services/AssessmentCentreService'
 import SetupAC from './SetupAC.jsx'
@@ -16,11 +17,8 @@ const CreateAC = (props) => {
 
     const submitACHandler = (e) => {
         e.preventDefault()
-        // console.log("SUBMITTED CANDIDATES - " + selectedCandidates);
-        // console.log("SUBMITTED INTERVIEWERS - " + selectedInterviewers);
         AssessmentCentreService.sendIds(selectedCandidates, selectedInterviewers).then((res) => {
-            alert("FIRST CHECKPOINT")
-            alert("SECOND CHECKPOINT")
+            props.history.push('/setupAC')
         })
     }
 
@@ -74,4 +72,5 @@ const CreateAC = (props) => {
     )
 }
 
-export default CreateAC
+
+export default withRouter(CreateAC)
