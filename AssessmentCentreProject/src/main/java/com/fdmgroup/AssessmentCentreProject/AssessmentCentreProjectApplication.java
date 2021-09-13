@@ -174,10 +174,6 @@ public class AssessmentCentreProjectApplication implements CommandLineRunner {
 		candidateRepo.save(new Candidate(5, "David", "Ko", "1998-05-05", address5, "david.ko@fdmgroup.com", "0401230547", "The University of Auckland", "http://res.cloudinary.com/fdmgroup/image/upload/v1631023614/fdmgroup/ngsposgdizew0xd2gplm.pdf", 30, "Available to work immediately", (Recruiter) staff1, softwareDev, "Pending Video Interview"));
 		
 		// assessment centre testing
-		AssessmentCentre ac = new AssessmentCentre();
-		ac.setId(1);
-//		Date date = new Date(2021, 10, 5);
-//		ac.setDate(date);
 		Staff coordinator = new ACCoordinator();
 		coordinator.setId(10);
 		coordinator.setFirstName("Anureet"); // Change to real name so that the stakeholder will feel more involved during presentation
@@ -185,26 +181,7 @@ public class AssessmentCentreProjectApplication implements CommandLineRunner {
 		coordinator.setEmail("anureet.kaur@fdmgroup.com");
 		coordinator.setPhoneNumber("0401111252");
 		coordinator.setEncyptedPassword("password");
-		ac.setCoordinator((ACCoordinator) coordinator);
-		acRepo.save(ac);
-		
-		// Interviewer created with full details above
-//		Interviewer int1 = new Interviewer();
-//		int1.setFirstName("Steph");
-//		int1.setLastName("Curry");
-//		Interviewer int2 = new Interviewer();
-//		int2.setFirstName("Klay");
-//		int2.setLastName("Thompson");
-//		Interviewer int3 = new Interviewer();
-//		int3.setFirstName("Andre");
-//		int3.setLastName("Iguodala");
-//		Interviewer int4 = new Interviewer();
-//		int4.setFirstName("Dray");
-//		int4.setLastName("Green");
-//		intRepo.save(int1);
-//		intRepo.save(int2);
-//		intRepo.save(int3);
-//		intRepo.save(int4);
+		staffRepo.save(coordinator);
 	}
 	
 	

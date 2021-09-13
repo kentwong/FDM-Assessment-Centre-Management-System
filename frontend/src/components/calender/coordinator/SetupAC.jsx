@@ -98,7 +98,7 @@ const SetupAC = (props) => {
 
                             <div className="col">
                                 <b>HR Interview</b><br/>
-                                <select id={(candidate.id).toString()} name="2" className="col" onChange={handleInterviewer}>
+                                <select id={(candidate.id).toString()} name="2" className="col" onChange={handleInterviewer} placeholder="Select">
                                     {interviewers.map( (interviewer) => 
                                         <option value={(interviewer.id).toString()}>{interviewer.firstName} {interviewer.lastName}</option>
                                     )}

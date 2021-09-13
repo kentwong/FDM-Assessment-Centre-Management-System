@@ -29,6 +29,7 @@ const shouldDisplayCreateAC = localStorage.getItem('role') === 'ACCoordinator'
 class CalenderIndexPage extends Component {
     constructor(props) {
         super(props);
+        
         this.state = {
           showCreate: false,
         };
@@ -38,8 +39,8 @@ class CalenderIndexPage extends Component {
         this.data =  [{
                 Id: 1,
                 Subject: 'FIRST TEST',
-                StartTime: new Date(2021, 8, 15, 9, 30),
-                EndTime: new Date(2021, 8, 15, 11, 0)
+                StartTime: new Date(2021, 8, 15),
+                EndTime: new Date(2021, 8, 15)
             }, {
                 Id: 2,
                 Subject: 'SECOND TEST',
@@ -66,7 +67,7 @@ class CalenderIndexPage extends Component {
         return (
             <div className="custom-container">
                 This is the Calender Page.
-                <ScheduleComponent currentView='Month' selectedDate={new Date()} eventSettings={{ dataSource: this.data }} >
+                <ScheduleComponent currentView='Month' eventSettings={{ dataSource: this.data }} >
                     <ViewsDirective>
                         <ViewDirective option='Day'></ViewDirective>
                         <ViewDirective option='Week'></ViewDirective>
