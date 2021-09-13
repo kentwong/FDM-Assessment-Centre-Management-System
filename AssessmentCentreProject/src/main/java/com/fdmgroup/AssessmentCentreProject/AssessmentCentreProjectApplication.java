@@ -1,16 +1,9 @@
 package com.fdmgroup.AssessmentCentreProject;
 
-import java.util.Arrays;
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.reactive.CorsConfigurationSource;
-import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 
 import com.fdmgroup.AssessmentCentreProject.model.ACCoordinator;
 import com.fdmgroup.AssessmentCentreProject.model.Address;
@@ -23,8 +16,10 @@ import com.fdmgroup.AssessmentCentreProject.model.Stream;
 import com.fdmgroup.AssessmentCentreProject.model.enums.AptitudeType;
 import com.fdmgroup.AssessmentCentreProject.repository.AddressRepository;
 import com.fdmgroup.AssessmentCentreProject.repository.AssessmentCentreRepository;
+import com.fdmgroup.AssessmentCentreProject.repository.AssessmentCentreResponseRepository;
 import com.fdmgroup.AssessmentCentreProject.repository.CandidateRepository;
 import com.fdmgroup.AssessmentCentreProject.repository.InterviewerRepository;
+import com.fdmgroup.AssessmentCentreProject.repository.QuestionRepository;
 import com.fdmgroup.AssessmentCentreProject.repository.RecruiterRepository;
 import com.fdmgroup.AssessmentCentreProject.repository.StaffRepository;
 import com.fdmgroup.AssessmentCentreProject.repository.StreamRepository;
@@ -42,10 +37,13 @@ public class AssessmentCentreProjectApplication implements CommandLineRunner {
 	@Autowired
 	private StreamRepository streamRepo;
 	@Autowired
+	private QuestionRepository questionRepo;
+	@Autowired
 	private StaffRepository staffRepo;
-	
 	@Autowired
 	private AssessmentCentreRepository acRepo;
+	@Autowired
+	private AssessmentCentreResponseRepository acrRepo;
 	@Autowired
 	private InterviewerRepository intRepo;
 	
@@ -184,7 +182,6 @@ public class AssessmentCentreProjectApplication implements CommandLineRunner {
 		coordinator.setPhoneNumber("0401111252");
 		coordinator.setEncyptedPassword("password");
 		staffRepo.save(coordinator);
-		
 	}
 	
 	

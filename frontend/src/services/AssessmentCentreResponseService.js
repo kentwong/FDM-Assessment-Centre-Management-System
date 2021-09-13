@@ -9,7 +9,7 @@ class AssessmentCentreResponseService {
     }
 
     getAssessmentCentreResponseGrouped() {
-        return axios.get(ASSESSMENT_CENTRE_RESPONSE_API_URL + '/questionType')
+        return axios.get(ASSESSMENT_CENTRE_RESPONSE_API_URL + '/groupResponses')
     }
 
 }
