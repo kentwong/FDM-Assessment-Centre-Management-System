@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import CandidateService from '../../services/CandidateService';
 
-const InterviewFormSingleQuestion = ({ idx, questionState, handleQuestionChange }) => {
-    const questionId = 'question-${idx}';
+const InterviewFormSingleQuestion = ({ questionState, handleQuestionChange }) => {
+    const questionId = 'question-3333333';
     const pointsId = 'points-${idx}';
     const gradeId = 'grade-${idx}';
 
@@ -12,7 +12,7 @@ const InterviewFormSingleQuestion = ({ idx, questionState, handleQuestionChange 
             <div className="row mb-3">
                 <div className="col-md-12">
                     <label htmlFor={questionId} className="form-label">Question</label>
-                    <input type="text" className="form-control" data-idx={idx} id={questionId} onChange={handleQuestionChange}></input>
+                    <input type="text" className="form-control" id={questionId} onChange={handleQuestionChange}></input>
                 </div>
             </div>
             <div className="row mb-3">

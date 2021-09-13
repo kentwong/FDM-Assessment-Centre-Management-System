@@ -12,11 +12,11 @@ function InterviewForm(props) {
     }
     const [questionBank, setQuestionBank] = useState([]);
 
-    const blankQuestion = { questionText: '', questionType: '', points: '', grade: '' }
-    const [questionState, setQuestionState] = useState([{ ...blankQuestion }]);
-    const addQuestion = () => {
-        setQuestionState([...questionState, { ...blankQuestion }]);
-        console.log(questionState);
+    const [questionState, setQuestionState] = useState([]);
+    const addQuestion = (id) => {
+        const tempQuestion = questionBank.filter(question => question.id == id);
+        console.log(tempQuestion);
+        setQuestionState([...questionState,  { ...tempQuestion } ]);
     };
     const handleQuestionChange = (e) => {
 
@@ -31,10 +31,12 @@ function InterviewForm(props) {
     }
 
     useEffect(() => {
+        let isMounted = true;
         AssessmentCentreResponseService.getAllQuestions().then((q) => {
-            setQuestionBank(q.data);
+            if (isMounted) setQuestionBank(q.data);
         });
-    });
+        return () => { isMounted = false };
+    }, []);
 
     return (
         <div className="custom-container">
@@ -42,24 +44,20 @@ function InterviewForm(props) {
                 <h2 className="mb-5">Assessment Centre - Interview Form</h2>
 
                 <input type="submit" value={showQuestionBank ? 'Hide Question Bank' : 'Show Question Bank'} onClick={toggleQuestionBank} />
-                {showQuestionBank ? <QuestionBank /> : null}
+                {showQuestionBank ? <QuestionBank questionBank={questionBank} addQuestion={addQuestion} /> : null}
 
                 <br /><br />
 
                 {
-                    questionState.map((val, idx) => {
+                    questionState.map(question => {
                         return (
                             <InterviewFormSingleQuestion
-                                key={'question-{idx}'}
-                                idx={idx}
                                 questionState={questionState}
                                 handleQuestionChange={handleQuestionChange}
                             />
                         );
                     })
                 }
-
-                <input type="button" value="Add New Question" onClick={addQuestion} />
 
                 <br />
 
