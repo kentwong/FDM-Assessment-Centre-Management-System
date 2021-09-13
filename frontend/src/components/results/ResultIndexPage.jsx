@@ -7,6 +7,7 @@ class ResultIndexPage extends Component {
         return (
             <div className="custom-container">
                 This is the Result Page.
+                <Responses/>
                 <br/>
                 <br/>
                 <br/>
