@@ -20,6 +20,13 @@ public class Question {
 		super();
 	}
 	
+	public Question(int id, String questionBody, QuestionType questionType) {
+		super();
+		this.id = id;
+		this.questionBody = questionBody;
+		this.questionType = questionType;
+	}
+
 	// GETTERS & SETTERS
 	public int getId() {
 		return id;
