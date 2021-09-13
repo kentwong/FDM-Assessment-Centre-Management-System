@@ -20,8 +20,10 @@ function App() {
   const userId = localStorage.getItem('user');
 
   if(!userId) {
+   
     return <Login exact component={Login} />
   }
+
   return (
     <div className="App">
       <Router>

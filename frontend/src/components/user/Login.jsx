@@ -15,7 +15,6 @@ class Login extends Component {
 
         this.handleOnChange = this.handleOnChange.bind(this);
         this.validateUser = this.validateUser.bind(this);
-        this.cancel = this.cancel.bind(this);
     }
 
 
@@ -34,10 +33,6 @@ class Login extends Component {
 
     resetLoginForm = () => {
         this.setState(() => this.initialState);
-    }
-
-    cancel() {
-        this.props.history.push('/');
     }
 
     validateUser = e => {
@@ -82,7 +77,7 @@ class Login extends Component {
                     </div>
 
                     <button type="submit" className="btn btn-success me-2">Login</button>
-                    <button className="btn btn-danger" onClick={this.cancel.bind(this)}>Cancel</button>
+                   
                 </form>
                 
 
