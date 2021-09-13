@@ -10,12 +10,10 @@ import com.fdmgroup.AssessmentCentreProject.model.Address;
 import com.fdmgroup.AssessmentCentreProject.model.AssessmentCentre;
 import com.fdmgroup.AssessmentCentreProject.model.Candidate;
 import com.fdmgroup.AssessmentCentreProject.model.Interviewer;
-import com.fdmgroup.AssessmentCentreProject.model.Question;
 import com.fdmgroup.AssessmentCentreProject.model.Recruiter;
 import com.fdmgroup.AssessmentCentreProject.model.Staff;
 import com.fdmgroup.AssessmentCentreProject.model.Stream;
 import com.fdmgroup.AssessmentCentreProject.model.enums.AptitudeType;
-import com.fdmgroup.AssessmentCentreProject.model.enums.QuestionType;
 import com.fdmgroup.AssessmentCentreProject.repository.AddressRepository;
 import com.fdmgroup.AssessmentCentreProject.repository.AssessmentCentreRepository;
 import com.fdmgroup.AssessmentCentreProject.repository.AssessmentCentreResponseRepository;
@@ -207,14 +205,6 @@ public class AssessmentCentreProjectApplication implements CommandLineRunner {
 //		intRepo.save(int2);
 //		intRepo.save(int3);
 //		intRepo.save(int4);
-		
-		
-		// Demo interview questions
-		Question question1 = new Question(1, "Why are you interested in applying to FDM?", QuestionType.GENERAL);
-		Question question2 = new Question(2, "How to list the files in the current directory in UNIX?", QuestionType.TECHNICAL);
-		
-		questionRepo.save(question1);
-		questionRepo.save(question2);
 	}
 	
 	
