@@ -25,6 +25,12 @@ public class ResponseTemplate {
 		this.interviewType = interviewType;
 	}
 	
+	@Override
+	public String toString() {
+		return "ResponseTemplate [candidate=" + candidate + ", interviewType=" + interviewType + ", interviewer="
+				+ interviewer + "]";
+	}
+	
 	
 	
 }

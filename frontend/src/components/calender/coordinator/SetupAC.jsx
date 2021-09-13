@@ -7,59 +7,71 @@ const SetupAC = (props) => {
     const [responses, setResponses] = useState([])
 
     useEffect(() => {
-        const interviewerID = []
         AssessmentCentreService.getSelectedInterviewers().then((res) => {
             setInterviewers(res.data);
-            let interviewer = res.data[0].id.toString()
-            interviewerID.push(interviewer)
-        })
+            let interviewerID = res.data[0].id.toString()
 
-        const responsesSetup = []
-        AssessmentCentreService.getSelectedCandidates().then((res) => {
-            setCandidates(res.data);
+            const responsesSetup = []
+            AssessmentCentreService.getSelectedCandidates().then((res) => {
+                setCandidates(res.data);
 
-            res.data.map(candidate => {
-                let technical = {
-                    candidate: "0",
-                    interviewType: "1",
-                    interviewer: interviewerID[0],
-                }
-                let hr = {
-                    candidate: "0",
-                    interviewType: "2",
-                    interviewer: interviewerID[0],
-                }
-                let sales = {
-                    candidate: "0",
-                    interviewType: "3",
-                    interviewer: interviewerID[0],
-                }
-                // technical
-                technical.candidate = (candidate.id).toString()
-                responsesSetup.push(technical)
-                // hr
-                hr.candidate = (candidate.id).toString()
-                responsesSetup.push(hr)
-                // sales
-                sales.candidate = (candidate.id).toString()
-                responsesSetup.push(sales)
+                res.data.map(candidate => {
+                    let technical = {
+                        candidate: "0",
+                        interviewType: "1",
+                        interviewer: interviewerID,
+                    }
+                    let hr = {
+                        candidate: "0",
+                        interviewType: "2",
+                        interviewer: interviewerID,
+                    }
+                    let sales = {
+                        candidate: "0",
+                        interviewType: "3",
+                        interviewer: interviewerID,
+                    }
+                    // technical
+                    technical.candidate = (candidate.id).toString()
+                    responsesSetup.push(technical)
+                    // hr
+                    hr.candidate = (candidate.id).toString()
+                    responsesSetup.push(hr)
+                    // sales
+                    sales.candidate = (candidate.id).toString()
+                    responsesSetup.push(sales)
+                })
             })
+
+            setResponses(responsesSetup)
         })
 
 
-        setResponses(responsesSetup)
 
     }, [])
 
     // handles dropdown interviewer changes
     const handleInterviewer = (e) => {
+        const newResponses = []
         responses.map((response) => {
             if (e.target.name === response.interviewType && e.target.id === response.candidate){
-                response.interviewer = e.target.value
-                console.log(JSON.stringify(response))
+                let newResponse = {
+                    candidate: response.candidate,
+                    interviewType: response.interviewType,
+                    interviewer: e.target.value,
+                }
+                // response.interviewer = e.target.value
+                // console.log(JSON.stringify(response))
+                newResponses.push(newResponse)
+            } else {
+                newResponses.push(response)
             }
         })
-        console.log("candidateID: " + e.target.id + " - interviewType: " + e.target.name + " - interviewer: " + e.target.value)
+        newResponses.map((res) => {
+            console.log(res)
+        })
+        setResponses(newResponses)
+        // console.log("candidateID: " + e.target.id + " - interviewType: " + e.target.name + " - interviewer: " + e.target.value)
     }
 
     const submitACHandler = (event) => {
