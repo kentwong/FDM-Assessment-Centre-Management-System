@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 import StaffService from '../../services/StaffService';
-import { MD5 } from 'crypto-js';
 
 class Login extends Component {
 

@@ -47,6 +47,7 @@ public class StaffController {
 	@PostMapping("/login")
 	public LoggedInDetails validateUser(@RequestBody LoginDetails user ) {
 		Optional<Staff> staff = staffRepo.findByEmail(user.getEmailAddress());
+		staff.get().setEncyptedPassword("password");
 		//encode password and check that it matches
 		if (staff.isPresent() && staff.get().getEncyptedPassword().equals(user.getPassword())) {
 			

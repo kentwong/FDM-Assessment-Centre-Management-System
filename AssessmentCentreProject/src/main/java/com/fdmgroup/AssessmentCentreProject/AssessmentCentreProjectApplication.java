@@ -30,7 +30,7 @@ import com.fdmgroup.AssessmentCentreProject.repository.StreamRepository;
 
 
 @SpringBootApplication
-public class AssessmentCentreProjectApplication implements CommandLineRunner {
+public class AssessmentCentreProjectApplication /*implements CommandLineRunner */{
 
 	@Autowired
 	private CandidateRepository candidateRepo;
@@ -48,71 +48,72 @@ public class AssessmentCentreProjectApplication implements CommandLineRunner {
 	
 	public static void main(String[] args) {
 		SpringApplication.run(AssessmentCentreProjectApplication.class, args);
+
 	}
 
-	/**
-	 *  Preload demo data for candidates, address, recruiter, and stream
-	 *  
-	 */
-	@Override
-	public void run(String... args) throws Exception {
-		
-		Address address1 = new Address(1, "5 Kent St, Sydney, NSW 2000");
-		Address address2 = new Address(2, "56 Pitt St, Sydney, NSW 2000");
-		Address address3 = new Address(3, "20 Princes St, North Sydney, NSW 2060");
-		Address address4 = new Address(4, "1 Wheeler La, North Sydney, NSW 2060");
-		Address address5 = new Address(5, "193 Macquarie St, Sydney, NSW 2000");
-				
-		addressRepo.save(address1);
-		addressRepo.save(address2);
-		addressRepo.save(address3);
-		addressRepo.save(address4);
-		addressRepo.save(address5);
-		
-		Staff staff1 = new Recruiter();
-		//staff1.setId(1);
-		staff1.setFirstName("Mary");
-		staff1.setLastName("Brown");
-		staff1.setEmail("mary@fdmgroup.com");
-		staff1.setPhoneNumber("0422336523");
-		staff1.setEncyptedPassword("password");
-		staffRepo.save(staff1);
-		
-		Staff staff2 = new Interviewer();
-		//staff2.setId(3);
-		staff2.setFirstName("John");
-		staff2.setLastName("Doe");
-		staff2.setEmail("john@fdmgroup.com");
-		staff2.setPhoneNumber("043245671");
-		staff2.setEncyptedPassword("password");
-		staffRepo.save(staff2);
-		
-
-		Stream softwareDev = new Stream(1, "Software Development", 90, AptitudeType.TECHNICAL);
-		Stream businessAnalysis = new Stream(2, "Business Analysis & Business Intelligence", 90, AptitudeType.BUSINESS);
-		Stream technicalAnalysis = new Stream(3, "Technical Analysis", 90, AptitudeType.TECHNICAL);
-		Stream cloudComputing = new Stream(4, "Cloud Computing Engineering", 90, AptitudeType.TECHNICAL);
-		
-		streamRepo.save(softwareDev);
-		streamRepo.save(businessAnalysis);
-		streamRepo.save(technicalAnalysis);
-		streamRepo.save(cloudComputing);
-		
-		candidateRepo.save(new Candidate(1, "Kent", "Wong", "1998-01-01", address1, "kent.wong@fdmgroup.com", "0478225632", "The Australian National University", "http://res.cloudinary.com/fdmgroup/image/upload/v1631021238/fdmgroup/s2getcumddnfe44tw6jg.pdf", 30, "Available to work immediately", (Recruiter) staff1, softwareDev, "Pending Video Interview"));
-		candidateRepo.save(new Candidate(2, "Vincent", "Chen", "1998-02-02", address2, "vincent.chen1@fdmgroup.com", "0415236254", "The University of Sydney", "http://res.cloudinary.com/fdmgroup/image/upload/v1631023545/fdmgroup/salj3stje2hnlt60citt.pdf", 30, "Available to work immediately", (Recruiter) staff1, softwareDev, "Pending Video Interview"));
-		candidateRepo.save(new Candidate(3, "Jeriel", "Bongco", "1998-03-04", address3, "jeriel.bongco@fdmgroup.com", "0452866951", "The University of Auckland", "http://res.cloudinary.com/fdmgroup/image/upload/v1631023572/fdmgroup/j0h4kq8csketvmwisrfk.pdf", 30, "Available to work immediately", (Recruiter) staff1, softwareDev, "Pending Video Interview"));
-		candidateRepo.save(new Candidate(4, "Stephanie", "Hirshman", "1998-04-04", address4, "stephanie.hirshman@fdmgroup.com", "0402425863", "The University of Sydney", "http://res.cloudinary.com/fdmgroup/image/upload/v1631023592/fdmgroup/qpg8tqfo5xwaafcpy3gc.pdf", 30, "Available to work immediately", (Recruiter) staff1, softwareDev, "Pending Video Interview"));	
-		candidateRepo.save(new Candidate(5, "David", "Ko", "1998-05-05", address5, "david.ko@fdmgroup.com", "0401230547", "The University of Auckland", "http://res.cloudinary.com/fdmgroup/image/upload/v1631023614/fdmgroup/ngsposgdizew0xd2gplm.pdf", 30, "Available to work immediately", (Recruiter) staff1, softwareDev, "Pending Video Interview"));
-		
-		// assessment centre testing
-		AssessmentCentre ac = new AssessmentCentre();
-		ac.setId(1);
-		ac.setDate(new Date());
-		ac.setCoordinator(new ACCoordinator());
-		acRepo.save(ac);
-		
-		
-	}
+//	/**
+//	 *  Preload demo data for candidates, address, recruiter, and stream
+//	 *  
+//	 */
+//	@Override
+//	public void run(String... args) throws Exception {
+//		
+//		Address address1 = new Address(1, "5 Kent St, Sydney, NSW 2000");
+//		Address address2 = new Address(2, "56 Pitt St, Sydney, NSW 2000");
+//		Address address3 = new Address(3, "20 Princes St, North Sydney, NSW 2060");
+//		Address address4 = new Address(4, "1 Wheeler La, North Sydney, NSW 2060");
+//		Address address5 = new Address(5, "193 Macquarie St, Sydney, NSW 2000");
+//				
+//		addressRepo.save(address1);
+//		addressRepo.save(address2);
+//		addressRepo.save(address3);
+//		addressRepo.save(address4);
+//		addressRepo.save(address5);
+//		
+//		Staff staff1 = new Recruiter();
+//		//staff1.setId(1);
+//		staff1.setFirstName("Mary");
+//		staff1.setLastName("Brown");
+//		staff1.setEmail("mary@fdmgroup.com");
+//		staff1.setPhoneNumber("0422336523");
+//		staff1.setEncyptedPassword("password");
+//		staffRepo.save(staff1);
+//		
+////		Staff staff2 = new Interviewer();
+////		//staff2.setId(3);
+////		staff2.setFirstName("John");
+////		staff2.setLastName("Doe");
+////		staff2.setEmail("john@fdmgroup.com");
+////		staff2.setPhoneNumber("043245671");
+////		staff2.setEncyptedPassword("password");
+////		staffRepo.save(staff2);
+//		
+//
+//		Stream softwareDev = new Stream(1, "Software Development", 90, AptitudeType.TECHNICAL);
+//		Stream businessAnalysis = new Stream(2, "Business Analysis & Business Intelligence", 90, AptitudeType.BUSINESS);
+//		Stream technicalAnalysis = new Stream(3, "Technical Analysis", 90, AptitudeType.TECHNICAL);
+//		Stream cloudComputing = new Stream(4, "Cloud Computing Engineering", 90, AptitudeType.TECHNICAL);
+//		
+//		streamRepo.save(softwareDev);
+//		streamRepo.save(businessAnalysis);
+//		streamRepo.save(technicalAnalysis);
+//		streamRepo.save(cloudComputing);
+//		
+//		candidateRepo.save(new Candidate(1, "Kent", "Wong", "1998-01-01", address1, "kent.wong@fdmgroup.com", "0478225632", "The Australian National University", "http://res.cloudinary.com/fdmgroup/image/upload/v1631021238/fdmgroup/s2getcumddnfe44tw6jg.pdf", 30, "Available to work immediately", (Recruiter) staff1, softwareDev, "Pending Video Interview"));
+//		candidateRepo.save(new Candidate(2, "Vincent", "Chen", "1998-02-02", address2, "vincent.chen1@fdmgroup.com", "0415236254", "The University of Sydney", "http://res.cloudinary.com/fdmgroup/image/upload/v1631023545/fdmgroup/salj3stje2hnlt60citt.pdf", 30, "Available to work immediately", (Recruiter) staff1, softwareDev, "Pending Video Interview"));
+//		candidateRepo.save(new Candidate(3, "Jeriel", "Bongco", "1998-03-04", address3, "jeriel.bongco@fdmgroup.com", "0452866951", "The University of Auckland", "http://res.cloudinary.com/fdmgroup/image/upload/v1631023572/fdmgroup/j0h4kq8csketvmwisrfk.pdf", 30, "Available to work immediately", (Recruiter) staff1, softwareDev, "Pending Video Interview"));
+//		candidateRepo.save(new Candidate(4, "Stephanie", "Hirshman", "1998-04-04", address4, "stephanie.hirshman@fdmgroup.com", "0402425863", "The University of Sydney", "http://res.cloudinary.com/fdmgroup/image/upload/v1631023592/fdmgroup/qpg8tqfo5xwaafcpy3gc.pdf", 30, "Available to work immediately", (Recruiter) staff1, softwareDev, "Pending Video Interview"));	
+//		candidateRepo.save(new Candidate(5, "David", "Ko", "1998-05-05", address5, "david.ko@fdmgroup.com", "0401230547", "The University of Auckland", "http://res.cloudinary.com/fdmgroup/image/upload/v1631023614/fdmgroup/ngsposgdizew0xd2gplm.pdf", 30, "Available to work immediately", (Recruiter) staff1, softwareDev, "Pending Video Interview"));
+//		
+//		// assessment centre testing
+//		AssessmentCentre ac = new AssessmentCentre();
+//		ac.setId(1);
+//		ac.setDate(new Date());
+//		ac.setCoordinator(new ACCoordinator());
+//		acRepo.save(ac);
+//		
+//		
+//	}
 	
 	
 }
