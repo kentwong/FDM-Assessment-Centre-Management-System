@@ -17,12 +17,16 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "candidate")
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Candidate {
 	
 	@Id
@@ -46,7 +50,8 @@ public class Candidate {
 	private String status;
 	
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER) // Kent: remove because causing detached entity passed to persist exception
+	@ManyToOne
 	@JsonBackReference // kent: Should be backreference instead of managedreference
 	private Recruiter recruiter;
 //	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER) //Kent: why Cascade ALL? causing detached entity passed to persist exception
@@ -85,6 +90,12 @@ public class Candidate {
 		this.status = status;
 	}
 
+	// To return just the recruiterId in API calls since Recruiter is jsonbackreferenced.
+	@JsonProperty
+	public int getRecruiterId() {
+		return recruiter == null ? 0 : recruiter.getId();
+	}
+	
 	public int getId() {
 		return id;
 	}

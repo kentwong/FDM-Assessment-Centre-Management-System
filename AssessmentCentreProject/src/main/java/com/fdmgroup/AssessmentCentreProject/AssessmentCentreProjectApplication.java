@@ -183,6 +183,29 @@ public class AssessmentCentreProjectApplication implements CommandLineRunner {
 		coordinator.setPhoneNumber("0401111252");
 		coordinator.setEncyptedPassword("password");
 		staffRepo.save(coordinator);
+		//ac.setCoordinator((ACCoordinator) coordinator);
+		//acRepo.save(ac);
+		
+		// Interviewer created with full details above
+//		Interviewer int1 = new Interviewer();
+//		int1.setFirstName("Steph");
+//		int1.setLastName("Curry");
+//		Interviewer int2 = new Interviewer();
+//		int2.setFirstName("Klay");
+//		int2.setLastName("Thompson");
+//		Interviewer int3 = new Interviewer();
+//		int3.setFirstName("Andre");
+//		int3.setLastName("Iguodala");
+//		Interviewer int4 = new Interviewer();
+//		int4.setFirstName("Dray");
+//		int4.setLastName("Green");
+//		intRepo.save(int1);
+//		intRepo.save(int2);
+//		intRepo.save(int3);
+//		intRepo.save(int4);
+//		
+		
+
 	}
 
 	

@@ -21,4 +21,5 @@ public interface AssessmentCentreResponseRepository extends JpaRepository<Assess
 			nativeQuery = true)
 	List<AssessmentCentreResponse> groupedAndJoined();
 	
+	List<AssessmentCentreResponse> findByCandidateId(int candidateId);
 }

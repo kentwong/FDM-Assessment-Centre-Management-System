@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import CandidateService from '../../services/CandidateService';
+import StreamService from '../../services/StreamService';
 import RecruiterService from '../../services/RecruiterService';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.min.js';
+import { Tooltip } from 'bootstrap/dist/js/bootstrap.esm.min.js'
 
 function CreateApplicant(props) {
 
@@ -14,6 +20,7 @@ function CreateApplicant(props) {
     const [notes, setNotes] = useState('');
     const [address, setAddress] = useState(''); //Address object
     const [aptitudeScore, setAptitudeScore] = useState(0.00); //double
+    const [availStreams, setAvailStreams] = useState([]);
     const [streamId, setStreamId] = useState(1);
     const [status, setStatus] = useState('Pending CV Screening');
     const [availRecruiters, setAvailRecruiters] = useState([]);
@@ -25,6 +32,13 @@ function CreateApplicant(props) {
         RecruiterService.getRecruiters().then(res => {
             setAvailRecruiters(res.data);
         })
+
+        StreamService.getStreams().then(res => {
+            setAvailStreams(res.data);
+        })
+        //init tooltip
+        Array.from(document.querySelectorAll('button[data-bs-toggle="tooltip"]'))
+            .forEach(tooltipNode => new Tooltip(tooltipNode))
     }, []);
 
     const uploadCV = async e => {
@@ -63,10 +77,11 @@ function CreateApplicant(props) {
             notes: notes,
             address: { address: address },
             stream: { id: parseInt(streamId) },
-            // recruiter: { id: parseInt(recruiterId) },
+            ...(recruiterId) && { recruiter: { id: parseInt(recruiterId) } },
             aptitudeScore: aptitudeScore,
             status: status
         };
+
         console.log(JSON.stringify(candidate));
 
         CandidateService.createCandidate(candidate).then(res => {
@@ -79,14 +94,16 @@ function CreateApplicant(props) {
             <form onSubmit={addCandidate}>
                 <h2 className="mb-5">Create New Applicant</h2>
                 <div className="row mb-3">
-
-
                     <div className="col-md-6">
                         <label htmlFor="recruiterId" className="form-label">Recruiter </label>
+                        <button type="button" className="btn-transparent" data-bs-toggle="tooltip" data-bs-placement="right" title="You may assign the recruiter manually now or randomly in the dashboard.">
+                            <FontAwesomeIcon className="icon-link me-2" icon={faInfoCircle} color="#0d6efd" />
+                        </button>
                         <select className="form-select" id="recruiterId" defaultValue="NA" onChange={e => setRecruiterId(e.target.value)}>
+                            <option value='0' className="text-danger">Assign Later</option>
                             {availRecruiters.map(
                                 recruiter => (
-                                    <option value={recruiter.id}>{recruiter.firstName} {recruiter.lastName}</option>
+                                    <option key={recruiter.id} value={recruiter.id}>{recruiter.firstName} {recruiter.lastName}</option>
                                 ))}
                         </select>
                     </div>
@@ -95,10 +112,10 @@ function CreateApplicant(props) {
                     <div className="col-md-6">
                         <label htmlFor="streamId" className="form-label">Stream <span className="text-danger">*</span></label>
                         <select className="form-select" id="streamId" defaultValue="Software Development" onChange={e => setStreamId(e.target.value)}>
-                            <option value="1">Software Development</option>
-                            <option value="2">Business Analysis &#38; Business Intelligence</option>
-                            <option value="3">Technical Analysis</option>
-                            <option value="4">Cloud Computing Engineering</option>
+                            {availStreams.map(
+                                stream => (
+                                    <option key={stream.id} value={stream.id}>{stream.streamName}</option>
+                                ))}
                         </select>
                     </div>
                     <div className="col-md-6">
