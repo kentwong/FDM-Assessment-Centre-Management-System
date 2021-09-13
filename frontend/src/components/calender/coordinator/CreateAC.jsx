@@ -7,7 +7,6 @@ import SetupAC from './SetupAC.jsx'
 const CreateAC = (props) => {
 
     const storedCoordinator = localStorage.getItem('user')
-    let coordinator = JSON.parse(storedCoordinator)
     
     const [candidates, setCandidates] = useState([])
     const [staff, setStaff] = useState([])
@@ -17,6 +16,17 @@ const CreateAC = (props) => {
 
     const submitACHandler = (e) => {
         e.preventDefault()
+        
+        let checkedBoxesCandidates = document.querySelectorAll('input[name=candidate]:checked');
+        if (checkedBoxesCandidates.length < 1){
+            window.location.reload(false);
+        }
+
+        let checkedBoxesInterviewers = document.querySelectorAll('input[name=interviewer]:checked');
+        if (checkedBoxesInterviewers.length < 1){
+            window.location.reload(false);
+        }
+
         AssessmentCentreService.sendIds(selectedCandidates, selectedInterviewers).then((res) => {
             props.history.push('/setupAC')
         })
@@ -33,19 +43,18 @@ const CreateAC = (props) => {
             setStaff(res.data)
         })
 
-        AssessmentCentreService.sendCoordinatorID(coordinator.id)
+        AssessmentCentreService.sendCoordinatorID(storedCoordinator)
     }, [])
 
     
     return (
         <div className="custom-container">
-            <b>Assessment Centre coordinator:</b> {coordinator.firstName} {coordinator.lastName}<br/>
-            <br/>
 
             <form onSubmit={submitACHandler} className="row">
                 <h2 className="mb-5">Create Assessment Centre</h2>
 
-                <div className="col"><b>Candidates: </b>
+                <div className="col">
+                <b>Candidates: </b>
                     {candidates.map( (candidate) => 
                         <div key={candidate.id}>
                             <input type="checkbox" name="candidate" value={candidate.id} onChange={(e)=>setSelectedCandidates([...selectedCandidates, e.target.value])} />
@@ -54,7 +63,8 @@ const CreateAC = (props) => {
                     )}
                 </div>
 
-                <div className="col"><b>Interviewers: </b>
+                <div className="col">
+                <b>Interviewers: </b>
                     {staff.map( interviewer => 
                         <div key={interviewer.id}>
                             <input type="checkbox" name="interviewer" value={interviewer.id} onChange={(e)=>setSelectedInterviewers([...selectedInterviewers, e.target.value])} />
