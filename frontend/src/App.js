@@ -13,7 +13,8 @@ import ResultIndexPage from './components/results/ResultIndexPage';
 import CreateApplicant from './components/applicants/CreateApplicant';
 import InterviewForm from './components/applicants/InterviewForm';
 import UpdateApplicant from './components/applicants/UpdateApplicant';
-import SetupAC from './components/calender/coordinator/SetupAC'
+import SetupAC from './components/calender/coordinator/SetupAC';
+import ViewResponse from './components/results/ViewResponse'
 
 function App() {
   const userId = localStorage.getItem('user');
@@ -38,6 +39,7 @@ function App() {
           <Route path="/applicant/edit/:id" exact component={UpdateApplicant}></Route>
           <Route path="/applicant/interviewform" exact component={InterviewForm}></Route>
           <Route path="/setupAC" exact component={SetupAC}></Route>
+          <Route path="/info/:id" exact component={ViewResponse}></Route>
         </Switch>
         <Footer />
       </Router>

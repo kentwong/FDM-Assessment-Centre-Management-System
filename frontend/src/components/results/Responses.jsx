@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import AssessmentCentreResponseService from '../../services/AssessmentCentreResponseService';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faInfo } from '@fortawesome/free-solid-svg-icons';
 
 function Responses(props) {
 
@@ -26,7 +28,7 @@ function Responses(props) {
                                         <td> Behavioural </td>
                                         <td> Curveball </td>  
                                         <td> Overall </td>
-                                        <td> Question type</td>
+                                        <td>More info </td>
                                     </tr>
                             
                         
@@ -45,7 +47,7 @@ function Responses(props) {
                                         <td> {response.behavioural} </td>
                                         <td> {response.curveball} </td>
                                         <td> {response.overall} </td>
-                                        <td> {response.question.questionType} </td>
+                                        <td><a href={'/info/' + response.candidate.id}><FontAwesomeIcon className="fa-lg icon-link me-2" icon={faInfo} color="#0d6efd" /></a></td>
                                     </tr>
                             )
                         }
