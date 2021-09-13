@@ -19,7 +19,7 @@ function ViewApplicants(props) {
         CandidateService.getCandidates().then((res) => {
             setCandidates(res.data);
 
-            let filtered = res.data.filter(candidate => candidate.recruiter === null);
+            let filtered = res.data.filter(candidate => candidate.recruiterId === 0);
             setUnassignedCandidates(filtered);
         })
 
@@ -49,6 +49,7 @@ function ViewApplicants(props) {
 
     return (
         <div className="container my-5">
+            {console.log(candidates)}
             <div className="row">
                 <div className="col-6">
                     <div className="container-fluid ms-0 ps-0 mb-5">
