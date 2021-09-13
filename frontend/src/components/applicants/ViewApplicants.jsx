@@ -226,7 +226,7 @@ function ViewApplicants(props) {
                                     <tr key={candidate.id}>
                                         <td> {candidate.id} </td>
                                         <td> {candidate.firstName} {candidate.lastName} </td>
-                                        <td> {candidate.stream.streamName} </td>
+                                        <td> {candidate.streamName} </td>
                                         <td> {candidate.status} </td>
                                         <td> {candidate.phoneNumber} </td>
                                         <td> {candidate.email}</td>
