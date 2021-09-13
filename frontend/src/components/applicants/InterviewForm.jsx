@@ -49,12 +49,12 @@ function InterviewForm(props) {
                     questionState.map((val, idx) => {
                         return (
                             <InterviewFormSingleQuestion
-                                key={'question-${idx}'}
+                                key={'question-{idx}'}
                                 idx={idx}
                                 questionState={questionState}
                                 handleQuestionChange={handleQuestionChange}
                                 onDelete={deleteQuestion} /> 
-                        ); console.log(idx);
+                        );
                     })
                 }
 
