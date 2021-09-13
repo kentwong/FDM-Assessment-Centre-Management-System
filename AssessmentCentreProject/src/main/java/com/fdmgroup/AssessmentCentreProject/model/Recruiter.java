@@ -12,12 +12,13 @@ import org.hibernate.annotations.LazyCollectionOption;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Recruiter extends Staff {
 	
 	@OneToMany(mappedBy="recruiter")
-	@JsonBackReference
+	@JsonManagedReference
 	private List<Candidate> candidates;
 	
 	// CONSTRUCTOR
