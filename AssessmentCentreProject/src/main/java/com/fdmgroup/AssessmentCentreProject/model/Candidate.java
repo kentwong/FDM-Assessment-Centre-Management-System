@@ -96,6 +96,12 @@ public class Candidate {
 		return recruiter == null ? 0 : recruiter.getId();
 	}
 	
+	// Pass stream name during Get HTTP method.
+	@JsonProperty
+	public String getStreamName() {
+		return stream == null ? "" : stream.getStreamName();
+	}
+	
 	public int getId() {
 		return id;
 	}
