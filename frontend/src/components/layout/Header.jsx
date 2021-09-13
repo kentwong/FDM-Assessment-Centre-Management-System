@@ -25,6 +25,21 @@ class Header extends Component {
     }
 
     render() {
+        if (! localStorage.getItem('user')) {
+            return (
+                <div>
+                <header>
+                    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+                        <div className="container-fluid">
+                            <a className="navbar-brand" href="/login"><img src={Logo} style={{ "height": "50px" }} alt="Logo" /></a>
+                           
+                        </div>
+                    </nav>
+                </header>
+            </div>
+            )
+        }
+
         return (
             <div>
                 <header>
@@ -121,10 +136,8 @@ class Header extends Component {
                                             <li><a className="dropdown-item" href="/" >Manage Profile</a></li>
                                             <li><hr className="dropdown-divider" /></li>
                                             <li>
-                                                <div className="dropdown-item">
-                                                    <button style={{all: 'unset'}} onClick={this.logoutUser}>
+                                                <div className="dropdown-item" onClick={this.logoutUser}>
                                                         Log Out
-                                                    </button>
                                                 </div>
                                             </li>
                                         </ul>

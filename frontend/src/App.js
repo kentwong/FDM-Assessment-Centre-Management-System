@@ -21,7 +21,14 @@ function App() {
 
   if(!userId) {
    
-    return <Login exact component={Login} />
+    return (
+      <div>
+        <Header />
+        <Login exact component={Login} />
+        <Footer />
+      </div>
+      
+    ); 
   }
 
   return (
