@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CandidateService from '../../services/CandidateService';
+import AssessmentCentreResponseService from '../../services/AssessmentCentreResponseService';
 import InterviewFormSingleQuestion from './InterviewFormSingleQuestion';
 import QuestionBank from './QuestionBank';
 
@@ -29,6 +30,12 @@ function InterviewForm(props) {
         e.preventDefault();
     }
 
+    useEffect(() => {
+        AssessmentCentreResponseService.getAllQuestions().then((q) => {
+            setQuestionBank(q.data);
+        });
+    });
+
     return (
         <div className="custom-container">
             <form onSubmit={submitInterviewForm}>
@@ -52,7 +59,7 @@ function InterviewForm(props) {
                     })
                 }
 
-                <input type="button" value="Add New Question" onClick={addQuestion} />
+                <input type="button" value="Add New Question" onClick={addQuestion} /><div>{questionBank}</div>
 
                 <br />
 
