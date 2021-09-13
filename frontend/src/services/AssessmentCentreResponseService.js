@@ -12,6 +12,10 @@ class AssessmentCentreResponseService {
         return axios.get(ASSESSMENT_CENTRE_RESPONSE_API_URL + '/groupResponses')
     }
 
+    getAssessmentCentreResponseById(candidateId) {
+        return axios.get(ASSESSMENT_CENTRE_RESPONSE_API_URL + '/info/' + candidateId)
+    }
+
 }
 
 export default new AssessmentCentreResponseService();

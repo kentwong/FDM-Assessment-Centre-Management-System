@@ -216,6 +216,24 @@ public class AssessmentCentreProjectApplication implements CommandLineRunner {
 //		intRepo.save(int2);
 //		intRepo.save(int3);
 //		intRepo.save(int4);
+//		
+		
+		//Tried and failed to put dummy data in acr
+//		Question question1 = new Question(621, "2414354ut yourself.", QuestionType.GENERAL);
+//		Candidate candidate1 = new Candidate(123, "Kent", "Wong", "1998-01-01", address1, "kent.wong@fdmgroup.com", "0478225632", "The Australian National University", "http://res.cloudinary.com/fdmgroup/image/upload/v1631021238/fdmgroup/s2getcumddnfe44tw6jg.pdf", 30, "Available to work immediately", (Recruiter) staff1, softwareDev, "Pending Video Interview");
+//		Interviewer interviewer = new Interviewer();
+//		interviewer.setId(16);
+//		questionRepo.save(question1);
+//		candidateRepo.save(candidate1);
+//		intRepo.save(interviewer);
+//		
+//		AssessmentCentreResponse response1 = new AssessmentCentreResponse();
+//		response1.setCandidate(candidate1);
+//		response1.setInterviewer(interviewer);
+//		response1.setQuestion(question1);
+//		response1.setNotes("Thoughts");
+//		response1.setPoints(3);
+//		acrRepo.save(response1);
 	}
 	
 	

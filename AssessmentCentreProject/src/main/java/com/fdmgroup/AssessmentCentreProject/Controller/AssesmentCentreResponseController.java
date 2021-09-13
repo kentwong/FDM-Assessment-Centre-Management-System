@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,41 +33,14 @@ public class AssesmentCentreResponseController {
 		this.assessmentCentreResponseRepo = assessmentCentreResponseRepo;
 	}
 
+
+
 	/**
-	 * The getAllAssesmentCentreResponses will return a list of
-	 * AssesmentCentreResponses
-	 * 
-	 * @return List of AssesmentCentreResponse objects
+	 * @return A CandidateACResult object that is the responses grouped
 	 */
-	@GetMapping("/all")
-	public ResponseEntity<List<CandidateACResult>> getAllAssessmentCentreResponses() {
-		logger.info("Return a custom result set");
-		List<AssessmentCentreResponse> responses = assessmentCentreResponseRepo.findAll();
-		List<CandidateACResult> groupedResponses = new ArrayList<>();
-		for (AssessmentCentreResponse response : responses) {
-			CandidateACResult result = new CandidateACResult();
-			result.setCandidate(response.getCandidate());
-			result.setInterviewer(response.getInterviewer());
-			result.setQuestion(response.getQuestion());
-			if (response.getQuestion().getQuestionType().equals(QuestionType.GENERAL)) {
-				result.setGeneral(response.getPoints());
-			} else if (response.getQuestion().getQuestionType().equals(QuestionType.TECHNICAL)) {
-				result.setTechnical(response.getPoints());
-			} else if (response.getQuestion().getQuestionType().equals(QuestionType.BEHAVIOURAL)) {
-				result.setBehavioural(response.getPoints());
-			} else if (response.getQuestion().getQuestionType().equals(QuestionType.CURVEBALL)) {
-				result.setCurveball(response.getPoints());
-			}
-			result.setOverall(response.getPoints());
-			groupedResponses.add(result);
-		}
-		return ResponseEntity.ok(groupedResponses);
-
-	}
-
 	@GetMapping("/groupResponses")
 	public ResponseEntity<List<CandidateACResult>> getAssessmentCentreResponseGrouped() {
-		logger.info("Return a custom result set1");
+		logger.info("Return a custom result set");
 		List<AssessmentCentreResponse> responses = assessmentCentreResponseRepo.findAll();
 		List<CandidateACResult> groupedResponses = new ArrayList<>();
 		for (AssessmentCentreResponse response : responses) {
@@ -106,6 +80,17 @@ public class AssesmentCentreResponseController {
 		}
 		return ResponseEntity.ok(groupedResponses);
 
+	}
+
+	/**
+	 * @param Candidate Id
+	 * @return List of responses for that candidate
+	 */
+	@GetMapping("/info/{id}")
+	public ResponseEntity<List<AssessmentCentreResponse>> getResponseByCandidateId(@PathVariable Integer id) {
+		logger.info("GET request for /id/" + id.toString());
+		List<AssessmentCentreResponse> response = assessmentCentreResponseRepo.findByCandidateId(id);
+		return ResponseEntity.ok(response);
 	}
 	
 	
