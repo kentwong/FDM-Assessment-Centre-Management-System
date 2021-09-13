@@ -67,9 +67,6 @@ const SetupAC = (props) => {
                 newResponses.push(response)
             }
         })
-        newResponses.map((res) => {
-            console.log(res)
-        })
         setResponses(newResponses)
         // console.log("candidateID: " + e.target.id + " - interviewType: " + e.target.name + " - interviewer: " + e.target.value)
     }
@@ -82,7 +79,7 @@ const SetupAC = (props) => {
 
     return (
         <div className="custom-container">
-            <b>Finalise Assessment Centre:</b><br/>
+            <h2>Finalise Assessment Centre:</h2><br/>
             <br/>
             <form onSubmit={submitACHandler}>
             <div className="container"><b>Candidates: </b><hr/>
@@ -101,7 +98,7 @@ const SetupAC = (props) => {
 
                             <div className="col">
                                 <b>HR Interview</b><br/>
-                                <select id={(candidate.id).toString()} name="2" className="col" onChange={handleInterviewer}>
+                                <select id={(candidate.id).toString()} name="2" className="col" onChange={handleInterviewer} placeholder="Select">
                                     {interviewers.map( (interviewer) => 
                                         <option value={(interviewer.id).toString()}>{interviewer.firstName} {interviewer.lastName}</option>
                                     )}

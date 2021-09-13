@@ -20,7 +20,7 @@ public class AssessmentCentre {
 	@Id
 	@GeneratedValue
 	private int id;
-//	private Date date;
+	private Date date;
 	
 	@ManyToOne (cascade=CascadeType.ALL)
 	@JoinColumn(name = "fk_coordinator_id")
@@ -57,13 +57,13 @@ public class AssessmentCentre {
 		this.id = id;
 	}
 
-//	public Date getDate() {
-//		return date;
-//	}
-//
-//	public void setDate(Date date) {
-//		this.date = date;
-//	}
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
 
 	public List<Candidate> getCandidates() {
 		return candidates;
