@@ -19,12 +19,25 @@ const CreateAC = (props) => {
     const today = new Date()
     const minDate = new Date(today.getFullYear(), today.getMonth(), (today.getDate() + 1))
     
-    const [startDate, setDateStart] = useState([])
-    const [endDate, setDateEnd] = useState([])
+    const [startDate, setDateStart] = useState(null)
+    const [endDate, setDateEnd] = useState(null)
+    const [enabled, setEnabled] = useState(false)
+
+    const [maxEndDate, setMaxEndDate] = useState(new Date((today.getFullYear()+100), today.getMonth(), today.getDate()))
 
     const startDateHandler = (e) => {
         console.log("START - " + e.target.value)
         setDateStart(e.target.value)
+
+        if (startDate){
+            console.log("IS NULL")
+            setEnabled(false)
+            setMaxEndDate(new Date((today.getFullYear()+100), today.getMonth(), today.getDate()))
+        } else {
+            console.log("IS NOT NULL")
+            setEnabled(true)
+            setMaxEndDate(new Date(e.target.value.getFullYear(), e.target.value.getMonth(), e.target.value.getDate(), 11, 30))
+        }
     }
 
     const endDateHandler = (e) => {
@@ -84,7 +97,7 @@ const CreateAC = (props) => {
 
                     <div className="col-sm-1 fw-bold">End Date: </div>
                     <div className="col-sm-5">
-                        <DateTimePickerComponent placeholder="Choose a date and time" min={startDate} onChange={endDateHandler} format="dd/MM/yyyy hh:mm a" />
+                        <DateTimePickerComponent placeholder="Choose a date and time" min={startDate} max={maxEndDate} value={startDate} enabled={enabled} onChange={endDateHandler} format="dd/MM/yyyy hh:mm a" />
                     </div>
                 </div><br/><br/>
 
