@@ -1,14 +1,9 @@
 import React, { Component } from 'react';
 import Logo from '../../assets/images/FDMLogo-white.png';
 import ProfilePic from '../../assets/images/profilepic.png';
-import JobTrain from '../../assets/images/JobTrain.png';
-import LaunchPadRecruits from '../../assets/images/LaunchPad.png';
-import LinkedIn from '../../assets/images/LinkedIn.png';
-import Outlook from '../../assets/images/Outlook.png';
-import Eploy from '../../assets/images/Eploy.png';
-import Vervoe from '../../assets/images/Vervoe.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTh } from '@fortawesome/free-solid-svg-icons';
+import QuickAccess from './QuickAccess';
 
 class Header extends Component {
 
@@ -18,25 +13,25 @@ class Header extends Component {
         this.logoutUser = this.logoutUser.bind(this);
     }
 
-    logoutUser () {
+    logoutUser() {
         localStorage.removeItem('user');
         localStorage.removeItem('role');
         window.location.reload(false);
     }
 
     render() {
-        if (! localStorage.getItem('user')) {
+        if (!localStorage.getItem('user')) {
             return (
                 <div>
-                <header>
-                    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-                        <div className="container-fluid">
-                            <a className="navbar-brand" href="/login"><img src={Logo} style={{ "height": "50px" }} alt="Logo" /></a>
-                           
-                        </div>
-                    </nav>
-                </header>
-            </div>
+                    <header>
+                        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+                            <div className="container-fluid">
+                                <a className="navbar-brand" href="/login"><img src={Logo} style={{ "height": "50px" }} alt="Logo" /></a>
+
+                            </div>
+                        </nav>
+                    </header>
+                </div>
             )
         }
 
@@ -79,46 +74,7 @@ class Header extends Component {
                                                         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div className="modal-body">
-                                                        <div className="row quick-access-link">
-                                                            <div className="col-4">
-                                                                <a href="https://jobtrain.co.uk/" target="_blank" rel="noreferrer">
-                                                                    <img src={JobTrain} alt="JobTrain" />
-                                                                    <p>JobTrain</p>
-                                                                </a>
-                                                            </div>
-                                                            <div className="col-4">
-                                                                <a href="https://support.launchpadrecruits.com/en/login" target="_blank" rel="noreferrer">
-                                                                    <img src={LaunchPadRecruits} alt="LaunchPadRecruits" />
-                                                                    <p>Launchpad Recruits</p>
-                                                                </a>
-                                                            </div>
-                                                            <div className="col-4">
-                                                                <a href="https://www.linkedin.com/login" target="_blank" rel="noreferrer">
-                                                                    <img src={LinkedIn} alt="LinkedIn" />
-                                                                    <p>LinkedIn</p>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                        <div className="row quick-access-link">
-                                                            <div className="col-4">
-                                                                <a href="https://outlook.office365.com/mail/inbox" target="_blank" rel="noreferrer">
-                                                                    <img src={Outlook} alt="Outlook" />
-                                                                    <p>Outlook</p>
-                                                                </a>
-                                                            </div>
-                                                            <div className="col-4">
-                                                                <a href="https://careers.eploy.co.uk/registration.aspx" target="_blank" rel="noreferrer">
-                                                                    <img src={Eploy} alt="Eploy" />
-                                                                    <p>Eploy</p>
-                                                                </a>
-                                                            </div>
-                                                            <div className="col-4">
-                                                                <a href="https://app.vervoe.com/login" target="_blank" rel="noreferrer">
-                                                                    <img src={Vervoe} alt="Vervoe" />
-                                                                    <p>Vervoe</p>
-                                                                </a>
-                                                            </div>
-                                                        </div>
+                                                        <QuickAccess colSize={'4'} />
                                                     </div>
                                                     <div className="modal-footer">
                                                         <button className="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">Close</button>
@@ -134,7 +90,7 @@ class Header extends Component {
                                             <li><hr className="dropdown-divider" /></li>
                                             <li>
                                                 <div className="dropdown-item" onClick={this.logoutUser}>
-                                                        Log Out
+                                                    Log Out
                                                 </div>
                                             </li>
                                         </ul>
