@@ -48,11 +48,11 @@ const CreateAC = (props) => {
     const submitACHandler = (e) => {
         e.preventDefault()
 
-        if (startDate.length === 0){
+        if (startDate){
             window.location.reload(false);
         }
 
-        if (endDate.length === 0){
+        if (endDate){
             window.location.reload(false);
         }
 
