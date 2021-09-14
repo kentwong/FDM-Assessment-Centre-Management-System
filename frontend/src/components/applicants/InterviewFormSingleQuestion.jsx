@@ -9,7 +9,7 @@ const InterviewFormSingleQuestion = ({ currQuestion, handleQuestionChange, delet
             <div className="row mb-3">
                 <div className="col-md-10">
                     <label className="form-label">Question</label>
-                    <textarea className="form-control" id="questionDisplay" rows="3" value={currQuestion.questionBody} ></textarea>
+                    <textarea className="form-control" id="questionDisplay" rows="3" value={currQuestion.questionBody} readOnly ></textarea>
                 </div>
                 <div className="col-md-2">
                         <label htmlFor="lastName" className="form-label">Points</label>

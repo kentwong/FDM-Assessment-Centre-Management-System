@@ -27,6 +27,10 @@ function InterviewForm(props) {
 
     };
 
+    const clearAllQuestions = () => {
+        setQuestionState([]);
+    }
+
     const submitInterviewForm = e => {
         setQuestionState([]);
     }
@@ -39,7 +43,7 @@ function InterviewForm(props) {
         let isMounted = true;
         AssessmentCentreResponseService.getAllQuestions().then((q) => {
             if (isMounted) setQuestionBank(q.data);
-        });
+        }); console.log(localStorage.user);
         return () => { isMounted = false };
     }, []);
 
@@ -69,7 +73,7 @@ function InterviewForm(props) {
                 <br />
 
                 <button type="submit" className="btn btn-success me-2 mt-5">Submit</button>
-                <button className="btn btn-danger mt-5" onClick={nullFunction}>Cancel</button>
+                <button className="btn btn-danger mt-5" onClick={clearAllQuestions}>Clear All</button>
             </form>
         </div>
     );
