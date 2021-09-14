@@ -78,3 +78,23 @@ div.row.quick-access-link {
   overflow: hidden;
   outline: none;
 }
+
+.centreMe {
+  text-align: center;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  
+}
+
+.linksImg {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 15px;
+}
+
+.borderMe {
+  border-style: solid;
+  border-color: gray;
+  border-width: 1px;
+}

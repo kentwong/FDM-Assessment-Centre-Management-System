@@ -38,7 +38,9 @@ public class AsCentreResponseHPController {
 				candidateRepo.pendingStatus("Pending Aptitude Test").size(),
 				candidateRepo.pendingStatus("Pending Video Interview").size(),
 				candidateRepo.pendingStatus("Pending AC").size(),
-				0, 0, 0);
+				candidateRepo.applicationsPending().size(),
+				candidateRepo.pendingStatus("Offer Letter Sent").size(),
+				candidateRepo.pendingStatus("Applicant Rejected").size());
 		return data;
 	}
 	

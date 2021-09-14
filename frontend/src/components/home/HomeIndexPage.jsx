@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
+import Calendar from './Calendar';
 import OverviewTable from './OverviewTable';
+import QuickLinks from './QuickLinks';
+import UpdatesAndReminders from './UpdatesAndReminders';
 
 class HomeIndexPage extends Component {
-    
-    //role = localStorage.getItem("role");
-    
+        
     render() {
-        if (localStorage.getItem("role") == "recruiter") {
+        if (localStorage.getItem("role") == "recruiter" || localStorage.getItem("role") == "ACCoordinator") {
             return (
                 <div className="custom-container">
                     <div className="row">
@@ -14,12 +15,21 @@ class HomeIndexPage extends Component {
                             <OverviewTable  />
                         </div>
                         <div className="col">
-                            2
+                            <UpdatesAndReminders />
                         </div>
                         <div className="col">
-                            3
+                            <div className="row">
+                                <div className="col">
+                                    <Calendar />
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="col"  >
+                                    <br />
+                                    <QuickLinks />
+                                </div>
+                            </div>
                         </div>
-
                     </div> 
                 </div>
             );
@@ -28,13 +38,6 @@ class HomeIndexPage extends Component {
             return (
                 <div className="custom-container">
                     interview
-                </div>
-            );
-        }
-        else if (localStorage.getItem("role") == "ACCoordinator") {
-            return (
-                <div className="custom-container">
-                    acco
                 </div>
             );
         }
