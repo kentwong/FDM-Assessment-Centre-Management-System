@@ -58,7 +58,6 @@ public class Candidate {
 	@ManyToOne
 	private Stream stream;
 	
-	
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name = "candidate_history", 
 		joinColumns = { @JoinColumn(name="fk_candidate_id") }, 

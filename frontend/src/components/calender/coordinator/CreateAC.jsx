@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { withRouter } from "react-router-dom";
 import { DateTimePickerComponent } from '@syncfusion/ej2-react-calendars';
-
 import CandidateService from '../../../services/CandidateService'
 import AssessmentCentreService from '../../../services/AssessmentCentreService'
 import SetupAC from './SetupAC.jsx'
@@ -21,22 +20,26 @@ const CreateAC = (props) => {
     
     const [startDate, setDateStart] = useState(null)
     const [endDate, setDateEnd] = useState(null)
-    const [enabled, setEnabled] = useState(false)
+    const [usable, setUsable] = useState(false)
 
-    const [maxEndDate, setMaxEndDate] = useState(new Date((today.getFullYear()+100), today.getMonth(), today.getDate()))
+    // const [maxEndDate, setMaxEndDate] = useState(new Date((today.getFullYear()+100), today.getMonth(), today.getDate()))
 
     const startDateHandler = (e) => {
         console.log("START - " + e.target.value)
         setDateStart(e.target.value)
 
-        if (startDate){
-            console.log("IS NULL")
-            setEnabled(false)
-            setMaxEndDate(new Date((today.getFullYear()+100), today.getMonth(), today.getDate()))
+        if (!e.target.value){
+            console.log("NULL - ")
+            setUsable(false)
+            setDateEnd(null)
+
+            // setMaxEndDate(new Date((today.getFullYear()+100), today.getMonth(), today.getDate()))
         } else {
-            console.log("IS NOT NULL")
-            setEnabled(true)
-            setMaxEndDate(new Date(e.target.value.getFullYear(), e.target.value.getMonth(), e.target.value.getDate(), 11, 30))
+            console.log("NOT NULL - " + e.target.value)
+            setUsable(true)
+            setDateEnd(e.target.value)
+
+            // setMaxEndDate(new Date(e.target.value.getFullYear(), e.target.value.getMonth(), e.target.value.getDate(), 11, 30))
         }
     }
 
@@ -48,11 +51,7 @@ const CreateAC = (props) => {
     const submitACHandler = (e) => {
         e.preventDefault()
 
-        if (startDate){
-            window.location.reload(false);
-        }
-
-        if (endDate){
+        if (!startDate){
             window.location.reload(false);
         }
 
@@ -65,13 +64,14 @@ const CreateAC = (props) => {
             window.location.reload(false);
         }
 
+        window.setTimeout(2000)
         AssessmentCentreService.sendIds(selectedCandidates, selectedInterviewers, startDate, endDate).then((res) => {
             props.history.push('/setupAC')
         })
     }
 
     useEffect(() => {
-        CandidateService.getCandidates().then((res) => {
+        AssessmentCentreService.getCandidates().then((res) => {
             // console.log(res.data)
             setCandidates(res.data)
         })
@@ -84,7 +84,7 @@ const CreateAC = (props) => {
 
     
     return (
-        <div className="custom-container">
+        <div className="custom-container mt-4">
 
             <form onSubmit={submitACHandler} className="row">
                 <h2 className="mb-5">Create Assessment Centre</h2>
@@ -97,7 +97,7 @@ const CreateAC = (props) => {
 
                     <div className="col-sm-1 fw-bold">End Date: </div>
                     <div className="col-sm-5">
-                        <DateTimePickerComponent placeholder="Choose a date and time" min={startDate} max={maxEndDate} value={startDate} enabled={enabled} onChange={endDateHandler} format="dd/MM/yyyy hh:mm a" />
+                        <DateTimePickerComponent placeholder="Choose a date and time" min={startDate} value={endDate} enabled={usable} onChange={endDateHandler} format="dd/MM/yyyy hh:mm a" />
                     </div>
                 </div><br/><br/>
 
