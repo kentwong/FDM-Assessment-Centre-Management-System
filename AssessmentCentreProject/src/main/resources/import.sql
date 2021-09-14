@@ -1,5 +1,3 @@
-INSERT INTO `groupproject`.`staff` (`id`) VALUES (-1);
-INSERT INTO `groupproject`.`interviewer` (id) VALUES (-1);
 INSERT INTO question (id, question_body, question_type) VALUES(1, 'Tell me about yourself.', 0);
 INSERT INTO question (id, question_body, question_type) VALUES(2, 'Why did you do [your degree]? How do you think it would fit if you were to become a [stream] consultant?', 0);
 INSERT INTO question (id, question_body, question_type) VALUES(3, 'Why do you have a passion for tech?', 0);
@@ -32,7 +30,3 @@ INSERT INTO question (id, question_body, question_type) VALUES(29, 'How would yo
 INSERT INTO question (id, question_body, question_type) VALUES(30, 'Tell me about a time you had to work with someone whose personality/work style clashed with yours.', 2);
 INSERT INTO question (id, question_body, question_type) VALUES(31, 'Tell me about a time you had to manage multiple responsibilities.', 2);
 INSERT INTO question (id, question_body, question_type) VALUES(32, 'Tell me about a time where you disagreed with your coworkers. How did you resolve it?', 2);
-INSERT INTO question (id, question_body, question_type) VALUES(33, 'If you’re on a deserted island, with no reception, what one item would you take along?', 3);
-INSERT INTO question (id, question_body, question_type) VALUES(34, 'What makes you the best candidate for this position?', 3);
-INSERT INTO question (id, question_body, question_type) VALUES(35, 'What would you do if your company can’t send you a work laptop?', 3);
-INSERT INTO question (id, question_body, question_type) VALUES(36, 'Every CV has one lie in it. What is yours?', 3);
