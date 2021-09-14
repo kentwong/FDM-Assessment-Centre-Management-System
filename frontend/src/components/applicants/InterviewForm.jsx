@@ -24,7 +24,10 @@ function InterviewForm(props) {
         setQuestionState(tempQuestion);
     };
     const handleQuestionChange = (e) => {
-
+        e.preventDefault();
+        questionState[questionState.findIndex((q => q[0].id == e.target.id))][0][e.target.name] = e.target.value;
+        setQuestionState(questionState);
+        console.log(questionState);
     };
 
     const clearAllQuestions = () => {
@@ -32,6 +35,7 @@ function InterviewForm(props) {
     }
 
     const submitInterviewForm = e => {
+        e.preventDefault();
         setQuestionState([]);
     }
 
