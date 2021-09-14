@@ -207,7 +207,7 @@ function UpdateApplicant(props) {
                     <button className="btn btn-danger mt-5" onClick={cancel}>Cancel</button>
                 </form>
             </div>
-            <InterviewForm />
+            <InterviewForm id={id} />
         </div>
     );
 

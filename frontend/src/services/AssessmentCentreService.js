@@ -8,6 +8,10 @@ class AssessmentCentreService {
         return axios.get(ASSESSMENT_CENTRE_API_URL + '/all');
     }
 
+    getCandidates() {
+        return axios.get(ASSESSMENT_CENTRE_API_URL + '/candidates');
+    }
+
     getInterviewers(){
         return axios.get(ASSESSMENT_CENTRE_API_URL + '/allInterviewers')
     }

@@ -12,6 +12,14 @@ class AssessmentCentreResponseService {
         return axios.get(ASSESSMENT_CENTRE_RESPONSE_API_URL + '/groupResponses');
     }
 
+    getAssessmentCentreResponseGroupedForId(candidateId) {
+        return axios.get(ASSESSMENT_CENTRE_RESPONSE_API_URL + '/groupResponses/' + candidateId);
+    }
+
+    getAssessmentCentreResponseGroupedOneForId(candidateId) {
+        return axios.get(ASSESSMENT_CENTRE_RESPONSE_API_URL + '/groupResponse/' + candidateId);
+    }
+
     getAllQuestions(){
         return axios.get(ASSESSMENT_CENTRE_RESPONSE_API_URL + '/getAllQuestions');
     }

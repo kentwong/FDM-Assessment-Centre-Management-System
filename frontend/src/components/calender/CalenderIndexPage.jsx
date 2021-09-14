@@ -2,28 +2,8 @@ import React, { useState, Component } from 'react';
 import {Inject, ScheduleComponent, Day, Week, WorkWeek, Month, Agenda, ViewsDirective, ViewDirective } from '@syncfusion/ej2-react-schedule';
 import ViewAssessmentCentres from './coordinator/ViewAssessmentCentres';
 import CreateAC from './coordinator/CreateAC';
+import AssessmentCentreService from '../../services/AssessmentCentreService'
 
-// ---------------
-// var user = {
-//     id: 2,
-// 	firstName: 'Michael',
-// 	lastName: 'Mike',
-// 	email: 'mike@fdm.com',
-// 	phoneNumber: '1234',
-// }
-// localStorage.setItem('user', JSON.stringify(user))
-// localStorage.setItem('role', 'coordinator')
-
-// const storedCoordinator = localStorage.getItem('user')
-// let coordinator = JSON.parse(storedCoordinator)
-// ---------------
-
-// const shouldDisplayCreateAC = localStorage.getItem('role') === 'coordinator'
-
-// localStorage.setItem('user', res.data.staffId);
-// localStorage.setItem('role', res.data.role);
-
-const coordinator = localStorage.getItem('user')
 const shouldDisplayCreateAC = localStorage.getItem('role') === 'ACCoordinator'
 
 class CalenderIndexPage extends Component {
@@ -32,32 +12,49 @@ class CalenderIndexPage extends Component {
         
         this.state = {
           showCreate: false,
+          readOnly: true
         };
-
-        console.log(localStorage.getItem('role'))
 
         this.data =  [{
                 Id: 1,
-                Subject: 'Assessment Centre 30/08',
-                StartTime: new Date(2021, 7, 30),
-                EndTime: new Date(2021, 7, 30)
+                Subject: '2/9 Assessment Centre',
+                StartTime: new Date(2021, 8, 2, 12, 0),
+                EndTime: new Date(2021, 8, 2, 14, 0),
+                IsReadonly: true,
             }, {
                 Id: 2,
-                Subject: 'Assessment Centre 02/09',
-                StartTime: new Date(2021, 8, 2, 12, 0),
-                EndTime: new Date(2021, 8, 2, 14, 0)
-            }, {
-                Id: 3,
-                Subject: 'Assessment Centre 06/09',
-                StartTime: new Date(2021, 8, 6, 9, 30),
-                EndTime: new Date(2021, 8, 6, 11, 0)
-            }, {
-                Id: 4,
-                Subject: 'Assessment Centre 14/09',
-                StartTime: new Date(2021, 8, 14, 13, 0),
-                EndTime: new Date(2021, 8, 14, 14, 30)
+                Subject: '7/9 Assessment Centre',
+                StartTime: new Date(2021, 8, 7, 9, 30),
+                EndTime: new Date(2021, 8, 7, 11, 0),
+                IsReadonly: false,
             }];
-      }
+
+        AssessmentCentreService.getAssessmentCentres().then((res) => {
+
+            res.data.map(ac => {
+                console.log("AC: " + JSON.stringify(ac.candidates))
+
+                let day = new Date(ac.start).getDate()
+                let month = new Date(ac.start).getMonth()
+
+                // let [names, setNames] = useState("Names: ")
+                ac.candidates.map(candidate => {
+                    // setNames(names + " " + candidate.firstName + " " + candidate.lastName + "; ")
+                })
+
+                let acTemplate = {
+                    Id: ac.id,
+                    Subject: day + "/" + month + " Assessment Centre",
+                    StartTime: ac.start,
+                    EndTime:  ac.end,
+                    Description: JSON.stringify(ac.candidates),
+                    IsReadonly: false,
+                }
+                this.data.push(acTemplate)
+            })
+        })
+
+    }
     
     displayCreateACHandler = () => {
         this.setState({ showCreate: !this.state.showCreate })
@@ -67,13 +64,7 @@ class CalenderIndexPage extends Component {
         return (
             <div className="custom-container">
                 This is the Calender Page.
-                <ScheduleComponent currentView='Month' eventSettings={{ dataSource: this.data }} >
-                    <ViewsDirective>
-                        <ViewDirective option='Day'></ViewDirective>
-                        <ViewDirective option='Week'></ViewDirective>
-                        <ViewDirective option='Month'></ViewDirective>
-                        <ViewDirective option='Agenda'></ViewDirective>
-                    </ViewsDirective>
+                <ScheduleComponent currentView='Month' eventSettings={{ dataSource: this.data }} views={['Day', 'Week', 'Month', 'Agenda']} >
                     <Inject services={[Day, Week, WorkWeek, Month, Agenda]}/>
                 </ScheduleComponent>
                 
