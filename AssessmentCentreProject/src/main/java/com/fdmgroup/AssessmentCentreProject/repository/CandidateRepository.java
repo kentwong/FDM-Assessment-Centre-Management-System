@@ -16,4 +16,7 @@ public interface CandidateRepository extends JpaRepository<Candidate, Integer>{
 	@Query (value = "SELECT * FROM candidate c WHERE c.status = :searchterm", nativeQuery=true)
 	List<Candidate> pendingStatus(@Param("searchterm") String status);
 	
+	@Query(value="SELECT * FROM candidate c WHERE c.recruiter_id IS NULL", nativeQuery=true)
+	List<Candidate> applicationsPending();
+	
 }

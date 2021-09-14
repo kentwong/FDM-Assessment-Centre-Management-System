@@ -4,8 +4,7 @@ import AssessmentCentreResponseService from '../../services/AssessmentCentreResp
 import InterviewFormSingleQuestion from './InterviewFormSingleQuestion';
 import QuestionBank from './QuestionBank';
 
-function InterviewForm(props) {
-
+function InterviewForm({id}) {
     const [showQuestionBank, setShowQuestionBank] = useState(true);
     const toggleQuestionBank = () => {
         showQuestionBank ? setShowQuestionBank(false) : setShowQuestionBank(true);
@@ -24,14 +23,17 @@ function InterviewForm(props) {
         setQuestionState(tempQuestion);
     };
     const handleQuestionChange = (e) => {
-
+        e.preventDefault();
+        questionState[questionState.findIndex((q => q[0].id == e.target.id))][0][e.target.name] = e.target.value;
+        setQuestionState(questionState);
+        console.log(questionState);
     };
 
     const clearAllQuestions = () => {
         setQuestionState([]);
     }
 
-    const submitInterviewForm = e => {
+    const submitInterviewForm = () => {
         setQuestionState([]);
     }
 
@@ -49,7 +51,7 @@ function InterviewForm(props) {
 
     return (
         <div className="custom-container">
-            <form onSubmit={submitInterviewForm}>
+            <form onSubmit={nullFunction}>
                 <h2 className="mb-5">Assessment Centre - Interview Form</h2>
 
                 <input type="submit" value={showQuestionBank ? 'Hide Question Bank' : 'Show Question Bank'} onClick={toggleQuestionBank} />
@@ -72,7 +74,7 @@ function InterviewForm(props) {
 
                 <br />
 
-                <button type="submit" className="btn btn-success me-2 mt-5">Submit</button>
+                <button type="submit" className="btn btn-success me-2 mt-5" onClick={submitInterviewForm}>Submit</button>
                 <button className="btn btn-danger mt-5" onClick={clearAllQuestions}>Clear All</button>
             </form>
         </div>

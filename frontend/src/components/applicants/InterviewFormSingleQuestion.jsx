@@ -12,15 +12,15 @@ const InterviewFormSingleQuestion = ({ currQuestion, handleQuestionChange, delet
                     <textarea className="form-control" id="questionDisplay" rows="3" value={currQuestion.questionBody} readOnly ></textarea>
                 </div>
                 <div className="col-md-2">
-                        <label htmlFor="lastName" className="form-label">Points</label>
-                        <input type="number" className="form-control" id="lastName"></input>
+                        <label htmlFor="lastName" className="form-label" >Points</label>
+                        <input type="number" name="points" className="form-control" id={currQuestion.id} onChange={handleQuestionChange} ></input>
                         <br />
                         <input type="button" value="Delete Question" onClick={() => deleteQuestion(currQuestion.id)}></input>
                 </div>
             </div>
             <div className="mb-3">
                 <label htmlFor="notes" className="form-label">Notes</label>
-                <textarea className="form-control" id="notes" rows="3" ></textarea>
+                <textarea name="notes" className="form-control" id={currQuestion.id} rows="3" onChange={handleQuestionChange} ></textarea>
             </div>
             <hr />
         </div>
