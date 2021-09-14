@@ -59,12 +59,12 @@ public class Candidate {
 	private Stream stream;
 	
 	
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinTable(name = "candidate_history", 
-		joinColumns = { @JoinColumn(name="fk_candidate_id") }, 
-		inverseJoinColumns =	{ @JoinColumn(name="fk_old_id") }
-	) // editCandidate() ==> creates new instance of candidate (for new generated id) -> set history to old Candidate history + Candidate
-	private List<Candidate> history;
+//	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//	@JoinTable(name = "candidate_history", 
+//		joinColumns = { @JoinColumn(name="fk_candidate_id") }, 
+//		inverseJoinColumns =	{ @JoinColumn(name="fk_old_id") }
+//	) // editCandidate() ==> creates new instance of candidate (for new generated id) -> set history to old Candidate history + Candidate
+//	private List<Candidate> history;
 
 	public Candidate() {
 		super();
@@ -198,13 +198,13 @@ public class Candidate {
 		this.stream = stream;
 	}
 
-	public List<Candidate> getHistory() {
-		return history;
-	}
-
-	public void setHistory(List<Candidate> history) {
-		this.history = history;
-	}
+//	public List<Candidate> getHistory() {
+//		return history;
+//	}
+//
+//	public void setHistory(List<Candidate> history) {
+//		this.history = history;
+//	}
 	
 	public String getNotes() {
 		return notes;

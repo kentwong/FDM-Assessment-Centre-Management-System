@@ -77,14 +77,14 @@ public class AssessmentCentreController {
 	@PostMapping("/startDate")
 	public void setupACStartDate(@RequestBody LocalDateTime date) {
 		System.out.println("STARTING DATE - " + date);
-		LocalDateTime start = date;
+		LocalDateTime start = date.plusHours(13);
 		coordinator.getNewAC().setStart(start);
 	}
 	
 	@PostMapping("/endDate")
 	public void setupACSEndDate(@RequestBody LocalDateTime date) {
 		System.out.println("ENDING DATE - " + date);
-		LocalDateTime end = date;
+		LocalDateTime end = date.plusHours(13);
 		coordinator.getNewAC().setEnd(end);
 	}
 	
@@ -148,7 +148,7 @@ public class AssessmentCentreController {
 
 	@GetMapping("/selectedInterviewers")
 	public List<Interviewer> getSelectedInterviewers() {
-		System.out.println("WORKING: " + coordinator);
+//		System.out.println("WORKING: " + coordinator);
 		List<Interviewer> interviewers = coordinator.getNewAC().getInterviewers();
 		List<Interviewer> result = new ArrayList<>();
 		for (Interviewer interviewer : interviewers) {
