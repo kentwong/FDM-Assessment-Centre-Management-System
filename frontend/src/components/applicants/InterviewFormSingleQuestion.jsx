@@ -2,31 +2,20 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import CandidateService from '../../services/CandidateService';
 
-const InterviewFormSingleQuestion = ({ questionState, handleQuestionChange }) => {
-    const questionId = 'question-3333333';
-    const pointsId = 'points-${idx}';
-    const gradeId = 'grade-${idx}';
-
+const InterviewFormSingleQuestion = ({ currQuestion, handleQuestionChange, deleteQuestion }) => {
+    const temp = 0;
     return (
-        <div key={questionId}>
+        <div key={currQuestion.id}>
             <div className="row mb-3">
-                <div className="col-md-12">
-                    <label htmlFor={questionId} className="form-label">Question</label>
-                    <input type="text" className="form-control" id={questionId} onChange={handleQuestionChange}></input>
+                <div className="col-md-10">
+                    <label className="form-label">Question</label>
+                    <textarea className="form-control" id="questionDisplay" rows="3" value={currQuestion.questionBody} ></textarea>
                 </div>
-            </div>
-            <div className="row mb-3">
-                <div className="col-md-6">
-                    <label htmlFor="firstName" className="form-label">Question Type</label>
-                    <input type="text" className="form-control" id="firstName"></input>
-                </div>
-                <div className="col-md-3">
-                    <label htmlFor="lastName" className="form-label">Points</label>
-                    <input type="text" className="form-control" id="lastName"></input>
-                </div>
-                <div className="col-md-3">
-                    <label htmlFor="lastName" className="form-label">Grade</label>
-                    <input type="text" className="form-control" id="lastName"></input>
+                <div className="col-md-2">
+                        <label htmlFor="lastName" className="form-label">Points</label>
+                        <input type="number" className="form-control" id="lastName"></input>
+                        <br />
+                        <input type="button" value="Delete Question" onClick={() => deleteQuestion(currQuestion.id)}></input>
                 </div>
             </div>
             <div className="mb-3">
@@ -37,12 +26,6 @@ const InterviewFormSingleQuestion = ({ questionState, handleQuestionChange }) =>
         </div>
     );
 
-}
-
-InterviewFormSingleQuestion.propTypes = {
-    idx: PropTypes.number, 
-    questionState: PropTypes.array, 
-    handleQuestionChange: PropTypes.func,
 }
 
 export default InterviewFormSingleQuestion;
