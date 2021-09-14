@@ -14,17 +14,21 @@ function InterviewForm(props) {
 
     const [questionState, setQuestionState] = useState([]);
     const addQuestion = (id) => {
-        const tempQuestion = questionBank.filter(question => question.id == id);
-        console.log(tempQuestion);
-        console.log(id);
-        setQuestionState([...questionState,  { ...tempQuestion } ]);
+        if (questionState.filter(question => question[0].id == id).length == 0) {
+            const tempQuestion = questionBank.filter(question => question.id == id);
+            setQuestionState([...questionState, { ...tempQuestion }]);
+        }
+    };
+    const deleteQuestion = (id) => {
+        const tempQuestion = questionState.filter(question => question[0].id != id);
+        setQuestionState(tempQuestion);
     };
     const handleQuestionChange = (e) => {
 
     };
 
     const submitInterviewForm = e => {
-        e.preventDefault();
+        setQuestionState([]);
     }
 
     const nullFunction = e => {
@@ -53,8 +57,10 @@ function InterviewForm(props) {
                     questionState.map(question => {
                         return (
                             <InterviewFormSingleQuestion
-                                questionState={questionState}
+                                key={question.id}
+                                currQuestion={question[0]}
                                 handleQuestionChange={handleQuestionChange}
+                                deleteQuestion={deleteQuestion}
                             />
                         );
                     })
