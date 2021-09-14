@@ -59,6 +59,7 @@ public class AssessmentCentreProjectApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		
+		
 		Address address1 = new Address(1, "5 Kent St, Sydney, NSW 2000");
 		Address address2 = new Address(2, "56 Pitt St, Sydney, NSW 2000");
 		Address address3 = new Address(3, "20 Princes St, North Sydney, NSW 2060");
