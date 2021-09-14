@@ -16,6 +16,7 @@ function InterviewForm(props) {
     const addQuestion = (id) => {
         const tempQuestion = questionBank.filter(question => question.id == id);
         console.log(tempQuestion);
+        console.log(id);
         setQuestionState([...questionState,  { ...tempQuestion } ]);
     };
     const handleQuestionChange = (e) => {

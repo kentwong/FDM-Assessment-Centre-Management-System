@@ -10,23 +10,13 @@ const InterviewFormSingleQuestion = ({ questionState, handleQuestionChange }) =>
     return (
         <div key={questionId}>
             <div className="row mb-3">
-                <div className="col-md-12">
+                <div className="col-md-10">
                     <label htmlFor={questionId} className="form-label">Question</label>
-                    <input type="text" className="form-control" id={questionId} onChange={handleQuestionChange}></input>
+                    <textarea className="form-control" id="questionDisplay" rows="2" ></textarea>
                 </div>
-            </div>
-            <div className="row mb-3">
-                <div className="col-md-6">
-                    <label htmlFor="firstName" className="form-label">Question Type</label>
-                    <input type="text" className="form-control" id="firstName"></input>
-                </div>
-                <div className="col-md-3">
-                    <label htmlFor="lastName" className="form-label">Points</label>
-                    <input type="text" className="form-control" id="lastName"></input>
-                </div>
-                <div className="col-md-3">
-                    <label htmlFor="lastName" className="form-label">Grade</label>
-                    <input type="text" className="form-control" id="lastName"></input>
+                <div className="col-md-2">
+                        <label htmlFor="lastName" className="form-label">Points</label>
+                        <input type="number" className="form-control" id="lastName"></input>
                 </div>
             </div>
             <div className="mb-3">
@@ -40,8 +30,8 @@ const InterviewFormSingleQuestion = ({ questionState, handleQuestionChange }) =>
 }
 
 InterviewFormSingleQuestion.propTypes = {
-    idx: PropTypes.number, 
-    questionState: PropTypes.array, 
+    idx: PropTypes.number,
+    questionState: PropTypes.array,
     handleQuestionChange: PropTypes.func,
 }
 

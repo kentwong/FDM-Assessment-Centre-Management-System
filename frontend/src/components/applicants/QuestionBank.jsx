@@ -20,7 +20,7 @@ const QuestionBank = ({ questionBank, addQuestion }) => {
                                     <tr key={question.id}>
                                         <td> {question.id} </td>
                                         <td> {question.questionBody} </td>
-                                        <td> <input type='button' value='Add to Interview' /> </td>
+                                        <td> <input type='button' value='Add to Interview' onClick={() => addQuestion(question.id)} /> </td>
                                     </tr>
                             )
                         }
