@@ -4,8 +4,7 @@ import AssessmentCentreResponseService from '../../services/AssessmentCentreResp
 import InterviewFormSingleQuestion from './InterviewFormSingleQuestion';
 import QuestionBank from './QuestionBank';
 
-function InterviewForm(props) {
-
+function InterviewForm({id}) {
     const [showQuestionBank, setShowQuestionBank] = useState(true);
     const toggleQuestionBank = () => {
         showQuestionBank ? setShowQuestionBank(false) : setShowQuestionBank(true);
@@ -14,16 +13,28 @@ function InterviewForm(props) {
 
     const [questionState, setQuestionState] = useState([]);
     const addQuestion = (id) => {
-        const tempQuestion = questionBank.filter(question => question.id == id);
-        console.log(tempQuestion);
-        setQuestionState([...questionState,  { ...tempQuestion } ]);
+        if (questionState.filter(question => question[0].id == id).length == 0) {
+            const tempQuestion = questionBank.filter(question => question.id == id);
+            setQuestionState([...questionState, { ...tempQuestion }]);
+        }
+    };
+    const deleteQuestion = (id) => {
+        const tempQuestion = questionState.filter(question => question[0].id != id);
+        setQuestionState(tempQuestion);
     };
     const handleQuestionChange = (e) => {
-
+        e.preventDefault();
+        questionState[questionState.findIndex((q => q[0].id == e.target.id))][0][e.target.name] = e.target.value;
+        setQuestionState(questionState);
+        console.log(questionState);
     };
 
-    const submitInterviewForm = e => {
-        e.preventDefault();
+    const clearAllQuestions = () => {
+        setQuestionState([]);
+    }
+
+    const submitInterviewForm = () => {
+        setQuestionState([]);
     }
 
     const nullFunction = e => {
@@ -34,13 +45,13 @@ function InterviewForm(props) {
         let isMounted = true;
         AssessmentCentreResponseService.getAllQuestions().then((q) => {
             if (isMounted) setQuestionBank(q.data);
-        });
+        }); console.log(localStorage.user);
         return () => { isMounted = false };
     }, []);
 
     return (
         <div className="custom-container">
-            <form onSubmit={submitInterviewForm}>
+            <form onSubmit={nullFunction}>
                 <h2 className="mb-5">Assessment Centre - Interview Form</h2>
 
                 <input type="submit" value={showQuestionBank ? 'Hide Question Bank' : 'Show Question Bank'} onClick={toggleQuestionBank} />
@@ -52,8 +63,10 @@ function InterviewForm(props) {
                     questionState.map(question => {
                         return (
                             <InterviewFormSingleQuestion
-                                questionState={questionState}
+                                key={question.id}
+                                currQuestion={question[0]}
                                 handleQuestionChange={handleQuestionChange}
+                                deleteQuestion={deleteQuestion}
                             />
                         );
                     })
@@ -61,8 +74,8 @@ function InterviewForm(props) {
 
                 <br />
 
-                <button type="submit" className="btn btn-success me-2 mt-5">Submit</button>
-                <button className="btn btn-danger mt-5" onClick={nullFunction}>Cancel</button>
+                <button type="submit" className="btn btn-success me-2 mt-5" onClick={submitInterviewForm}>Submit</button>
+                <button className="btn btn-danger mt-5" onClick={clearAllQuestions}>Clear All</button>
             </form>
         </div>
     );

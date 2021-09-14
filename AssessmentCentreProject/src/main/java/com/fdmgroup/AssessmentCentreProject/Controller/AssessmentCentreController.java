@@ -1,5 +1,6 @@
 package com.fdmgroup.AssessmentCentreProject.Controller;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -69,10 +70,24 @@ public class AssessmentCentreController {
 	@PostMapping("/setAC")
 	public void setCoordinator(@RequestBody Object userId) {
 		Integer id = Integer.parseInt(userId.toString().replaceAll("[^0-9]", ""));
-		System.out.println("Coordinator ID = " + id);
 		coordinator = (coordinatorRepo.findById(id)).get();
+//		System.out.println("Coordinator ID = " + id);
 	}
 
+	@PostMapping("/startDate")
+	public void setupACStartDate(@RequestBody LocalDateTime date) {
+		System.out.println("STARTING DATE - " + date);
+		LocalDateTime start = date;
+		coordinator.getNewAC().setStart(start);
+	}
+	
+	@PostMapping("/endDate")
+	public void setupACSEndDate(@RequestBody LocalDateTime date) {
+		System.out.println("ENDING DATE - " + date);
+		LocalDateTime end = date;
+		coordinator.getNewAC().setEnd(end);
+	}
+	
 	@PostMapping("/acCandidates")
 	public void setupACCandidates(@RequestBody List<Integer> candidateIds) {
 		// @RequestHeader("Authorization") Integer userId
@@ -88,12 +103,11 @@ public class AssessmentCentreController {
 		for (Integer id : finalCandidates) {
 			candidates.add(candidateRepo.getById(id));
 		}
+		coordinator.assignCandidates(candidates);
 
 		for (Candidate can : candidates) {
 			System.out.println("Candidate: " + can.getFirstName() + " " + can.getLastName());
 		}
-
-		coordinator.assignCandidates(candidates);
 		System.out.println("TEST CANDIDATES LIST - " + coordinator.getNewAC().getCandidates().size());
 
 	}
@@ -111,11 +125,11 @@ public class AssessmentCentreController {
 		for (Integer id : finalInterviewerIds) {
 			interviewers.add(interviewerRepo.getById(id));
 		}
+		coordinator.assignInterviewers(interviewers);
 
 		for (Interviewer interviewer : interviewers) {
 			System.out.println("Interviewer: " + interviewer.getFirstName() + " " + interviewer.getLastName());
 		}
-		coordinator.assignInterviewers(interviewers);
 		System.out.println("TEST INTERVIEWERS LIST - " + coordinator.getNewAC().getInterviewers().size());
 	}
 
@@ -156,14 +170,13 @@ public class AssessmentCentreController {
 		List<Question> salesQs = questions.stream().filter(q -> q.getQuestionType() == QuestionType.GENERAL)
 				.collect(Collectors.toList());
 		
-		System.out.println("TECHNICAL Qs = " + technicalQs.size());
-		System.out.println("HR Qs = " + hrQs.size());
-		System.out.println("SALES Qs = " + salesQs.size());
+//		System.out.println("TECHNICAL Qs = " + technicalQs.size());
+//		System.out.println("HR Qs = " + hrQs.size());
+//		System.out.println("SALES Qs = " + salesQs.size());
 		
 		for (ResponseTemplate temp : responses) {
 			System.out.println("TEMPLATE: " + temp);
 			
-
 			if (temp.getInterviewType().equals("1")) {
 				// TECHNICAL
 				for (Question q : technicalQs) {

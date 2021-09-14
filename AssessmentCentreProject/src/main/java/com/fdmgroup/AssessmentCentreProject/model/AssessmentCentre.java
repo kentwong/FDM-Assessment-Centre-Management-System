@@ -1,5 +1,6 @@
 package com.fdmgroup.AssessmentCentreProject.model;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -20,7 +21,9 @@ public class AssessmentCentre {
 	@Id
 	@GeneratedValue
 	private int id;
-	private Date date;
+	
+	private LocalDateTime start;
+	private LocalDateTime end;
 	
 	@ManyToOne (cascade=CascadeType.ALL)
 	@JoinColumn(name = "fk_coordinator_id")
@@ -57,12 +60,20 @@ public class AssessmentCentre {
 		this.id = id;
 	}
 
-	public Date getDate() {
-		return date;
+	public LocalDateTime getStart() {
+		return start;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setStart(LocalDateTime start) {
+		this.start = start;
+	}
+
+	public LocalDateTime getEnd() {
+		return end;
+	}
+
+	public void setEnd(LocalDateTime end) {
+		this.end = end;
 	}
 
 	public List<Candidate> getCandidates() {

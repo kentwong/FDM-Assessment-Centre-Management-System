@@ -75,6 +75,7 @@ const SetupAC = (props) => {
         event.preventDefault()
         AssessmentCentreService.createAssessmentCentre(responses)
         alert("SUBMITTED")
+        props.history.push('/calender')
     }
 
     return (
