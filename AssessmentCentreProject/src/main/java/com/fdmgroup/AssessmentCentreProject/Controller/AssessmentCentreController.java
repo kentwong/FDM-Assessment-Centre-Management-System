@@ -175,8 +175,7 @@ public class AssessmentCentreController {
 
 	@PostMapping("/createAC")
 	public void createAssessmentCentre(@RequestBody List<ResponseTemplate> responses) {
-		// get questions from question bank --> separate by type --> assign to interview
-		// type
+//		 get questions from question bank --> separate by type --> assign to interview
 		List<Question> questions = questionRepo.findAll();
 		List<Question> technicalQs = questions.stream().filter(q -> q.getQuestionType() == QuestionType.TECHNICAL)
 				.collect(Collectors.toList());
@@ -185,9 +184,9 @@ public class AssessmentCentreController {
 		List<Question> salesQs = questions.stream().filter(q -> q.getQuestionType() == QuestionType.GENERAL)
 				.collect(Collectors.toList());
 		
-//		System.out.println("TECHNICAL Qs = " + technicalQs.size());
-//		System.out.println("HR Qs = " + hrQs.size());
-//		System.out.println("SALES Qs = " + salesQs.size());
+		System.out.println("TECHNICAL Qs = " + technicalQs.size());
+		System.out.println("HR Qs = " + hrQs.size());
+		System.out.println("SALES Qs = " + salesQs.size());
 		
 		for (ResponseTemplate temp : responses) {
 			System.out.println("TEMPLATE: " + temp);

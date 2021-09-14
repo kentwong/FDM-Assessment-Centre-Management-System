@@ -4,7 +4,6 @@ import ViewAssessmentCentres from './coordinator/ViewAssessmentCentres';
 import CreateAC from './coordinator/CreateAC';
 import AssessmentCentreService from '../../services/AssessmentCentreService'
 
-// const coordinator = localStorage.getItem('user')
 const shouldDisplayCreateAC = localStorage.getItem('role') === 'ACCoordinator'
 
 class CalenderIndexPage extends Component {
@@ -38,11 +37,17 @@ class CalenderIndexPage extends Component {
                 let day = new Date(ac.start).getDate()
                 let month = new Date(ac.start).getMonth()
 
+                // let [names, setNames] = useState("Names: ")
+                ac.candidates.map(candidate => {
+                    // setNames(names + " " + candidate.firstName + " " + candidate.lastName + "; ")
+                })
+
                 let acTemplate = {
                     Id: ac.id,
                     Subject: day + "/" + month + " Assessment Centre",
                     StartTime: ac.start,
                     EndTime:  ac.end,
+                    Description: JSON.stringify(ac.candidates),
                     IsReadonly: false,
                 }
                 this.data.push(acTemplate)
