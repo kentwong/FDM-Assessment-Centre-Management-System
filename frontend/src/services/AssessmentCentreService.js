@@ -16,7 +16,9 @@ class AssessmentCentreService {
         return axios.post(ASSESSMENT_CENTRE_API_URL + '/setAC', {userID});
     }
 
-    sendIds(selectedCandidates, selectedInterviewers){
+    sendIds(selectedCandidates, selectedInterviewers, startDate, endDate){
+        axios.post(ASSESSMENT_CENTRE_API_URL + '/startDate', startDate)
+        axios.post(ASSESSMENT_CENTRE_API_URL + '/endDate', endDate)
         axios.post(ASSESSMENT_CENTRE_API_URL + '/acCandidates', selectedCandidates)
         return axios.post(ASSESSMENT_CENTRE_API_URL + '/acInterviewers', selectedInterviewers)
     }

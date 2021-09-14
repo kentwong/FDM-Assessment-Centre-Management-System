@@ -38,22 +38,22 @@ class CalenderIndexPage extends Component {
 
         this.data =  [{
                 Id: 1,
-                Subject: 'FIRST TEST',
-                StartTime: new Date(2021, 8, 15),
-                EndTime: new Date(2021, 8, 15)
+                Subject: 'Assessment Centre 30/08',
+                StartTime: new Date(2021, 7, 30),
+                EndTime: new Date(2021, 7, 30)
             }, {
                 Id: 2,
-                Subject: 'SECOND TEST',
-                StartTime: new Date(2021, 8, 12, 12, 0),
-                EndTime: new Date(2021, 8, 12, 14, 0)
+                Subject: 'Assessment Centre 02/09',
+                StartTime: new Date(2021, 8, 2, 12, 0),
+                EndTime: new Date(2021, 8, 2, 14, 0)
             }, {
                 Id: 3,
-                Subject: 'THIRD TEST',
-                StartTime: new Date(2021, 8, 13, 9, 30),
-                EndTime: new Date(2021, 8, 13, 11, 0)
+                Subject: 'Assessment Centre 06/09',
+                StartTime: new Date(2021, 8, 6, 9, 30),
+                EndTime: new Date(2021, 8, 6, 11, 0)
             }, {
                 Id: 4,
-                Subject: 'FOURTH TEST',
+                Subject: 'Assessment Centre 14/09',
                 StartTime: new Date(2021, 8, 14, 13, 0),
                 EndTime: new Date(2021, 8, 14, 14, 30)
             }];
