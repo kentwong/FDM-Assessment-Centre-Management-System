@@ -71,20 +71,35 @@ public class AssessmentCentreController {
 	public void setCoordinator(@RequestBody Object userId) {
 		Integer id = Integer.parseInt(userId.toString().replaceAll("[^0-9]", ""));
 		coordinator = (coordinatorRepo.findById(id)).get();
-//		System.out.println("Coordinator ID = " + id);
+		System.out.println("Coordinator ID = " + id);
+	}
+	
+	@GetMapping("/candidates")
+	public List<Candidate> getPendingCandidates() {
+		List<Candidate> baseline = candidateRepo.findAll();
+		List<AssessmentCentre> checker = acRepo.findAll();
+		List<Candidate> tobeRemoved = new ArrayList<>();
+		
+		for (AssessmentCentre ac : checker) {
+			tobeRemoved.addAll(ac.getCandidates());
+		}
+		
+		baseline.removeAll(tobeRemoved);
+		
+		return baseline;
 	}
 
 	@PostMapping("/startDate")
 	public void setupACStartDate(@RequestBody LocalDateTime date) {
 		System.out.println("STARTING DATE - " + date);
-		LocalDateTime start = date.plusHours(13);
+		LocalDateTime start = date.plusHours(12);
 		coordinator.getNewAC().setStart(start);
 	}
 	
 	@PostMapping("/endDate")
 	public void setupACSEndDate(@RequestBody LocalDateTime date) {
 		System.out.println("ENDING DATE - " + date);
-		LocalDateTime end = date.plusHours(13);
+		LocalDateTime end = date.plusHours(12);
 		coordinator.getNewAC().setEnd(end);
 	}
 	
@@ -210,7 +225,6 @@ public class AssessmentCentreController {
 				}
 			}
 		}
-		
 		coordinator.getNewAC().setCoordinator(coordinator);
 		coordinator.saveAssessmentCentre();
 		coordinator.setAssessmentCentres(coordinator.getAssessmentCentres());

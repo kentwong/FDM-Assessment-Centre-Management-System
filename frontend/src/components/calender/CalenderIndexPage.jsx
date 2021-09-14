@@ -33,6 +33,8 @@ class CalenderIndexPage extends Component {
         AssessmentCentreService.getAssessmentCentres().then((res) => {
 
             res.data.map(ac => {
+                console.log("AC: " + JSON.stringify(ac.candidates))
+
                 let day = new Date(ac.start).getDate()
                 let month = new Date(ac.start).getMonth()
 
@@ -43,7 +45,6 @@ class CalenderIndexPage extends Component {
                     EndTime:  ac.end,
                     IsReadonly: false,
                 }
-                console.log(ac.start + " to " + ac.end)
                 this.data.push(acTemplate)
             })
         })
@@ -58,13 +59,7 @@ class CalenderIndexPage extends Component {
         return (
             <div className="custom-container">
                 This is the Calender Page.
-                <ScheduleComponent currentView='Month' eventSettings={{ dataSource: this.data }} >
-                    <ViewsDirective>
-                        <ViewDirective option='Day'></ViewDirective>
-                        <ViewDirective option='Week'></ViewDirective>
-                        <ViewDirective option='Month'></ViewDirective>
-                        <ViewDirective option='Agenda'></ViewDirective>
-                    </ViewsDirective>
+                <ScheduleComponent currentView='Month' eventSettings={{ dataSource: this.data }} views={['Day', 'Week', 'Month', 'Agenda']} >
                     <Inject services={[Day, Week, WorkWeek, Month, Agenda]}/>
                 </ScheduleComponent>
                 

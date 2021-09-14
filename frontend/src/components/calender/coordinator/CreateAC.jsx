@@ -71,7 +71,7 @@ const CreateAC = (props) => {
     }
 
     useEffect(() => {
-        CandidateService.getCandidates().then((res) => {
+        AssessmentCentreService.getCandidates().then((res) => {
             // console.log(res.data)
             setCandidates(res.data)
         })
