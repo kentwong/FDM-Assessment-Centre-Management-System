@@ -7,6 +7,7 @@ import SearchBar from './SearchBar';
 import ShowCandidatesAssignedToMe from './ShowCandidatesAssignedToMe';
 import ApplicantTableList from './ApplicantTableList';
 import Pagination from './Pagination'
+import { faVrCardboard } from '@fortawesome/free-solid-svg-icons';
 
 function ViewApplicants(props) {
 
@@ -22,7 +23,7 @@ function ViewApplicants(props) {
     //For pagination
     // const [posts, setPosts] = useState([]);
     const [currentPage, setCurrentPage] = useState(1)
-    const [candidatesPerPage] = useState(20)
+    const [candidatesPerPage, setCandidatesPerPage] = useState(20)
 
     useEffect(() => {
         setCandidatesAndUnassignedCandidates();
@@ -62,7 +63,7 @@ function ViewApplicants(props) {
 
     const showCandidatesAssignedToMe = (id) => {
         CandidateService.getCandidates().then((res) => {
-            let filtered = res.data.filter(candidate => candidate.recruiterId.toString() === id)
+            let filtered = res.data.filter(candidate => candidate.recruiterId.toString() === id || candidate.recruiterId.toString() === '1')
             setCandidates(filtered);
         });
     }
@@ -159,15 +160,38 @@ function ViewApplicants(props) {
             </div>
             <h2 className="text-center">Candidates List </h2>
 
-            <ShowCandidatesAssignedToMe
-                showCandidatesAssignedToMe={showCandidatesAssignedToMe}
-                setCandidatesAndUnassignedCandidates={setCandidatesAndUnassignedCandidates}
-                candidates={candidates}
-            />
+            <div className="row">
+                <div className="col-6">
+                    <ShowCandidatesAssignedToMe
+                        showCandidatesAssignedToMe={showCandidatesAssignedToMe}
+                        setCandidatesAndUnassignedCandidates={setCandidatesAndUnassignedCandidates}
+                        candidates={candidates}
+                    />
+                </div>
+                <div className="col-6">
+                    <div class="btn-group mt-2 mb-4 float-end">
+                        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            {candidatesPerPage} Candidates Per Page
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><button class="dropdown-item" type="button" onClick={() => setCandidatesPerPage(10)}>10 Candidates</button></li>
+                            <li><button class="dropdown-item" type="button" onClick={() => setCandidatesPerPage(20)}>20 Candidates</button></li>
+                            <li><button class="dropdown-item" type="button" onClick={() => setCandidatesPerPage(50)}>50 Candidates</button></li>
+                            <li><button class="dropdown-item" type="button" onClick={() => setCandidatesPerPage(100)}>100 Candidates</button></li>
+                        </ul>
+                    </div>
+                </div>
+
+
+
+            </div>
+
 
             <ApplicantTableList candidates={currentCandidates} deleteCandidate={deleteCandidate} />
 
             <Pagination pages={howManyPages} setCurrentPage={setCurrentPage} />
+
+
         </div>
     );
 }
