@@ -86,7 +86,7 @@ class Header extends Component {
                                     <li className="nav-item dropdown">
                                         <a className="nav-link text-light dropdown-toggle" data-bs-toggle="dropdown" href="/" role="button" aria-expanded="false"><img src={ProfilePic} style={{ "height": "35px", "borderRadius": "5px" }} alt="profile" /></a>
                                         <ul className="dropdown-menu">
-                                            <li><a className="dropdown-item" href="/" >Manage Profile</a></li>
+                                            <li><a className="dropdown-item" href="/account/update" >Manage Profile</a></li>
                                             <li><hr className="dropdown-divider" /></li>
                                             <li>
                                                 <div className="dropdown-item" onClick={this.logoutUser}>

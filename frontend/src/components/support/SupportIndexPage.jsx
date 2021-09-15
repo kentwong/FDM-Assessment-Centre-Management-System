@@ -30,7 +30,7 @@ class SupportIndexPage extends Component {
                             <img src={SettingVector} style={{ "height": "200px" }} alt="Logo" />
                             <h4 className="text-center mb-4">Settings</h4>
                             <div className="text-start">
-                                <p><a href="#!" className="icon-link text-dark"><FontAwesomeIcon className="fa-lg me-2" icon={faCogs} color="#0d6efd" />Manage own account</a></p>
+                                <p><a href="/account/update" className="icon-link text-dark"><FontAwesomeIcon className="fa-lg me-2" icon={faCogs} color="#0d6efd" />Manage own account</a></p>
                                 <p><a href="#!" className="icon-link text-dark"><FontAwesomeIcon className="fa-lg me-2" icon={faCogs} color="#0d6efd" />Add new recruiter</a></p>
                                 <p><a href="#!" className="icon-link text-dark"><FontAwesomeIcon className="fa-lg me-2" icon={faCogs} color="#0d6efd" />Add new interviewer</a></p>
                                 <p><a href="#!" className="icon-link text-dark"><FontAwesomeIcon className="fa-lg me-2" icon={faCogs} color="#0d6efd" />Manage FDM streams</a></p>

@@ -15,20 +15,21 @@ import InterviewForm from './components/applicants/InterviewForm';
 import UpdateApplicant from './components/applicants/UpdateApplicant';
 import SetupAC from './components/calender/coordinator/SetupAC';
 import ViewResponse from './components/results/ViewResponse'
+import UpdateAccount from './components/user/UpdateAccount';
 
 function App() {
   const userId = localStorage.getItem('user');
 
-  if(!userId) {
-   
+  if (!userId) {
+
     return (
       <div>
         <Header />
         <Login exact component={Login} />
         <Footer />
       </div>
-      
-    ); 
+
+    );
   }
 
   return (
@@ -39,6 +40,7 @@ function App() {
           <Route path="/" exact component={HomeIndexPage}></Route>
           <Route path="/signup" exact component={Signup}></Route>
           <Route path="/login" exact component={HomeIndexPage}></Route>
+          <Route path="/account/update" exact component={UpdateAccount}></Route>
           <Route path="/home" exact component={HomeIndexPage}></Route>
           <Route path="/applicants" exact component={ApplicantsIndexPage}></Route>
           <Route path="/calender" exact component={CalenderIndexPage}></Route>
