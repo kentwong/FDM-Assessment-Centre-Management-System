@@ -6,7 +6,7 @@ class ApplicantsIndexPage extends Component {
         return (
             <div className="custom-container">
                 <ViewApplicants />
-                <a href="/applicant/add"><button className="btn btn-primary">Add New Applicant</button></a>
+
             </div>
         );
     }

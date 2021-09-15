@@ -7,7 +7,10 @@ import SearchBar from './SearchBar';
 import ShowCandidatesAssignedToMe from './ShowCandidatesAssignedToMe';
 import ApplicantTableList from './ApplicantTableList';
 import Pagination from './Pagination'
-import { faVrCardboard } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSlidersH, faFileExport, faFilePdf, faFileCsv, faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import XLSX from 'xlsx';
+import ExportButton from './ExportButton';
 
 function ViewApplicants(props) {
 
@@ -63,7 +66,7 @@ function ViewApplicants(props) {
 
     const showCandidatesAssignedToMe = (id) => {
         CandidateService.getCandidates().then((res) => {
-            let filtered = res.data.filter(candidate => candidate.recruiterId.toString() === id || candidate.recruiterId.toString() === '1')
+            let filtered = res.data.filter(candidate => candidate.recruiterId.toString() === id)
             setCandidates(filtered);
         });
     }
@@ -132,6 +135,25 @@ function ViewApplicants(props) {
         );
     }
 
+    const exportToExcel = () => {
+        const newData = candidates.map(candidate => {
+            delete candidate.history;
+            delete candidate.address;
+            return candidate;
+        })
+        const worksheet = XLSX.utils.json_to_sheet(newData);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, "candidates")
+
+        let buffer = XLSX.write(workbook, { bookType: "xlsx", type: "buffer" });
+        XLSX.write(workbook, { bookType: "xlsx", type: "binary" });
+        XLSX.writeFile(workbook, "FDM_Candidates_Data.xlsx");
+    }
+
+    const exportToPdf = () => {
+
+    }
+
     //Get current posts
     const indexOfLastCandidate = currentPage * candidatesPerPage;
     const indexOfFirstCandidate = indexOfLastCandidate - candidatesPerPage;
@@ -142,10 +164,13 @@ function ViewApplicants(props) {
         <div className="container my-5">
             {console.log(candidates)}
             <div className="row">
-                <div className="col-6">
+                <div className="col-4 pe-0 ps-1">
                     <SearchBar handleSearch={handleSearch} />
                 </div>
-                <div className="col-6">
+                <div className="col-4 ps-0">
+                    <button className="btn btn-primary me-2"><FontAwesomeIcon className="fa-lg me-2" icon={faSlidersH} />Filter</button>
+                </div>
+                <div className="col-4 pe-0">
                     <AssignCandidatesToRecruiter
                         unassignedCandidates={unassignedCandidates}
                         availRecruiters={availRecruiters}
@@ -156,11 +181,17 @@ function ViewApplicants(props) {
                         countRemainingUnassigned={countRemainingUnassigned}
                     />
                 </div>
-
             </div>
-            <h2 className="text-center">Candidates List </h2>
 
             <div className="row">
+                <div className="col-12 p-0">
+                    <h2 className="text-center">Candidates List </h2>
+                    <ExportButton exportToExcel={exportToExcel} exportToPdf={exportToPdf} />
+                </div>
+            </div>
+
+
+            {/* <div className="row">
                 <div className="col-6">
                     <ShowCandidatesAssignedToMe
                         showCandidatesAssignedToMe={showCandidatesAssignedToMe}
@@ -181,17 +212,23 @@ function ViewApplicants(props) {
                         </ul>
                     </div>
                 </div>
-
-
-
-            </div>
+            </div> */}
 
 
             <ApplicantTableList candidates={currentCandidates} deleteCandidate={deleteCandidate} />
 
             <Pagination pages={howManyPages} setCurrentPage={setCurrentPage} />
 
-
+            <div className="row mt-4">
+                <div className="col-12 p-0">
+                    <a href="/applicant/add" className="ps-0">
+                        <button className="btn btn-primary">
+                            <FontAwesomeIcon className="fa-lg me-2" icon={faUserPlus} />
+                            Add New Applicant
+                        </button>
+                    </a>
+                </div>
+            </div>
         </div>
     );
 }
