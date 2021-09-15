@@ -89,41 +89,6 @@ public class AssesmentCentreResponseController {
 
 	}
 
-	/**
-	 * @param Candidate Id
-	 * @return A CandidateACResult object that is the responses grouped into one
-	 */
-	@GetMapping("/groupResponses/{id}")
-	public ResponseEntity<List<CandidateACResult>> getAssessmentCentreResponsesGroupedForId(@PathVariable Integer id) {
-		logger.info("Return a custom result set");
-		List<AssessmentCentreResponse> responses = assessmentCentreResponseRepo.findAll();
-		List<CandidateACResult> groupedResponses = new ArrayList<>();
-		for (AssessmentCentreResponse response : responses) {
-			if (response.getCandidate().getId() == id) {
-				CandidateACResult result = new CandidateACResult();
-				result.setCandidate(response.getCandidate());
-				result.setInterviewer(response.getInterviewer());
-				result.setQuestion(response.getQuestion());
-				if (response.getQuestion().getQuestionType().equals(QuestionType.GENERAL)) {
-					result.setGeneralTotal(response.getPoints());
-					result.setGeneral(response.getPoints());
-				} else if (response.getQuestion().getQuestionType().equals(QuestionType.TECHNICAL)) {
-					result.setTechnicalTotal(response.getPoints());
-					result.setTechnical(response.getPoints());
-				} else if (response.getQuestion().getQuestionType().equals(QuestionType.BEHAVIOURAL)) {
-					result.setBehaviouralTotal(response.getPoints());
-					result.setBehavioural(response.getPoints());
-				}
-				result.setOverall(response.getPoints());
-				groupedResponses.add(result);
-
-			}
-		}
-
-		return ResponseEntity.ok(groupedResponses);
-
-	}
-
 
 	/**
 	 * @param Candidate Id
@@ -206,6 +171,7 @@ public class AssesmentCentreResponseController {
 				generalResponse.setGeneral(response.getPoints());
 				generalResponse.setQuestion(response.getQuestion());
 				generalResponse.setNotes(response.getNotes());
+				generalResponse.setInterviewer(response.getInterviewer());
 				if (response.getPoints() == 10) {
 					generalResponse.setGrade("A+");
 				}else if(response.getPoints() == 9) {
@@ -219,6 +185,70 @@ public class AssesmentCentreResponseController {
 			}
 		}
 		return ResponseEntity.ok(generalResponses);
+	}
+
+
+	/**
+	 * @param Candidate Id
+	 * @return List of technical responses for that candidate
+	 */
+	@GetMapping("/technical/{id}")
+	public ResponseEntity<List<CandidateACResult>> getResponseByCandidateIdOnlyTechnical(@PathVariable Integer id) {
+		logger.info("GET request for /id/" + id.toString() + "for only technical questions");
+		List<AssessmentCentreResponse> responses = assessmentCentreResponseRepo.findByCandidateId(id);
+		List<CandidateACResult> technicalResponses = new ArrayList<>();
+		for (AssessmentCentreResponse response : responses) {
+			if (response.getQuestion().getQuestionType().equals(QuestionType.TECHNICAL)) {		//only creates an entry for the candidate's technical questions
+				CandidateACResult technicalResponse = new CandidateACResult();
+				technicalResponse.setTechnical(response.getPoints());
+				technicalResponse.setQuestion(response.getQuestion());
+				technicalResponse.setNotes(response.getNotes());
+				technicalResponse.setInterviewer(response.getInterviewer());
+				if (response.getPoints() == 10) {
+					technicalResponse.setGrade("A+");
+				}else if(response.getPoints() == 9) {
+					technicalResponse.setGrade("A");
+				}else if(response.getPoints() == 8) {
+					technicalResponse.setGrade("B");
+				}else if(response.getPoints() <= 7) {
+					technicalResponse.setGrade("C");
+				}
+				technicalResponses.add(technicalResponse);
+			}
+		}
+		return ResponseEntity.ok(technicalResponses);
+	}
+
+
+	/**
+	 * @param Candidate Id
+	 * @return List of behavioural responses for that candidate
+	 */
+	@GetMapping("/behavioural/{id}")
+	public ResponseEntity<List<CandidateACResult>> getResponseByCandidateIdOnlyBehavioural(@PathVariable Integer id) {
+		logger.info("GET request for /id/" + id.toString() + "for only behavioural questions");
+		List<AssessmentCentreResponse> responses = assessmentCentreResponseRepo.findByCandidateId(id);
+		List<CandidateACResult> behaviouralResponses = new ArrayList<>();
+		for (AssessmentCentreResponse response : responses) {
+			if (response.getQuestion().getQuestionType().equals(QuestionType.BEHAVIOURAL)) {		//only creates an entry for the candidate's general questions
+				CandidateACResult behaviouralResponse = new CandidateACResult();
+				behaviouralResponse.setBehavioural(response.getPoints());
+				behaviouralResponse.setQuestion(response.getQuestion());
+				behaviouralResponse.setNotes(response.getNotes());
+				behaviouralResponse.setInterviewer(response.getInterviewer());
+				if (response.getPoints() == 10) {
+					behaviouralResponse.setGrade("A+");
+				}else if(response.getPoints() == 9) {
+					behaviouralResponse.setGrade("A");
+				}else if(response.getPoints() == 8) {
+					behaviouralResponse.setGrade("B");
+				}else if(response.getPoints() <= 7) {
+					behaviouralResponse.setGrade("C");
+				}
+				behaviouralResponses.add(behaviouralResponse);
+			}
+		}
+		return ResponseEntity.ok(behaviouralResponses);
 	}
 
 	@GetMapping("/getAllQuestions")

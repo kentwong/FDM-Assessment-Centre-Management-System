@@ -7,7 +7,9 @@ function ViewResponse(props) {
 
     const [responses, setResponses] = useState([]);
     const [response, setResponse] = useState([]);
-    const [grouped, setGrouped] = useState([]);
+    const [generalResponses, setGeneralResponses] = useState([]);
+    const [technicalResponses, setTechnicalResponses] = useState([]);
+    const [behaviouralResponses, setBehaviouralResponses] = useState([]);
 
     useEffect(() => {
         AssessmentCentreResponseService.getAssessmentCentreResponseById(props.match.params.id).then((res) => {
@@ -22,8 +24,20 @@ function ViewResponse(props) {
     }, [])
 
     useEffect(() => {
-        AssessmentCentreResponseService.getAssessmentCentreResponseGroupedForId(props.match.params.id).then((res) => {
-            setGrouped(res.data);
+        AssessmentCentreResponseService.getAssessmentCentreResponseGroupedForIdOnlyGeneral(props.match.params.id).then((res) => {
+            setGeneralResponses(res.data);
+        })
+    }, [])
+
+    useEffect(() => {
+        AssessmentCentreResponseService.getAssessmentCentreResponseGroupedForIdOnlyTechnical(props.match.params.id).then((res) => {
+            setTechnicalResponses(res.data);
+        })
+    }, [])
+
+    useEffect(() => {
+        AssessmentCentreResponseService.getAssessmentCentreResponseGroupedForIdOnlyBehavioural(props.match.params.id).then((res) => {
+            setBehaviouralResponses(res.data);
         })
     }, [])
     
@@ -82,7 +96,7 @@ function ViewResponse(props) {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-md-4">
+                    <div className="col-md-3">
                         <table className="table table-Striped table-bordered table-hover">
                             <tbody>
                                 {
@@ -96,7 +110,7 @@ function ViewResponse(props) {
                             </tbody>
                         </table>
                     </div>
-                    <div className="col-md-4">
+                    <div className="col-md-3">
                         <table className="table table-Striped table-bordered table-hover">
                             <tbody>
                                 {
@@ -110,21 +124,18 @@ function ViewResponse(props) {
                             </tbody>
                         </table>
                     </div>
-                    <div className="col-md-1">
+                    <div className="col-md-2">
                         General
                     </div>
-                    <div className="col-md-1">
+                    <div className="col-md-2">
                         Technical
                     </div>
-                    <div className="col-md-1">
+                    <div className="col-md-2">
                         Behavioural
-                    </div>
-                    <div className="col-md-1">
-                        Curveball
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-md-4">
+                    <div className="col-md-3">
                         <table className="table table-Striped table-bordered table-hover">
                             <tbody>
                                 {
@@ -138,7 +149,7 @@ function ViewResponse(props) {
                             </tbody>
                         </table>
                     </div>
-                    <div className="col-md-4">
+                    <div className="col-md-3">
                         <table className="table table-Striped table-bordered table-hover">
                             <tbody>
                                 {
@@ -152,7 +163,7 @@ function ViewResponse(props) {
                             </tbody>
                         </table>
                     </div>
-                    <div className="col-md-1">
+                    <div className="col-md-2">
                         <table className="table table-Striped table-bordered table-hover">
                             <tbody>
                                 {
@@ -166,7 +177,7 @@ function ViewResponse(props) {
                             </tbody>
                         </table>
                     </div>
-                    <div className="col-md-1">
+                    <div className="col-md-2">
                         <table className="table table-Striped table-bordered table-hover">
                             <tbody>
                                 {
@@ -180,7 +191,7 @@ function ViewResponse(props) {
                             </tbody>
                         </table>
                     </div>
-                    <div className="col-md-1">
+                    <div className="col-md-2">
                         <table className="table table-Striped table-bordered table-hover">
                             <tbody>
                                 {
@@ -194,21 +205,114 @@ function ViewResponse(props) {
                             </tbody>
                         </table>
                     </div>
-                    <div className="col-md-1">
-                        <table className="table table-Striped table-bordered table-hover">
-                            <tbody>
-                                {
-                                response.map(
-                                        response =>
-                                            <tr key={response.id}>
-                                                <td> {response.curveballTotal} </td>
-                                            </tr>
-                                    )
-                                }
-                            </tbody>
-                        </table>
-                    </div>
                 </div>
+
+                <div className="row">
+                    <h2 className="text-center">Generals</h2>
+                        <table className="table table-Striped table-bordered table-hover">
+                                <thead>
+                        
+                                    <tr>
+                                        <td> Question </td>
+                                        <td> Notes </td>
+                                        <td> Grade </td>
+                                        <td> Points </td>
+                                        <td> Question Type </td>  
+                                        <td> Interviewer </td>
+                                    </tr>
+                
+            
+                                </thead>
+                                <tbody>
+                                    {
+                                    generalResponses.map(
+                                            generalResponse =>
+                                                <tr key={generalResponse.id}>
+                                                    <td> {generalResponse.question.questionBody} </td>
+                                                    <td> {generalResponse.notes} </td>
+                                                    <td> {generalResponse.grade} </td>
+                                                    <td> {generalResponse.general} </td>
+                                                    <td> {generalResponse.question.questionType} </td>
+                                                    <td> {generalResponse.interviewer.firstName} {generalResponse.interviewer.lastName} </td>
+                                                </tr>
+                                        )
+                                    }
+                                </tbody>
+
+                        </table> 
+                </div>
+                
+                <div className="row">
+                    <h2 className="text-center">Technicals</h2>
+                        <table className="table table-Striped table-bordered table-hover">
+                                <thead>
+                        
+                                    <tr>
+                                        <td> Question </td>
+                                        <td> Notes </td>
+                                        <td> Grade </td>
+                                        <td> Points </td>
+                                        <td> Question Type </td>  
+                                        <td> Interviewer </td>
+                                    </tr>
+                
+            
+                                </thead>
+                                <tbody>
+                                    {
+                                    technicalResponses.map(
+                                            technicalResponse =>
+                                                <tr key={technicalResponse.id}>
+                                                    <td> {technicalResponse.question.questionBody} </td>
+                                                    <td> {technicalResponse.notes} </td>
+                                                    <td> {technicalResponse.grade} </td>
+                                                    <td> {technicalResponse.technical} </td>
+                                                    <td> {technicalResponse.question.questionType} </td>
+                                                    <td> {technicalResponse.interviewer.firstName} {technicalResponse.interviewer.lastName} </td>
+                                                </tr>
+                                        )
+                                    }
+                                </tbody>
+
+                        </table> 
+                </div>
+                
+                <div className="row">
+                    <h2 className="text-center">Behaviourals</h2>
+                        <table className="table table-Striped table-bordered table-hover">
+                                <thead>
+                        
+                                    <tr>
+                                        <td> Question </td>
+                                        <td> Notes </td>
+                                        <td> Grade </td>
+                                        <td> Points </td>
+                                        <td> Question Type </td>  
+                                        <td> Interviewer </td>
+                                    </tr>
+                
+            
+                                </thead>
+                                <tbody>
+                                    {
+                                    behaviouralResponses.map(
+                                            behaviouralResponse =>
+                                                <tr key={behaviouralResponse.id}>
+                                                    <td> {behaviouralResponse.question.questionBody} </td>
+                                                    <td> {behaviouralResponse.notes} </td>
+                                                    <td> {behaviouralResponse.grade} </td>
+                                                    <td> {behaviouralResponse.behavioural} </td>
+                                                    <td> {behaviouralResponse.question.questionType} </td>
+                                                    <td> {behaviouralResponse.interviewer.firstName} {behaviouralResponse.interviewer.lastName} </td>
+                                                </tr>
+                                        )
+                                    }
+                                </tbody>
+
+                        </table> 
+                </div>
+                
+
                 <table className="table table-Striped table-bordered table-hover">
                         <thead>
                    
@@ -240,41 +344,6 @@ function ViewResponse(props) {
                         </tbody>
 
                 </table> 
-            <div className="row">
-                <table className="table table-Striped table-bordered table-hover">
-                        <thead>
-                   
-                            <tr>
-                                <td> Name </td>
-                                <td> Question </td>
-                                <td> General total </td>
-                                <td> Technical total </td>
-                                <td> Behavioural total </td>
-                                <td> Curveball total </td>
-                                <td> Stream </td>
-                            </tr>
-           
-       
-                        </thead>
-                        <tbody>
-                            {
-                            grouped.map(
-                                    group =>
-                                        <tr key={group.id}>
-                                            <td> {group.candidate.firstName} </td>
-                                            <td> {group.question.questionBody} </td>
-                                            <td> {group.generalTotal} </td>
-                                            <td> {group.technicalTotal} </td>
-                                            <td> {group.behaviouralTotal} </td>
-                                            <td> {group.curveballTotal} </td>
-                                            <td> {group.candidate.stream.streamName} </td>
-                                        </tr>
-                                )
-                            }
-                        </tbody>
-
-                </table>     
-            </div>
             </div>
             </div>
             
