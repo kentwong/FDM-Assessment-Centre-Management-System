@@ -13,16 +13,22 @@ class OverviewTable extends Component {
     }
 
     componentDidMount() {
-        HomePageService.getAssessmentCentreResponsesHome().then((res) => {
-            
+
+        let LoggedInDetails = {
+            staffId: localStorage.getItem('user'),
+            role: localStorage.getItem('role')
+        };
+
+        HomePageService.sendDetails(LoggedInDetails).then(res => {
             this.setState({ candidatesOverviewData: res.data })
         })
 
-        CandidateService.getCandidates().then((res) => {
-            let filtered = res.data.filter(candidate => candidate.recruiterId === 0);
-            console.log(filtered.length)
-            const unassignedCandidates = filtered.length;
-        })
+        // CandidateService.getCandidates().then((res) => {
+        //             let filtered = res.data.filter(candidate => candidate.recruiterId === 0);
+        //             console.log(filtered.length)
+        //             const unassignedCandidates = filtered.length;
+        // })
+
     }
 
 
@@ -103,11 +109,11 @@ class OverviewTable extends Component {
                             </tr>
                             <tr>
                                 <td>Total Applicants Registered</td>
-                                <td>{this.state.candidatesOverviewData.videoInterview}</td>
+                                <td>{this.state.candidatesOverviewData.newApplications}</td>
                             </tr>
                             <tr>
                                 <td>Registered Today</td>
-                                <td>{this.state.candidatesOverviewData.ac}</td>
+                                <td>{this.state.candidatesOverviewData.newApplications}</td>
                             </tr>
                             
                             <tr>

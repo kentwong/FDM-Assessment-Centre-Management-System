@@ -5,11 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fdmgroup.AssessmentCentreProject.model.AssessmentCentreResponse;
 import com.fdmgroup.AssessmentCentreProject.model.Candidate;
+import com.fdmgroup.AssessmentCentreProject.model.LoggedInDetails;
 import com.fdmgroup.AssessmentCentreProject.model.PendingStatusData;
 import com.fdmgroup.AssessmentCentreProject.repository.AssessmentCentreResponseRepository;
 import com.fdmgroup.AssessmentCentreProject.repository.CandidateRepository;
@@ -30,18 +33,18 @@ public class AsCentreResponseHPController {
 		this.candidateRepo = candidateRepo;
 	}
 	
-	@GetMapping("/home")
-	public PendingStatusData getCandidateOverviewData() {
-		System.out.println(candidateRepo.pendingStatus("Pending Video Interview").size() + "----------------------------------");
-		PendingStatusData data = new PendingStatusData(candidateRepo.pendingStatus("Pending CV").size(),
-				candidateRepo.pendingStatus("Pending Phone Screening").size(),
-				candidateRepo.pendingStatus("Pending Aptitude Test").size(),
-				candidateRepo.pendingStatus("Pending Video Interview").size(),
-				candidateRepo.pendingStatus("Pending AC").size(),
+	@PostMapping("/home")
+	public PendingStatusData getCandidateOverviewData(@RequestBody LoggedInDetails user) {
+		PendingStatusData data = new PendingStatusData(candidateRepo.pendingStatusPerRecruiter("Pending CV Screening", user.getStaffId()).size(),
+				candidateRepo.pendingStatusPerRecruiter("Pending Phone Screening", user.getStaffId()).size(),
+				candidateRepo.pendingStatusPerRecruiter("Pending Aptitude Test", user.getStaffId()).size(),
+				candidateRepo.pendingStatusPerRecruiter("Pending Video Interview", user.getStaffId()).size(),
+				candidateRepo.pendingStatusPerRecruiter("Pending AC", user.getStaffId()).size(),
 				candidateRepo.applicationsPending().size(),
-				candidateRepo.pendingStatus("Offer Letter Sent").size(),
-				candidateRepo.pendingStatus("Applicant Rejected").size());
+				candidateRepo.pendingStatusPerRecruiter("Offer Letter Sent", user.getStaffId()).size(),
+				candidateRepo.pendingStatusPerRecruiter("Applicant Rejected", user.getStaffId()).size());
 		return data;
 	}
+
 	
 }

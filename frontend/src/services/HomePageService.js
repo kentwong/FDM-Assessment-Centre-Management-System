@@ -8,6 +8,9 @@ class HomePageService {
         return axios.get(HOMEPAGE_API_URL + '/home');
     }
 
+    sendDetails(LoggedInDetails) {
+        return axios.post(HOMEPAGE_API_URL + '/home', LoggedInDetails, {header: {"Content-Type": "application/json"}});
+    }
 
 }
 

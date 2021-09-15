@@ -26,21 +26,12 @@ import com.fdmgroup.AssessmentCentreProject.repository.StaffRepository;
 @RequestMapping("/staff/api/v1/")
 public class StaffController {
 	
-	//@Autowired
-	//private AuthenticationManager authenticationManager;
-	
 	@Autowired
 	private StaffRepository staffRepo;
 	
 	public StaffController(StaffRepository staffRepo) {
 		super();
 		this.staffRepo = staffRepo;
-	}
-	
-	@GetMapping("/login")
-	public List<Staff> login() {
-		return staffRepo.findAll();
-		
 	}
 	
 	@PostMapping("/login")

@@ -3,6 +3,7 @@ import Calendar from './Calendar';
 import OverviewTable from './OverviewTable';
 import QuickLinks from './QuickLinks';
 import UpdatesAndReminders from './UpdatesAndReminders';
+import InterviewAccordian from './InterviewAccordian';
 
 class HomeIndexPage extends Component {
         
@@ -37,7 +38,14 @@ class HomeIndexPage extends Component {
         else if (localStorage.getItem("role") == "interviewer") {
             return (
                 <div className="custom-container">
-                    interview
+                    <div className="row">
+                        <div className="col-8">
+                            <InterviewAccordian />
+                        </div>
+                        <div className="col">
+                            <QuickLinks />
+                        </div>
+                    </div>
                 </div>
             );
         }
