@@ -23,7 +23,7 @@ function App() {
   if (!userId) {
 
     return (
-      <div>
+      <div className="App">
         <Header />
         <Login exact component={Login} />
         <Footer />
