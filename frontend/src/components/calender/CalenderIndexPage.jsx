@@ -133,6 +133,14 @@ class CalenderIndexPage extends Component {
 
     deleteAC = (args) => {
         console.log("DELETE: " + JSON.stringify(args.data))
+        // AssessmentCentreService.sendCoordinatorID(localStorage.getItem('user'))
+
+        let deleteAC = {
+            coordinator: localStorage.getItem('user'),
+            acID: JSON.stringify(args.data.Id),
+        }
+
+        AssessmentCentreService.deleteAssessmentCentre(deleteAC)
     }
 
     addCandidate = () => {

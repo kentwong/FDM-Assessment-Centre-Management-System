@@ -250,13 +250,27 @@ public class AssessmentCentreController {
 	
 	@PostMapping("/deleteAC")
 	public void deleteAssessmentCentre(@RequestBody Object acId) {
-		Integer id = Integer.parseInt(acId.toString().replaceAll("[^0-9]", ""));
-		System.out.println("ID TO DELETE: " + id);
 		
-		AssessmentCentre ac = acRepo.findById(id).get();
-		System.out.println("candidate size: " + ac.getCandidates().size());
-		System.out.println("interviewer size: " + ac.getInterviewers().size());
+		String[] splitString = (acId.toString()).split(",");
 		
+		Integer coordinatorID = Integer.parseInt(splitString[0].replaceAll("[^0-9]", ""));
+		Integer acID =  Integer.parseInt(splitString[1].replaceAll("[^0-9]", ""));
+		
+		coordinator = coordinatorRepo.getById(coordinatorID);
+		System.out.println("COORDINATOR " + coordinator);
+		
+		List<AssessmentCentre> currentACs = coordinator.getAssessmentCentres();
+		List<AssessmentCentre>tobeDeleted = new ArrayList<>();
+		
+		for (AssessmentCentre assessmentCentre : currentACs) {
+			if (assessmentCentre.getId() == acID) {
+				tobeDeleted.add(assessmentCentre);
+			}
+		}
+		currentACs.removeAll(tobeDeleted);
+		
+		coordinatorRepo.save(coordinator);
+		acRepo.deleteById(acID);
 	}
 	
 	

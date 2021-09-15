@@ -24,14 +24,14 @@ public class AssessmentCentre {
 	private LocalDateTime start;
 	private LocalDateTime end;
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne//(cascade=CascadeType.ALL) -> 15/09 TEST
 	@JoinColumn(name = "fk_coordinator_id")
 	private ACCoordinator coordinator;
 	
 	@OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Candidate> candidates;
 	
-	@ManyToMany(cascade=CascadeType.ALL)
+	@ManyToMany//(cascade=CascadeType.ALL) -> 15/09 TEST
 	@JoinTable(name = "assessment_center_interviewers", 
 		joinColumns = { @JoinColumn(name="fk_ac_id") }, 
 		inverseJoinColumns =	{ @JoinColumn(name="fk_interviewer_id") }
@@ -99,11 +99,11 @@ public class AssessmentCentre {
 		this.interviewers = interviewers;
 	}
 
-//	@Override
-//	public String toString() {
-//		return "AssessmentCentre [id=" + id + ", start=" + start + ", end=" + end + ", coordinator=" + coordinator
-//				+ ", candidates=" + candidates + ", interviewers=" + interviewers + "]";
-//	}
+	@Override
+	public String toString() {
+		return "AssessmentCentre [id=" + id + ", start=" + start + ", end=" + end + ", coordinator=" + coordinator
+				+ "]";
+	}
 
 	
 	
