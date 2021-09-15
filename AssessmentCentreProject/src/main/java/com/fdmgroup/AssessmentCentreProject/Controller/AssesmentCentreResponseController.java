@@ -120,7 +120,7 @@ public class AssesmentCentreResponseController {
 							row.setOverall(row.getOverall() + response.getPoints());
 						}
 					}
-				} else {	
+				} else {
 					CandidateACResult result = new CandidateACResult();
 					result.setCandidate(response.getCandidate());
 					result.setInterviewer(response.getInterviewer());

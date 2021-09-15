@@ -13,3 +13,8 @@ INSERT INTO `groupproject`.`assessment_centre_response` (`id`, `points`, `candid
 INSERT INTO `groupproject`.`assessment_centre_response` (`id`, `points`, `candidate_id`, `fk_interviewer_id`, `question_id`) VALUES ('-12', '7', '8', '-1', '3');
 INSERT INTO `groupproject`.`assessment_centre_response` (`id`, `points`, `candidate_id`, `fk_interviewer_id`, `question_id`) VALUES ('-13', '2', '7', '-1', '8');
 INSERT INTO `groupproject`.`assessment_centre_response` (`id`, `points`, `candidate_id`, `fk_interviewer_id`, `question_id`) VALUES ('-14', '10', '1', '-1', '31');
+INSERT INTO `groupproject`.`assessment_centre_response` (`id`, `notes`, `points`, `candidate_id`, `fk_interviewer_id`, `question_id`) VALUES ('-15', 'xzcZXCBV dsfwearaerg sdgf gdsfgfd', '7', '1', '5', '11');
+INSERT INTO `groupproject`.`assessment_centre_response` (`id`, `points`, `candidate_id`, `fk_interviewer_id`, `question_id`) VALUES ('-16', '7', '1', '5', '12');
+INSERT INTO `groupproject`.`assessment_centre_response` (`id`, `points`, `candidate_id`, `fk_interviewer_id`, `question_id`) VALUES ('-17', '4', '1', '6', '13');
+INSERT INTO `groupproject`.`assessment_centre_response` (`id`, `points`, `candidate_id`, `fk_interviewer_id`, `question_id`) VALUES ('-18', '4', '1', '6', '30');
+INSERT INTO `groupproject`.`assessment_centre_response` (`id`, `points`, `candidate_id`, `fk_interviewer_id`, `question_id`) VALUES ('-19', '8', '1', '-1', '28');

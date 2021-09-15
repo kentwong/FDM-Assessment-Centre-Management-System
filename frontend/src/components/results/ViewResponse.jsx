@@ -5,17 +5,25 @@ import { faBackward } from '@fortawesome/free-solid-svg-icons';
 
 function ViewResponse(props) {
 
-    const [responses, setResponses] = useState([]);
     const [response, setResponse] = useState([]);
     const [generalResponses, setGeneralResponses] = useState([]);
     const [technicalResponses, setTechnicalResponses] = useState([]);
     const [behaviouralResponses, setBehaviouralResponses] = useState([]);
+    
+    const firstGeneralRow = generalResponses.slice(0,1);
+    const secondGeneralRow = generalResponses.slice(1,2);
+    const thirdGeneralRow = generalResponses.slice(2,3);
+    const fourthGeneralRow = generalResponses.slice(3,4);
 
-    useEffect(() => {
-        AssessmentCentreResponseService.getAssessmentCentreResponseById(props.match.params.id).then((res) => {
-            setResponses(res.data);
-        })
-    }, [])
+    const firstTechnicalRow = technicalResponses.slice(0,1);
+    const secondTechnicalRow = technicalResponses.slice(1,2);
+    const thirdTechnicalRow = technicalResponses.slice(2,3);
+    const fourthTechnicalRow = technicalResponses.slice(3,4);
+
+    const firstBehaviouralRow = behaviouralResponses.slice(0,1);
+    const secondBehaviouralRow = behaviouralResponses.slice(1,2);
+    const thirdBehaviouralRow = behaviouralResponses.slice(2,3);
+    const fourthBehaviouralRow = behaviouralResponses.slice(3,4);
 
     useEffect(() => {
         AssessmentCentreResponseService.getAssessmentCentreResponseGroupedOneForId(props.match.params.id).then((res) => {
@@ -55,7 +63,7 @@ function ViewResponse(props) {
                                 {
                                 response.map(
                                         response =>
-                                            <tr key={response.id}>
+                                            <tr key={response.question.questionBody}>
                                                 <td> <a href={'/applicant/edit/' + response.candidate.id}>{response.candidate.firstName} {response.candidate.lastName} </a></td>
                                             </tr>
                                     )
@@ -69,7 +77,7 @@ function ViewResponse(props) {
                                 {
                                 response.map(
                                         response =>
-                                            <tr key={response.id}>
+                                            <tr key={response.question.questionBody}>
                                                 <td> {response.candidate.stream.streamName} </td>
                                             </tr>
                                     )
@@ -86,7 +94,7 @@ function ViewResponse(props) {
                                 {
                                 response.map(
                                         response =>
-                                            <tr key={response.id}>
+                                            <tr key={response.question.questionBody}>
                                                 <td> Total: {response.overall} </td>
                                             </tr>
                                     )
@@ -102,7 +110,7 @@ function ViewResponse(props) {
                                 {
                                 response.map(
                                         response =>
-                                            <tr key={response.id}>
+                                            <tr key={response.question.questionBody}>
                                                 <td> DATE </td>
                                             </tr>
                                     )
@@ -116,7 +124,7 @@ function ViewResponse(props) {
                                 {
                                 response.map(
                                         response =>
-                                            <tr key={response.id}>
+                                            <tr key={response.question.questionBody}>
                                                 <td> Location? </td>
                                             </tr>
                                     )
@@ -141,7 +149,7 @@ function ViewResponse(props) {
                                 {
                                 response.map(
                                         response =>
-                                            <tr key={response.id}>
+                                            <tr key={response.question.questionBody}>
                                                 <td> Degree? </td>
                                             </tr>
                                     )
@@ -155,7 +163,7 @@ function ViewResponse(props) {
                                 {
                                 response.map(
                                         response =>
-                                            <tr key={response.id}>
+                                            <tr key={response.question.questionBody}>
                                                 <td> {response.candidate.university} </td>
                                             </tr>
                                     )
@@ -169,7 +177,7 @@ function ViewResponse(props) {
                                 {
                                 response.map(
                                         response =>
-                                            <tr key={response.id}>
+                                            <tr key={response.question.questionBody}>
                                                 <td> {response.generalTotal} </td>
                                             </tr>
                                     )
@@ -183,7 +191,7 @@ function ViewResponse(props) {
                                 {
                                 response.map(
                                         response =>
-                                            <tr key={response.id}>
+                                            <tr key={response.question.questionBody}>
                                                 <td> {response.technicalTotal} </td>
                                             </tr>
                                     )
@@ -197,7 +205,7 @@ function ViewResponse(props) {
                                 {
                                 response.map(
                                         response =>
-                                            <tr key={response.id}>
+                                            <tr key={response.question.questionBody}>
                                                 <td> {response.behaviouralTotal} </td>
                                             </tr>
                                     )
@@ -208,142 +216,503 @@ function ViewResponse(props) {
                 </div>
 
                 <div className="row">
-                    <h2 className="text-center">Generals</h2>
-                        <table className="table table-Striped table-bordered table-hover">
-                                <thead>
-                        
-                                    <tr>
-                                        <td> Question </td>
-                                        <td> Notes </td>
-                                        <td> Grade </td>
-                                        <td> Points </td>
-                                        <td> Question Type </td>  
-                                        <td> Interviewer </td>
-                                    </tr>
-                
-            
-                                </thead>
-                                <tbody>
-                                    {
-                                    generalResponses.map(
-                                            generalResponse =>
-                                                <tr key={generalResponse.id}>
-                                                    <td> {generalResponse.question.questionBody} </td>
-                                                    <td> {generalResponse.notes} </td>
-                                                    <td> {generalResponse.grade} </td>
-                                                    <td> {generalResponse.general} </td>
-                                                    <td> {generalResponse.question.questionType} </td>
-                                                    <td> {generalResponse.interviewer.firstName} {generalResponse.interviewer.lastName} </td>
-                                                </tr>
-                                        )
-                                    }
-                                </tbody>
+                    <h2 className="text-center">General Interview</h2>
 
-                        </table> 
+                    <div className="col-md-12">
+                        <table className="table table-Striped table-bordered table-hover" style={{"borderWidth":"1px", 'borderColor':"#aaaaaa", 'borderStyle':'solid'}}>
+                            <thead>
+                                {
+                                firstGeneralRow.map(
+                                        generalResponse =>
+                                            <tr key={generalResponse.question.questionBody}>
+                                                <td> Question: {generalResponse.question.questionBody} </td>
+                                                <td> Grade: {generalResponse.grade} </td>
+                                            </tr>
+                                    )
+                                }
+                            </thead>
+                            <tbody>
+                                {
+                                firstGeneralRow.map(
+                                        generalResponse =>
+                                            <tr key={generalResponse.question.questionBody}>
+                                                <td> Interviewer: {generalResponse.interviewer.firstName} {generalResponse.interviewer.lastName} </td>
+                                                <td> Points: {generalResponse.general} </td>
+                                            </tr>
+                                    )
+                                }
+                            </tbody>
+                            <tbody>
+                                {
+                                firstGeneralRow.map(
+                                        generalResponse =>
+                                            <tr key={generalResponse.question.questionBody}>
+                                                <p> Notes: {generalResponse.notes} </p> 
+                                            </tr>
+                                    )
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div className="col-md-12">
+                        <table className="table table-Striped table-bordered table-hover" style={{"borderWidth":"1px", 'borderColor':"#aaaaaa", 'borderStyle':'solid'}}>
+                            <thead>
+                                {
+                                secondGeneralRow.map(
+                                        generalResponse =>
+                                            <tr key={generalResponse.question.questionBody}>
+                                                <td> Question: {generalResponse.question.questionBody} </td>
+                                                <td> Grade: {generalResponse.grade} </td>
+                                            </tr>
+                                    )
+                                }
+                            </thead>
+                            <tbody>
+                                {
+                                secondGeneralRow.map(
+                                        generalResponse =>
+                                            <tr key={generalResponse.question.questionBody}>
+                                                <td> Interviewer: {generalResponse.interviewer.firstName} {generalResponse.interviewer.lastName} </td>
+                                                <td> Points: {generalResponse.general} </td>
+                                            </tr>
+                                    )
+                                }
+                            </tbody>
+                            <tbody>
+                                {
+                                secondGeneralRow.map(
+                                        generalResponse =>
+                                            <tr key={generalResponse.question.questionBody}>
+                                                <p> Notes: {generalResponse.notes} </p>
+                                            </tr>
+                                    )
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div className="col-md-12">
+                        <table className="table table-Striped table-bordered table-hover" style={{"borderWidth":"1px", 'borderColor':"#aaaaaa", 'borderStyle':'solid'}}>
+                            <thead>
+                                {
+                                thirdGeneralRow.map(
+                                        generalResponse =>
+                                            <tr key={generalResponse.question.questionBody}>
+                                                <td> Question: {generalResponse.question.questionBody} </td>
+                                                <td> Grade: {generalResponse.grade} </td>
+                                            </tr>
+                                    )
+                                }
+                            </thead>
+                            <tbody>
+                                {
+                                thirdGeneralRow.map(
+                                        generalResponse =>
+                                            <tr key={generalResponse.question.questionBody}>
+                                                <td> Interviewer: {generalResponse.interviewer.firstName} {generalResponse.interviewer.lastName} </td>
+                                                <td> Points: {generalResponse.general} </td>
+                                            </tr>
+                                    )
+                                }
+                            </tbody>
+                            <tbody>
+                                {
+                                thirdGeneralRow.map(
+                                        generalResponse =>
+                                            <tr key={generalResponse.question.questionBody}>
+                                                <p> Notes: {generalResponse.notes} </p>
+                                            </tr>
+                                    )
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div className="col-md-12">
+                        <table className="table table-Striped table-bordered table-hover" style={{"borderWidth":"1px", 'borderColor':"#aaaaaa", 'borderStyle':'solid'}}>
+                            <thead>
+                                {
+                                fourthGeneralRow.map(
+                                        generalResponse =>
+                                            <tr key={generalResponse.question.questionBody}>
+                                                <td> Question: {generalResponse.question.questionBody} </td>
+                                                <td> Grade: {generalResponse.grade} </td>
+                                            </tr>
+                                    )
+                                }
+                            </thead>
+                            <tbody>
+                                {
+                                fourthGeneralRow.map(
+                                        generalResponse =>
+                                            <tr key={generalResponse.question.questionBody}>
+                                                <td> Interviewer: {generalResponse.interviewer.firstName} {generalResponse.interviewer.lastName} </td>
+                                                <td> Points: {generalResponse.general} </td>
+                                            </tr>
+                                    )
+                                }
+                            </tbody>
+                            <thead>
+                                {
+                                fourthGeneralRow.map(
+                                        generalResponse =>
+                                            <tr key={generalResponse.question.questionBody}>
+                                                <p> Notes: {generalResponse.notes} </p> 
+                                            </tr>
+                                    )
+                                }
+                            </thead>
+                        </table>
+                    </div>
+                    <div className="col-md-3">
+                        <table className="table table-Striped table-bordered table-hover" style={{"borderWidth":"1px", 'borderColor':"#aaaaaa", 'borderStyle':'solid'}}>
+                            <tbody>
+                                {
+                                response.map(
+                                        response =>
+                                            <tr key={response.question.questionBody}>
+                                                <td> General Interview Total: {response.generalTotal} </td>
+                                            </tr>
+                                    )
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
                 </div>
                 
                 <div className="row">
-                    <h2 className="text-center">Technicals</h2>
-                        <table className="table table-Striped table-bordered table-hover">
-                                <thead>
-                        
-                                    <tr>
-                                        <td> Question </td>
-                                        <td> Notes </td>
-                                        <td> Grade </td>
-                                        <td> Points </td>
-                                        <td> Question Type </td>  
-                                        <td> Interviewer </td>
-                                    </tr>
-                
-            
-                                </thead>
-                                <tbody>
-                                    {
-                                    technicalResponses.map(
-                                            technicalResponse =>
-                                                <tr key={technicalResponse.id}>
-                                                    <td> {technicalResponse.question.questionBody} </td>
-                                                    <td> {technicalResponse.notes} </td>
-                                                    <td> {technicalResponse.grade} </td>
-                                                    <td> {technicalResponse.technical} </td>
-                                                    <td> {technicalResponse.question.questionType} </td>
-                                                    <td> {technicalResponse.interviewer.firstName} {technicalResponse.interviewer.lastName} </td>
-                                                </tr>
-                                        )
-                                    }
-                                </tbody>
+                    <h2 className="text-center">Technical Interview</h2>
 
-                        </table> 
+                    <div className="col-md-12">
+                        <table className="table table-Striped table-bordered table-hover" style={{"borderWidth":"1px", 'borderColor':"#aaaaaa", 'borderStyle':'solid'}}>
+                            <thead>
+                                {
+                                firstTechnicalRow.map(
+                                        technicalResponse =>
+                                            <tr key={technicalResponse.question.questionBody}>
+                                                <td> Question: {technicalResponse.question.questionBody} </td>
+                                                <td> Grade: {technicalResponse.grade} </td>
+                                            </tr>
+                                    )
+                                }
+                            </thead>
+                            <tbody>
+                                {
+                                firstTechnicalRow.map(
+                                        technicalResponse =>
+                                            <tr key={technicalResponse.question.questionBody}>
+                                                <td> Interviewer: {technicalResponse.interviewer.firstName} {technicalResponse.interviewer.lastName} </td>
+                                                <td> Points: {technicalResponse.technical} </td>
+                                            </tr>
+                                    )
+                                }
+                            </tbody>
+                            <tbody>
+                                {
+                                firstTechnicalRow.map(
+                                    technicalResponse =>
+                                            <tr key={technicalResponse.question.questionBody}>
+                                                <p> Notes: {technicalResponse.notes} </p> 
+                                            </tr>
+                                    )
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div className="col-md-12">
+                        <table className="table table-Striped table-bordered table-hover" style={{"borderWidth":"1px", 'borderColor':"#aaaaaa", 'borderStyle':'solid'}}>
+                            <thead>
+                                {
+                                secondTechnicalRow.map(
+                                    technicalResponse =>
+                                            <tr key={technicalResponse.question.questionBody}>
+                                                <td> Question: {technicalResponse.question.questionBody} </td>
+                                                <td> Grade: {technicalResponse.grade} </td>
+                                            </tr>
+                                    )
+                                }
+                            </thead>
+                            <tbody>
+                                {
+                                secondTechnicalRow.map(
+                                    technicalResponse =>
+                                            <tr key={technicalResponse.question.questionBody}>
+                                                <td> Interviewer: {technicalResponse.interviewer.firstName} {technicalResponse.interviewer.lastName} </td>
+                                                <td> Points: {technicalResponse.technical} </td>
+                                            </tr>
+                                    )
+                                }
+                            </tbody>
+                            <tbody>
+                                {
+                                secondTechnicalRow.map(
+                                    technicalResponse =>
+                                            <tr key={technicalResponse.question.questionBody}>
+                                                <p> Notes: {technicalResponse.notes} </p>
+                                            </tr>
+                                    )
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div className="col-md-12">
+                        <table className="table table-Striped table-bordered table-hover" style={{"borderWidth":"1px", 'borderColor':"#aaaaaa", 'borderStyle':'solid'}}>
+                            <thead>
+                                {
+                                thirdTechnicalRow.map(
+                                    technicalResponse =>
+                                            <tr key={technicalResponse.question.questionBody}>
+                                                <td> Question: {technicalResponse.question.questionBody} </td>
+                                                <td> Grade: {technicalResponse.grade} </td>
+                                            </tr>
+                                    )
+                                }
+                            </thead>
+                            <tbody>
+                                {
+                                thirdTechnicalRow.map(
+                                    technicalResponse =>
+                                            <tr key={technicalResponse.question.questionBody}>
+                                                <td> Interviewer: {technicalResponse.interviewer.firstName} {technicalResponse.interviewer.lastName} </td>
+                                                <td> Points: {technicalResponse.technical} </td>
+                                            </tr>
+                                    )
+                                }
+                            </tbody>
+                            <tbody>
+                                {
+                                thirdTechnicalRow.map(
+                                    technicalResponse =>
+                                            <tr key={technicalResponse.question.questionBody}>
+                                                <p> Notes: {technicalResponse.notes} </p>
+                                            </tr>
+                                    )
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div className="col-md-12">
+                        <table className="table table-Striped table-bordered table-hover" style={{"borderWidth":"1px", 'borderColor':"#aaaaaa", 'borderStyle':'solid'}}>
+                            <thead>
+                                {
+                                fourthTechnicalRow.map(
+                                    technicalResponse =>
+                                            <tr key={technicalResponse.question.questionBody}>
+                                                <td> Question: {technicalResponse.question.questionBody} </td>
+                                                <td> Grade: {technicalResponse.grade} </td>
+                                            </tr>
+                                    )
+                                }
+                            </thead>
+                            <tbody>
+                                {
+                                fourthTechnicalRow.map(
+                                    technicalResponse =>
+                                            <tr key={technicalResponse.question.questionBody}>
+                                                <td> Interviewer: {technicalResponse.interviewer.firstName} {technicalResponse.interviewer.lastName} </td>
+                                                <td> Points: {technicalResponse.technical} </td>
+                                            </tr>
+                                    )
+                                }
+                            </tbody>
+                            <thead>
+                                {
+                                fourthTechnicalRow.map(
+                                    technicalResponse =>
+                                            <tr key={technicalResponse.question.questionBody}>
+                                                <p> Notes: {technicalResponse.notes} </p> 
+                                            </tr>
+                                    )
+                                }
+                            </thead>
+                        </table>
+                    </div>
+                    <div className="col-md-3">
+                        <table className="table table-Striped table-bordered table-hover" style={{"borderWidth":"1px", 'borderColor':"#aaaaaa", 'borderStyle':'solid'}}>
+                            <tbody>
+                                {
+                                response.map(
+                                        response =>
+                                            <tr key={response.question.questionBody}>
+                                                <td> Technical Interview Total: {response.technicalTotal} </td>
+                                            </tr>
+                                    )
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 
                 <div className="row">
-                    <h2 className="text-center">Behaviourals</h2>
-                        <table className="table table-Striped table-bordered table-hover">
-                                <thead>
-                        
-                                    <tr>
-                                        <td> Question </td>
-                                        <td> Notes </td>
-                                        <td> Grade </td>
-                                        <td> Points </td>
-                                        <td> Question Type </td>  
-                                        <td> Interviewer </td>
-                                    </tr>
-                
-            
-                                </thead>
-                                <tbody>
-                                    {
-                                    behaviouralResponses.map(
-                                            behaviouralResponse =>
-                                                <tr key={behaviouralResponse.id}>
-                                                    <td> {behaviouralResponse.question.questionBody} </td>
-                                                    <td> {behaviouralResponse.notes} </td>
-                                                    <td> {behaviouralResponse.grade} </td>
-                                                    <td> {behaviouralResponse.behavioural} </td>
-                                                    <td> {behaviouralResponse.question.questionType} </td>
-                                                    <td> {behaviouralResponse.interviewer.firstName} {behaviouralResponse.interviewer.lastName} </td>
-                                                </tr>
-                                        )
-                                    }
-                                </tbody>
+                    <h2 className="text-center">Behavioural Interview</h2>
 
-                        </table> 
-                </div>
-                
+                    <div className="col-md-12">
+                        <table className="table table-Striped table-bordered table-hover" style={{"borderWidth":"1px", 'borderColor':"#aaaaaa", 'borderStyle':'solid'}}>
+                            <thead>
+                                {
+                                firstBehaviouralRow.map(
+                                        behaviouralResponse =>
+                                            <tr key={behaviouralResponse.question.questionBody}>
+                                                <td> Question: {behaviouralResponse.question.questionBody} </td>
+                                                <td> Grade: {behaviouralResponse.grade} </td>
+                                            </tr>
+                                    )
+                                }
+                            </thead>
+                            <tbody>
+                                {
+                                firstBehaviouralRow.map(
+                                    behaviouralResponse =>
+                                            <tr key={behaviouralResponse.question.questionBody}>
+                                                <td> Interviewer: {behaviouralResponse.interviewer.firstName} {behaviouralResponse.interviewer.lastName} </td>
+                                                <td> Points: {behaviouralResponse.behavioural} </td>
+                                            </tr>
+                                    )
+                                }
+                            </tbody>
+                            <tbody>
+                                {
+                                firstBehaviouralRow.map(
+                                    behaviouralResponse =>
+                                            <tr key={behaviouralResponse.question.questionBody}>
+                                                <p> Notes: {behaviouralResponse.notes} </p> 
+                                            </tr>
+                                    )
+                                }
+                            </tbody>
+                        </table>
+                    </div>
 
-                <table className="table table-Striped table-bordered table-hover">
-                        <thead>
-                   
-                            <tr>
-                                <td> Name </td>
-                                <td> Notes </td>
-                                <td> Points </td>
-                                <td> Interviwer </td>
-                                <td> Question Type </td>  
-                                <td> Question </td>
-                            </tr>
-           
-       
-                        </thead>
-                        <tbody>
-                            {
-                            responses.map(
-                                    response =>
-                                        <tr key={response.id}>
-                                            <td> {response.candidate.firstName} {response.candidate.lastName}</td>
-                                            <td> {response.notes} </td>
-                                            <td> {response.points} </td>
-                                            <td> {response.interviewer.firstName} {response.interviewer.lastName} </td>
-                                            <td> {response.question.questionType} </td>
-                                            <td> {response.question.questionBody} </td>
-                                        </tr>
-                                )
-                            }
-                        </tbody>
+                    <div className="col-md-12">
+                        <table className="table table-Striped table-bordered table-hover" style={{"borderWidth":"1px", 'borderColor':"#aaaaaa", 'borderStyle':'solid'}}>
+                            <thead>
+                                {
+                                secondBehaviouralRow.map(
+                                    behaviouralResponse =>
+                                            <tr key={behaviouralResponse.question.questionBody}>
+                                                <td> Question: {behaviouralResponse.question.questionBody} </td>
+                                                <td> Grade: {behaviouralResponse.grade} </td>
+                                            </tr>
+                                    )
+                                }
+                            </thead>
+                            <tbody>
+                                {
+                                secondBehaviouralRow.map(
+                                    behaviouralResponse =>
+                                            <tr key={behaviouralResponse.question.questionBody}>
+                                                <td> Interviewer: {behaviouralResponse.interviewer.firstName} {behaviouralResponse.interviewer.lastName} </td>
+                                                <td> Points: {behaviouralResponse.behavioural} </td>
+                                            </tr>
+                                    )
+                                }
+                            </tbody>
+                            <tbody>
+                                {
+                                secondBehaviouralRow.map(
+                                    behaviouralResponse =>
+                                            <tr key={behaviouralResponse.question.questionBody}>
+                                                <p> Notes: {behaviouralResponse.notes} </p>
+                                            </tr>
+                                    )
+                                }
+                            </tbody>
+                        </table>
+                    </div>
 
-                </table> 
+                    <div className="col-md-12">
+                        <table className="table table-Striped table-bordered table-hover" style={{"borderWidth":"1px", 'borderColor':"#aaaaaa", 'borderStyle':'solid'}}>
+                            <thead>
+                                {
+                                thirdBehaviouralRow.map(
+                                    behaviouralResponse =>
+                                            <tr key={behaviouralResponse.question.questionBody}>
+                                                <td> Question: {behaviouralResponse.question.questionBody} </td>
+                                                <td> Grade: {behaviouralResponse.grade} </td>
+                                            </tr>
+                                    )
+                                }
+                            </thead>
+                            <tbody>
+                                {
+                                thirdBehaviouralRow.map(
+                                    behaviouralResponse =>
+                                            <tr key={behaviouralResponse.question.questionBody}>
+                                                <td> Interviewer: {behaviouralResponse.interviewer.firstName} {behaviouralResponse.interviewer.lastName} </td>
+                                                <td> Points: {behaviouralResponse.behavioural} </td>
+                                            </tr>
+                                    )
+                                }
+                            </tbody>
+                            <tbody>
+                                {
+                                thirdBehaviouralRow.map(
+                                    behaviouralResponse =>
+                                            <tr key={behaviouralResponse.question.questionBody}>
+                                                <p> Notes: {behaviouralResponse.notes} </p>
+                                            </tr>
+                                    )
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div className="col-md-12">
+                        <table className="table table-Striped table-bordered table-hover" style={{"borderWidth":"1px", 'borderColor':"#aaaaaa", 'borderStyle':'solid'}}>
+                            <thead>
+                                {
+                                fourthBehaviouralRow.map(
+                                    behaviouralResponse =>
+                                            <tr key={behaviouralResponse.question.questionBody}>
+                                                <td> Question: {behaviouralResponse.question.questionBody} </td>
+                                                <td> Grade: {behaviouralResponse.grade} </td>
+                                            </tr>
+                                    )
+                                }
+                            </thead>
+                            <tbody>
+                                {
+                                fourthBehaviouralRow.map(
+                                    behaviouralResponse =>
+                                            <tr key={behaviouralResponse.question.questionBody}>
+                                                <td> Interviewer: {behaviouralResponse.interviewer.firstName} {behaviouralResponse.interviewer.lastName} </td>
+                                                <td> Points: {behaviouralResponse.behavioural} </td>
+                                            </tr>
+                                    )
+                                }
+                            </tbody>
+                            <thead>
+                                {
+                                fourthBehaviouralRow.map(
+                                    behaviouralResponse =>
+                                            <tr key={behaviouralResponse.question.questionBody}>
+                                                <p> Notes: {behaviouralResponse.notes} </p> 
+                                            </tr>
+                                    )
+                                }
+                            </thead>
+                        </table>
+                    </div>
+                    <div className="col-md-3">
+                        <table className="table table-Striped table-bordered table-hover" style={{"borderWidth":"1px", 'borderColor':"#aaaaaa", 'borderStyle':'solid'}}>
+                            <tbody>
+                                {
+                                response.map(
+                                        response =>
+                                            <tr key={response.question.questionBody}>
+                                                <td> Behavioural Interview Total: {response.behaviouralTotal} </td>
+                                            </tr>
+                                    )
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    </div>
             </div>
             </div>
             
