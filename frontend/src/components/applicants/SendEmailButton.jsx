@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import OfferOfEmploymentTemplate from '../templates/OfferOfEmploymentTemplate';
 import FollowUpTemplate from '../templates/FollowUpTemplate';
 import RejectionTemplate from '../templates/RejectionTemplate';
-import ACInviteTemplate from '../templates/ACInviteTemplate';
+import ACInviteIntervieweeTemplate from '../templates/ACInviteIntervieweeTemplate';
 import VideoInterviewTemplate from '../templates/VideoInterviewTemplate';
 import AptitudeTestTemplate from '../templates/AptitudeTestTemplate';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -57,7 +57,7 @@ function SendEmailButton({ candidate }) {
                             <div className="mb-2">
                                 <a className="icon-link" href={`mailto:${candidate.email}
                                                                 ?subject=FDM Australia Assessment Centre Invitation - ${candidate.firstName} ${candidate.lastName}
-                                                                &body=${encodeURIComponent(ACInviteTemplate(candidate))}`
+                                                                &body=${encodeURIComponent(ACInviteIntervieweeTemplate(candidate))}`
                                 }>
                                     <FontAwesomeIcon className="fa-lg icon-link me-2" icon={faEnvelopeOpenText} color="#0d6efd" />
                                     AC Invitation
