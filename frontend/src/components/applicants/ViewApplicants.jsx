@@ -8,7 +8,7 @@ import ShowCandidatesAssignedToMe from './ShowCandidatesAssignedToMe';
 import ApplicantTableList from './ApplicantTableList';
 import Pagination from './Pagination'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSlidersH, faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { faSlidersH, faSortAmountDownAlt, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import XLSX from 'xlsx';
 import ExportButton from './ExportButton';
 import jsPDF from 'jspdf';
@@ -23,12 +23,14 @@ function ViewApplicants(props) {
     const [countCandidatesToBeAssigned, setCountCandidatesToBeAssigned] = useState([]);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false);
+
+    // For sorting columns
+    const [sorting, setSorting] = useState({ field: "", order: "" })
 
     //For pagination
-    // const [posts, setPosts] = useState([]);
     const [currentPage, setCurrentPage] = useState(1)
-    const [candidatesPerPage, setCandidatesPerPage] = useState(20)
+    const [candidatesPerPage, setCandidatesPerPage] = useState(10)
 
     useEffect(() => {
         setCandidatesAndUnassignedCandidates();
@@ -64,6 +66,10 @@ function ViewApplicants(props) {
                 });
             setCandidates(filtered);
         })
+    }
+
+    const handleFilter = (filter) => {
+
     }
 
     const showCandidatesAssignedToMe = (id) => {
@@ -172,11 +178,74 @@ function ViewApplicants(props) {
         doc.save("FDM_Candidates_Data.pdf");
     }
 
-    //Get current posts
+    //Get current candidate pages
     const indexOfLastCandidate = currentPage * candidatesPerPage;
     const indexOfFirstCandidate = indexOfLastCandidate - candidatesPerPage;
     const currentCandidates = candidates.slice(indexOfFirstCandidate, indexOfLastCandidate)
     const howManyPages = Math.ceil(candidates.length / candidatesPerPage)
+
+    //For sorting columns
+    // const headers = [
+    //     { name: "ID", field: "id", sortable: false },
+    //     { name: "Name", field: "firstName", sortable: false },
+    //     { name: "Stream", field: "streamName", sortable: false },
+    //     { name: "Status", field: "status", sortable: false },
+    //     { name: "Phone", field: "phoneNumber", sortable: false },
+    //     { name: "Email", field: "email", sortable: false },
+    //     { name: "CV", field: "cv", sortable: false },
+    //     { name: "Action", field: "id", sortable: false },
+    // ]
+
+    const dynamicSort = (property) => {
+        var sortOrder = 1;
+        if (property[0] === "-") {
+            sortOrder = -1;
+            property = property.substr(1);
+        }
+        return function (a, b) {
+            /* next line works with strings and numbers, 
+             * and you may want to customize it to your needs
+             */
+            var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+            return result * sortOrder;
+        }
+    }
+
+    //For sorting id
+    const [idAssend, setIdAssend] = useState(true);
+    const toggleSortId = () => {
+        idAssend ?
+            setCandidates(candidates.sort(dynamicSort("-id"))) :
+            setCandidates(candidates.sort(dynamicSort("id")))
+        setIdAssend(!idAssend)
+    }
+
+    //For sorting name
+    const [nameAssend, setNameAssend] = useState(true);
+    const toggleSortName = () => {
+        nameAssend ?
+            setCandidates(candidates.sort(dynamicSort("-firstName"))) :
+            setCandidates(candidates.sort(dynamicSort("firstName")))
+        setNameAssend(!nameAssend)
+    }
+
+    //For sorting stream
+    const [streamAssend, setStreamAssend] = useState(true);
+    const toggleSortStream = () => {
+        streamAssend ?
+            setCandidates(candidates.sort(dynamicSort("-streamName"))) :
+            setCandidates(candidates.sort(dynamicSort("streamName")))
+        setStreamAssend(!streamAssend)
+    }
+
+    //For sorting name
+    const [statusAssend, setStatusAssend] = useState(true);
+    const toggleSortStatus = () => {
+        statusAssend ?
+            setCandidates(candidates.sort(dynamicSort("-status"))) :
+            setCandidates(candidates.sort(dynamicSort("status")))
+        setStatusAssend(!statusAssend)
+    }
 
     return (
         <div className="container my-5">
@@ -185,9 +254,95 @@ function ViewApplicants(props) {
                 <div className="col-4 pe-0 ps-1">
                     <SearchBar handleSearch={handleSearch} />
                 </div>
+
                 <div className="col-4 ps-0">
-                    <button className="btn btn-primary me-2"><FontAwesomeIcon className="fa-lg me-2" icon={faSlidersH} />Filter</button>
+                    {/* //Filter Button */}
+                    <button className="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#modalFilter"><FontAwesomeIcon className="fa-lg me-2" icon={faSlidersH} />Filter</button>
+
+                    {/* //Sort Button */}
+                    {/* <div class="btn-group dropend">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            <FontAwesomeIcon className="fa-lg me-2" icon={faSortAmountDownAlt} />Sort
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li className="sort" data-sort="id">
+                                <button class="dropdown-item" type="button" >
+                                    Sort By ID
+                                </button>
+                            </li>
+                            <li><hr class="dropdown-divider" /></li>
+                            <li className="sort" data-sort="firstName">
+                                <button class="dropdown-item" type="button" >
+                                    Sort By Name
+                                </button>
+                            </li>
+                            <li><hr class="dropdown-divider" /></li>
+                            <li className="sort" data-sort="streamName">
+                                <button class="dropdown-item" type="button">
+                                    Sort By Stream
+                                </button>
+                            </li>
+                            <li><hr class="dropdown-divider" /></li>
+                            <li className="sort" data-sort="status">
+                                <button class="dropdown-item" type="button" >
+                                    Sort By Status
+                                </button>
+                            </li>
+                        </ul>
+                    </div> */}
+
+
+
+
                 </div>
+
+
+                <div className="modal fade" id="modalFilter" aria-hidden="true" aria-labelledby="modalFilterLabel" tabIndex="-1">
+                    <div className="modal-dialog modal-dialog-centered modal-lg">
+
+                        <div className="modal-content">
+                            <form onSubmit={(e) => handleFilter(e)}>
+                                <div className="modal-header">
+                                    <h5 className="modal-title" id="modalFilterLabel">Filter Candidates Data</h5>
+                                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div className="modal-body">
+                                    Choose recruiters to randomly assign {unassignedCandidates.length} candidates:
+
+                                    {availRecruiters.map(
+                                        recruiter => (
+                                            <div key={recruiter.id}>
+                                                <div className="form-check my-3">
+                                                    <input className="form-check-input my-2" type="checkbox" value="" id={"checkbox" + recruiter.id} onChange={() => checkboxChange(recruiter.id)} />
+                                                    <label className="form-check-label" htmlFor={"checkbox" + recruiter.id}>
+                                                        Assign
+                                                        <input id={"input" + recruiter.id} type="number" min="0" defaultValue="0" className="mx-2 text-center" maxLength="4" size="4" disabled onChange={(e) => countRemainingUnassigned(e, recruiter.id)} />
+                                                        candidate(s) to {recruiter.firstName} {recruiter.lastName}
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        ))}
+                                </div>
+
+                                <div className="modal-footer">
+                                    {error && <div className="alert alert-danger ms-0 me-auto" role="alert">
+                                        {error}
+                                    </div>}
+                                    {success && <div className="alert alert-success ms-0 me-auto" role="alert">
+                                        {success}
+                                    </div>}
+                                    <button type="submit" className="btn btn-danger" aria-label="Filter">Filter</button>
+                                    <button className="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
                 <div className="col-4 pe-0">
                     <AssignCandidatesToRecruiter
                         unassignedCandidates={unassignedCandidates}
@@ -205,6 +360,7 @@ function ViewApplicants(props) {
                 <div className="col-12 p-0">
                     <h2 className="text-center">Candidates List </h2>
                     <ExportButton exportToExcel={exportToExcel} exportToPdf={exportToPdf} />
+                    <span className="fs-6 text-secondary float-end" style={{ "marginTop": "-32px" }}>Found {candidates.length} candidates</span>
                 </div>
             </div>
 
@@ -233,7 +389,14 @@ function ViewApplicants(props) {
             </div> */}
 
 
-            <ApplicantTableList candidates={currentCandidates} deleteCandidate={deleteCandidate} />
+            <ApplicantTableList
+                candidates={currentCandidates}
+                deleteCandidate={deleteCandidate}
+                toggleSortId={toggleSortId}
+                toggleSortName={toggleSortName}
+                toggleSortStream={toggleSortStream}
+                toggleSortStatus={toggleSortStatus}
+            />
 
             <Pagination pages={howManyPages} setCurrentPage={setCurrentPage} />
 

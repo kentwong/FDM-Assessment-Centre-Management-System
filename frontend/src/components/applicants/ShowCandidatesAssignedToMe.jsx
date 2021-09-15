@@ -15,7 +15,7 @@ function ShowCandidatesAssignedToMe(props) {
                     setCandidatesAndUnassignedCandidates()
                 }} />
                 <label className="btn btn-outline-primary me-2" htmlFor="all">Show All</label>
-                <span className="fs-6 text-secondary">Found {candidates.length} candidates</span>
+
             </div>
         </div>
     );
