@@ -15,7 +15,7 @@ class SupportIndexPage extends Component {
 
                     <div className="row">
                         <div className="col-4 text-center px-5">
-                            <img src={DocumentVector} style={{ "height": "200px" }} alt="Logo" />
+                            <img src={DocumentVector} style={{ "height": "200px" }} alt="Documentation" />
                             <h4 className="text-center mb-4">Documentation</h4>
                             <div className="text-start">
                                 <p><a href="https://res.cloudinary.com/fdmgroup/raw/upload/v1631622147/fdmgroup/documents/Staff_Handbook_Acknowledgement_Form_r0kksr.doc" target="_blank" rel="noreferrer" className="icon-link text-dark"><FontAwesomeIcon className="fa-lg me-2" icon={faFileAlt} color="#0d6efd" />Staff Handbook Acknowledgement Form</a></p>
@@ -27,7 +27,7 @@ class SupportIndexPage extends Component {
                             </div>
                         </div>
                         <div className="col-4 text-center px-5">
-                            <img src={SettingVector} style={{ "height": "200px" }} alt="Logo" />
+                            <img src={SettingVector} style={{ "height": "200px" }} alt="Setting" />
                             <h4 className="text-center mb-4">Settings</h4>
                             <div className="text-start">
                                 <p><a href="/account/update" className="icon-link text-dark"><FontAwesomeIcon className="fa-lg me-2" icon={faCogs} color="#0d6efd" />Manage own account</a></p>
@@ -39,7 +39,7 @@ class SupportIndexPage extends Component {
                             </div>
                         </div>
                         <div className="col-4 text-center px-5">
-                            <img src={SearchVector} style={{ "height": "200px" }} alt="Logo" />
+                            <img src={SearchVector} style={{ "height": "200px" }} alt="Video Tutorial" />
                             <h4 className="text-center mb-4">Video Tutorial</h4>
                             <div className="text-start">
                                 <p><a href="https://www.youtube.com/watch?v=U1dvfP4fTjc" target="_blank" rel="noreferrer" className="icon-link text-dark"><FontAwesomeIcon className="fa-lg me-2" icon={faFilm} color="#0d6efd" />Assign recruiter to new applicants</a></p>
