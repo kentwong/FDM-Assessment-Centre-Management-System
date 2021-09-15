@@ -71,8 +71,14 @@ const SetupAC = (props) => {
         // console.log("candidateID: " + e.target.id + " - interviewType: " + e.target.name + " - interviewer: " + e.target.value)
     }
 
-    const submitACHandler = (event) => {
-        event.preventDefault()
+    const handleDelete = (e) => {
+        e.preventDefault()
+        props.history.push('/calender')
+        window.location.reload(false);
+    }
+
+    const submitACHandler = (e) => {
+        e.preventDefault()
         AssessmentCentreService.createAssessmentCentre(responses)
         props.history.push('/calender')
         window.location.reload(false);
@@ -119,7 +125,23 @@ const SetupAC = (props) => {
                     </div>
                 )}
             </div>
-            <input type="submit" className="btn btn-primary" value="Create Assessment Centre" />
+            <input type="button" className="btn btn-primary" value="Create Assessment Centre" data-bs-toggle="modal" data-bs-target="#confirmation" />
+
+            <div class="modal fade" id="confirmation" tabindex="-1" aria-labelledby="confirmationLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="confirmationLabel">Create Assessment Centre?</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" onClick={handleDelete} >Delete</button>
+                        <button type="submit" class="btn btn-primary">Create</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
+
             </form>
         </div>
     )

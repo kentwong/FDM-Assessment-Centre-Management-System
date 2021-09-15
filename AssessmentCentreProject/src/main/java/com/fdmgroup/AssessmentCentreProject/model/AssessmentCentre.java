@@ -1,7 +1,6 @@
 package com.fdmgroup.AssessmentCentreProject.model;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -25,14 +24,14 @@ public class AssessmentCentre {
 	private LocalDateTime start;
 	private LocalDateTime end;
 	
-	@ManyToOne (cascade=CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "fk_coordinator_id")
 	private ACCoordinator coordinator;
 	
 	@OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Candidate> candidates;
 	
-	@ManyToMany
+	@ManyToMany(cascade=CascadeType.ALL)
 	@JoinTable(name = "assessment_center_interviewers", 
 		joinColumns = { @JoinColumn(name="fk_ac_id") }, 
 		inverseJoinColumns =	{ @JoinColumn(name="fk_interviewer_id") }
@@ -102,8 +101,10 @@ public class AssessmentCentre {
 
 //	@Override
 //	public String toString() {
-//		return "AssessmentCentre [id=" + id + ", date=" + date + ", candidates=" + candidates + ", interviewers="
-//				+ interviewers + "]";
+//		return "AssessmentCentre [id=" + id + ", start=" + start + ", end=" + end + ", coordinator=" + coordinator
+//				+ ", candidates=" + candidates + ", interviewers=" + interviewers + "]";
 //	}
+
+	
 	
 }
