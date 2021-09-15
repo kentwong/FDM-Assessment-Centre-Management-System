@@ -96,7 +96,7 @@ class CalenderIndexPage extends Component {
                         <td className="e-textlabel">Description</td>
                         <td>
                             <input type="text" className="e-field e-input" id="Description" name="Description" readOnly={true}/>
-                            <button onClick={this.addCandidate}>Edit Candidates</button>
+                            {/* <button onClick={this.addCandidate}>Edit Candidates</button> */}
                         </td>
                     </tr>
 

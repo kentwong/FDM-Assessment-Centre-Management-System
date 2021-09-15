@@ -4,13 +4,15 @@ import { DateTimePickerComponent } from '@syncfusion/ej2-react-calendars';
 import CandidateService from '../../../services/CandidateService'
 import AssessmentCentreService from '../../../services/AssessmentCentreService'
 import SetupAC from './SetupAC.jsx'
+import SearchBar from '../../../components/applicants/SearchBar'
 
 const CreateAC = (props) => {
 
     const storedCoordinator = localStorage.getItem('user')
+    const excludeSearchColumns = ['id', 'aptitude_score', 'cv', 'date_of_birth', 'email', 'notes', 'phone_number', 'status', 'university', 'address', 'recruiter'];
     
     const [candidates, setCandidates] = useState([])
-    const [staff, setStaff] = useState([])
+    const [interviewers, setinterviewers] = useState([])
 
     const [selectedCandidates, setSelectedCandidates] = useState([])
     const [selectedInterviewers, setSelectedInterviewers] = useState([])
@@ -44,6 +46,30 @@ const CreateAC = (props) => {
         setDateEnd(e.target.value)
     }
 
+    const handleCandidateSearch = (search) => {
+        AssessmentCentreService.getCandidates().then((res) => {
+            let filtered = res.data
+                .filter(candidate => {
+                    return Object.keys(candidate).some(key => {
+                        return excludeSearchColumns.includes(key) ? false : candidate[key].toString().toLowerCase().includes(search.toLowerCase().trim())
+                    })
+                });
+            setCandidates(filtered);
+        })
+    }
+
+    const handleInterviewerSearch = (search) => {
+        AssessmentCentreService.getInterviewers().then((res) => {
+            let filtered = res.data
+                .filter(interviewer => {
+                    return Object.keys(interviewer).some(key => {
+                        return excludeSearchColumns.includes(key) ? false : interviewer[key].toString().toLowerCase().includes(search.toLowerCase().trim())
+                    })
+                });
+            setinterviewers(filtered);
+        })
+    }
+
     const submitACHandler = (e) => {
         e.preventDefault()
 
@@ -73,7 +99,7 @@ const CreateAC = (props) => {
         })
         AssessmentCentreService.getInterviewers().then((res) => {
             // console.log(res.data)
-            setStaff(res.data)
+            setinterviewers(res.data)
         })
         AssessmentCentreService.sendCoordinatorID(storedCoordinator)
     }, [])
@@ -98,6 +124,7 @@ const CreateAC = (props) => {
 
                 <div className="col border overflow-auto" style={ { height: 400 } }>
                     <br/>
+                    <input className="form-control me-2 search-bar-input mb-2" type="search" placeholder="Search" aria-label="Search" onChange={e => handleCandidateSearch(e.target.value)} />
                     <b>Candidates: </b>
                     <hr/>
                         {candidates.map( (candidate) => 
@@ -113,9 +140,10 @@ const CreateAC = (props) => {
 
                 <div className="col border overflow-auto" style={ { height: 400 } }>
                     <br/>
+                    <input className="form-control me-2 search-bar-input mb-2" type="search" placeholder="Search" aria-label="Search" onChange={e => handleInterviewerSearch(e.target.value)} />
                     <b>Interviewers: </b>
                     <hr/>
-                        {staff.map( interviewer => 
+                        {interviewers.map( interviewer => 
                             <div key={interviewer.id}>
                                 <input type="checkbox" name="interviewer" value={interviewer.id} onChange={(e)=>setSelectedInterviewers([...selectedInterviewers, e.target.value])} />
                                 <label for="candidate">&nbsp;{interviewer.firstName} {interviewer.lastName}</label>
