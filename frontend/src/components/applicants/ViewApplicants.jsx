@@ -8,9 +8,11 @@ import ShowCandidatesAssignedToMe from './ShowCandidatesAssignedToMe';
 import ApplicantTableList from './ApplicantTableList';
 import Pagination from './Pagination'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSlidersH, faFileExport, faFilePdf, faFileCsv, faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { faSlidersH, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import XLSX from 'xlsx';
 import ExportButton from './ExportButton';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 function ViewApplicants(props) {
 
@@ -139,6 +141,7 @@ function ViewApplicants(props) {
         const newData = candidates.map(candidate => {
             delete candidate.history;
             delete candidate.address;
+            delete candidate.stream;
             return candidate;
         })
         const worksheet = XLSX.utils.json_to_sheet(newData);
@@ -150,8 +153,23 @@ function ViewApplicants(props) {
         XLSX.writeFile(workbook, "FDM_Candidates_Data.xlsx");
     }
 
-    const exportToPdf = () => {
+    const columns = [
+        { title: "ID", field: "id" },
+        { title: "First Name", field: "firstName" },
+        { title: "Last Name", field: "lastName" },
+        { title: "Email Address", field: "email" },
+        { title: "Stream", field: "streamName" },
+        { title: "Status", field: "status" }
+    ]
 
+    const exportToPdf = () => {
+        const doc = new jsPDF();
+        doc.text("FDM Candidate's List", 20, 10);
+        doc.autoTable({
+            columns: columns.map(col => ({ ...col, dataKey: col.field })),
+            body: candidates
+        })
+        doc.save("FDM_Candidates_Data.pdf");
     }
 
     //Get current posts
