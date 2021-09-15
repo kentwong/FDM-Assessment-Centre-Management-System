@@ -3,6 +3,7 @@ package com.fdmgroup.AssessmentCentreProject.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -22,4 +23,15 @@ public interface AssessmentCentreResponseRepository extends JpaRepository<Assess
 	List<AssessmentCentreResponse> groupedAndJoined();
 	
 	List<AssessmentCentreResponse> findByCandidateId(int candidateId);
+	
+	@Modifying
+	@Query(
+			value = "SELECT A.*, S.id, S.first_name, S.last_name "
+					+ "FROM ASSESSMENT_CENTRE_RESPONSE A "
+					+ "INNER JOIN STAFF S "
+					+ "ON A.fk_interviewer_id = S.id "
+					+ "WHERE A.candidate_id = ?1 "
+					+ "AND A.fk_interviewer_id = ?2", 
+			nativeQuery = true)
+	List<AssessmentCentreResponse> findByCandidateIdJoinInterviewer(Integer candidateId, Integer interviewerId);
 }

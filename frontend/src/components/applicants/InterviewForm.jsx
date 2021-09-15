@@ -4,7 +4,9 @@ import AssessmentCentreResponseService from '../../services/AssessmentCentreResp
 import InterviewFormSingleQuestion from './InterviewFormSingleQuestion';
 import QuestionBank from './QuestionBank';
 
-function InterviewForm({id}) {
+function InterviewForm({id}) {  
+    const interviewerId = JSON.parse(localStorage.user).id;
+
     const [showQuestionBank, setShowQuestionBank] = useState(true);
     const toggleQuestionBank = () => {
         showQuestionBank ? setShowQuestionBank(false) : setShowQuestionBank(true);
@@ -43,9 +45,9 @@ function InterviewForm({id}) {
 
     useEffect(() => {
         let isMounted = true;
-        AssessmentCentreResponseService.getAllQuestions().then((q) => {
+        AssessmentCentreResponseService.getResponsesByCandidateInterviewer(id, interviewerId).then((q) => {
             if (isMounted) setQuestionBank(q.data);
-        }); console.log(localStorage.user);
+        }); 
         return () => { isMounted = false };
     }, []);
 

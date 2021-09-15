@@ -24,6 +24,11 @@ class AssessmentCentreResponseService {
         return axios.get(ASSESSMENT_CENTRE_RESPONSE_API_URL + '/getAllQuestions');
     }
 
+    getResponsesByCandidateInterviewer(id, interviewerId){
+        const params = new URLSearchParams([['candidateId', id], ['interviewerId', interviewerId]]);
+        return axios.get(ASSESSMENT_CENTRE_RESPONSE_API_URL + '/getByCandidateInterviewer/', { params } );
+    }
+
     getAssessmentCentreResponseById(candidateId) {
         return axios.get(ASSESSMENT_CENTRE_RESPONSE_API_URL + '/info/' + candidateId)
     }

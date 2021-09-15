@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fdmgroup.AssessmentCentreProject.model.AssessmentCentreResponse;
@@ -227,6 +228,12 @@ public class AssesmentCentreResponseController {
 		List<Question> questions = questionRepo.findAll();
 		return ResponseEntity.ok(questions);
 
+	}
+	
+	@GetMapping("/getByCandidateInterviewer")
+	public ResponseEntity<List<AssessmentCentreResponse>> getResponseByCandidateInterviwerId(@RequestParam Integer candidateId, @RequestParam Integer interviewerId) {
+		List<AssessmentCentreResponse> response = assessmentCentreResponseRepo.findByCandidateIdJoinInterviewer(candidateId, interviewerId);
+		return ResponseEntity.ok(response);
 	}
 
 }
