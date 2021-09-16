@@ -6,7 +6,7 @@ INSERT INTO `groupproject`.`assessment_centre_response` (`id`, `notes`, `points`
 INSERT INTO `groupproject`.`assessment_centre_response` (`id`, `notes`, `points`, `candidate_id`, `fk_interviewer_id`, `question_id`) VALUES ('-4', 'Perfect', '10', '1', '-1', '22');
 INSERT INTO `groupproject`.`assessment_centre_response` (`id`, `points`, `candidate_id`, `fk_interviewer_id`, `question_id`) VALUES ('-6', '2', '3', '5', '5');
 INSERT INTO `groupproject`.`assessment_centre_response` (`id`, `points`, `candidate_id`, `fk_interviewer_id`, `question_id`) VALUES ('-7', '1', '2', '-1', '4');
-INSERT INTO `groupproject`.`assessment_centre_response` (`id`, `points`, `candidate_id`, `fk_interviewer_id`, `question_id`) VALUES ('-8', '3', '1', '-1', '1');
+INSERT INTO `groupproject`.`assessment_centre_response` (`id`, `points`, `candidate_id`, `fk_interviewer_id`, `question_id`) VALUES ('-8', '3', '1', '-1', '29');
 INSERT INTO `groupproject`.`assessment_centre_response` (`id`, `points`, `candidate_id`, `fk_interviewer_id`, `question_id`) VALUES ('-9', '4', '1', '-1', '7');
 INSERT INTO `groupproject`.`assessment_centre_response` (`id`, `points`, `candidate_id`, `fk_interviewer_id`, `question_id`) VALUES ('-10', '8', '1', '-1', '8');
 INSERT INTO `groupproject`.`assessment_centre_response` (`id`, `points`, `candidate_id`, `fk_interviewer_id`, `question_id`) VALUES ('-11', '6', '5', '-1', '9');
