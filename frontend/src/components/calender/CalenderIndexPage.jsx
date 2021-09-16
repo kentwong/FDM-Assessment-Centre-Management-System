@@ -72,28 +72,23 @@ class CalenderIndexPage extends Component {
                 this.data.push(acTemplate)
             })
         })
-
-    }
-
-    componentDidUpdate() {
-        console.log('TEST')
     }
 
     startDateHandler(e) {
-        console.log("UPDATED START - " + e.target.value)
-        this.setState({ updateStart: e.target.value })
-        console.log(this.state.updateStart)
+        // console.log("UPDATED START - " + e.target.value)
+        // this.setState({ updateStart: e.target.value })
+        // console.log(this.state.updateStart)
     }
 
     endDateHandler(e) {
-        console.log("UPDATED END - " + e.target.value)
-        this.setState({ updateEnd: e.target.value })
-        console.log(this.state.updateEnd)
+        // console.log("UPDATED END - " + e.target.value)
+        // this.setState({ updateEnd: e.target.value })
+        // console.log(this.state.updateEnd)
     }
 
     editorWindowTemplate(props) {
         return (
-            <table className="custom-event-editor"  style={{width: '100%'}}>
+            <table className="custom-event-editor" style={{width: '100%'}}>
                 <tbody>
                     <tr>
                         <td className="e-textlabel">Name</td>
@@ -108,7 +103,7 @@ class CalenderIndexPage extends Component {
                     <tr>
                         <td className="e-textlabel">To</td>
                         <td><DateTimePickerComponent className="e-field" id="EndTime" data-name="EndTime" 
-                             format="dd/MM/yy hh:mm a" onChange={(this.endDateHandler)}></DateTimePickerComponent>
+                             format="dd/MM/yy hh:mm a" onChange={this.endDateHandler}></DateTimePickerComponent>
                         </td> {/* value={props.EndTime} */}
                     </tr>
 
@@ -125,11 +120,12 @@ class CalenderIndexPage extends Component {
     }
 
     onPopupClose(args) {
+        console.log("ARGS: " + JSON.stringify(args.data))
         // only runs when SAVE button is pressed
         if (args.type === 'Editor' && args.data) {
             // console.log("UPDATED start time: " + JSON.stringify(this.state.updateStart))
             // console.log("UPDATED end time: " + JSON.stringify(this.state.updateEnd))
-            console.log("ARGS: " + JSON.stringify(args.data))
+            
             this.updateAC(args)
         }
         if (args.type === 'DeleteAlert'){
@@ -177,7 +173,7 @@ class CalenderIndexPage extends Component {
             <div className="custom-container">
                 {/* This is the Calender Page. */}
                 <ScheduleComponent currentView='Month' eventSettings={{ dataSource: this.data }} views={['Day', 'Week', 'Month', 'Agenda']} editorTemplate={this.editorWindowTemplate.bind(this)} 
-                    popupClose={this.onPopupClose.bind(this)} test={this.state}>
+                    popupClose={this.onPopupClose.bind(this)}>
                     <Inject services={[Day, Week, WorkWeek, Month, Agenda]}/>
                 </ScheduleComponent>
                 
