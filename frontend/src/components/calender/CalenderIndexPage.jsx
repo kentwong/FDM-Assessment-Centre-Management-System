@@ -1,5 +1,5 @@
 import React, { useState, Component } from 'react';
-import {Inject, ScheduleComponent, Day, Week, WorkWeek, Month, Agenda, ViewsDirective, ViewDirective } from '@syncfusion/ej2-react-schedule';
+import {Inject, ScheduleComponent, Day, Week, WorkWeek, Month, Agenda } from '@syncfusion/ej2-react-schedule';
 import ViewAssessmentCentres from './coordinator/ViewAssessmentCentres';
 import CreateAC from './coordinator/CreateAC';
 import AssessmentCentreService from '../../services/AssessmentCentreService'
@@ -26,8 +26,8 @@ class CalenderIndexPage extends Component {
         this.state = {
           showCreate: false,
           readOnly: true,
-          updateStart: null,
-          updateEnd: null,
+        //   updateStart: null,
+        //   updateEnd: null,
         };
         this.startDateHandler = this.startDateHandler.bind(this)
         this.endDateHandler = this.endDateHandler.bind(this)
@@ -72,6 +72,8 @@ class CalenderIndexPage extends Component {
                 this.data.push(acTemplate)
             })
         })
+
+        window.setTimeout(5000)
     }
 
     startDateHandler(e) {
@@ -111,7 +113,6 @@ class CalenderIndexPage extends Component {
                         <td className="e-textlabel">Description</td>
                         <td>
                             <input type="text" className="e-field e-input" id="Description" name="Description" readOnly={true}/>
-                            {/* <button onClick={this.addCandidate}>Edit Candidates</button> */}
                         </td>
                     </tr>
                 </tbody>
@@ -120,12 +121,9 @@ class CalenderIndexPage extends Component {
     }
 
     onPopupClose(args) {
-        console.log("ARGS: " + JSON.stringify(args.data))
         // only runs when SAVE button is pressed
         if (args.type === 'Editor' && args.data) {
-            // console.log("UPDATED start time: " + JSON.stringify(this.state.updateStart))
-            // console.log("UPDATED end time: " + JSON.stringify(this.state.updateEnd))
-            
+            console.log("ARGS: " + JSON.stringify(args.data))
             this.updateAC(args)
         }
         if (args.type === 'DeleteAlert'){
@@ -171,8 +169,7 @@ class CalenderIndexPage extends Component {
     render() {
         return (
             <div className="custom-container">
-                {/* This is the Calender Page. */}
-                <ScheduleComponent currentView='Month' eventSettings={{ dataSource: this.data }} views={['Day', 'Week', 'Month', 'Agenda']} editorTemplate={this.editorWindowTemplate.bind(this)} 
+                <ScheduleComponent currentView='Month' eventSettings={{ dataSource: this.data }} views={['Day', 'Week', 'Month']} editorTemplate={this.editorWindowTemplate.bind(this)} 
                     popupClose={this.onPopupClose.bind(this)}>
                     <Inject services={[Day, Week, WorkWeek, Month, Agenda]}/>
                 </ScheduleComponent>

@@ -46,8 +46,6 @@ const SetupAC = (props) => {
             setResponses(responsesSetup)
         })
 
-
-
     }, [])
 
     // handles dropdown interviewer changes
@@ -68,7 +66,6 @@ const SetupAC = (props) => {
             }
         })
         setResponses(newResponses)
-        // console.log("candidateID: " + e.target.id + " - interviewType: " + e.target.name + " - interviewer: " + e.target.value)
     }
 
     const handleDelete = (e) => {
@@ -86,47 +83,64 @@ const SetupAC = (props) => {
 
     return (
         <div className="custom-container">
-            <h2>Finalise Assessment Centre:</h2><br/>
-            <br/>
+            <h2>Finalise Assessment Centre:</h2><hr/>
+
             <form onSubmit={submitACHandler}>
-            <div className="container"><b>Candidates: </b><hr/>
-                {candidates.map( (candidate) => 
-                    <div key={candidate.id}>
-                        <div className="row"><i>{candidate.firstName} {candidate.lastName}</i>
-                            <div className="col" value={candidate.id}>
-                                <b>Technical Interview</b><br/>
-                                {/* id = candidate; name = interviewType; value = interviewer */}
-                                <select id={(candidate.id).toString()} name="1" className="col" onChange={handleInterviewer}>
-                                    {interviewers.map( (interviewer) => 
-                                        <option value={(interviewer.id).toString()}>{interviewer.firstName} {interviewer.lastName}</option>
-                                    )}
-                                </select><br/>
-                            </div>
 
-                            <div className="col">
-                                <b>HR Interview</b><br/>
-                                <select id={(candidate.id).toString()} name="2" className="col" onChange={handleInterviewer} placeholder="Select">
-                                    {interviewers.map( (interviewer) => 
-                                        <option value={(interviewer.id).toString()}>{interviewer.firstName} {interviewer.lastName}</option>
-                                    )}
-                                </select><br/>
-                            </div>
+            <table className="table table-Striped table-bordered table-hover container">
+                <thead>
+                    <tr>
+                        <th className="col-sm-3">NAME</th>
+                        <th className="col-sm-3">STREAM</th>
+                        <th className="col-sm-2">TECHNICAL INTERVIEW</th>
+                        <th className="col-sm-2">HR INTERVIEW</th>
+                        <th className="col-sm-2">SALES INTERVIEW</th>
+                    </tr>
+                </thead>
 
-                            <div className="col">
-                                <b>Sales Interview</b><br/>
-                                <select id={(candidate.id).toString()} name="3" className="col" onChange={handleInterviewer}>
-                                    {interviewers.map( (interviewer) => 
-                                        <option value={(interviewer.id).toString()}>{interviewer.firstName} {interviewer.lastName}</option>
-                                    )}
-                                </select><br/>
-                            </div>
-                        </div>
-                        <hr/>
-                    </div>
-                )}
-            </div>
+                <tbody>
+                    {candidates.map( (candidate) => 
+                    <tr key={candidate.id}>
+                        {/* NAME */}
+                        <td>{candidate.firstName} {candidate.lastName}</td>
+
+                        {/* STREAM */}
+                        <td>{candidate.streamName}</td>
+
+                        {/* TECHINCAL */}
+                        <td>
+                            <select id={(candidate.id).toString()} name="1" onChange={handleInterviewer}>
+                                {interviewers.map( (interviewer) => 
+                                    <option value={(interviewer.id).toString()}>{interviewer.firstName} {interviewer.lastName}</option>
+                                )}
+                            </select>
+                        </td>
+
+                        {/* HR */}
+                        <td>
+                            <select id={(candidate.id).toString()} name="2" onChange={handleInterviewer} placeholder="Select">
+                                {interviewers.map( (interviewer) => 
+                                    <option value={(interviewer.id).toString()}>{interviewer.firstName} {interviewer.lastName}</option>
+                                )}
+                            </select>
+                        </td>
+
+                        {/* SALES */}
+                        <td>
+                            <select id={(candidate.id).toString()} name="3" onChange={handleInterviewer}>
+                                {interviewers.map( (interviewer) => 
+                                    <option value={(interviewer.id).toString()}>{interviewer.firstName} {interviewer.lastName}</option>
+                                )}
+                            </select>
+                        </td>
+                    </tr>
+                    )}
+                </tbody>
+            </table>
+
             <input type="button" className="btn btn-primary" value="Create Assessment Centre" data-bs-toggle="modal" data-bs-target="#confirmation" />
-
+            
+            {/* CONFIRMATION MODAL */}
             <div class="modal fade" id="confirmation" tabindex="-1" aria-labelledby="confirmationLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">

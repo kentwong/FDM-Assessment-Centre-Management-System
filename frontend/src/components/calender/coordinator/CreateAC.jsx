@@ -5,8 +5,11 @@ import CandidateService from '../../../services/CandidateService'
 import AssessmentCentreService from '../../../services/AssessmentCentreService'
 import SetupAC from './SetupAC.jsx'
 import SearchBar from '../../../components/applicants/SearchBar'
+import ViewAssessmentCentres from '../coordinator/ViewAssessmentCentres';
 
 const CreateAC = (props) => {
+
+    const [missingParams, setMissingParams] = useState(false)
 
     const storedCoordinator = localStorage.getItem('user')
     const excludeSearchColumns = ['id', 'aptitude_score', 'cv', 'date_of_birth', 'email', 'notes', 'phone_number', 'status', 'university', 'address', 'recruiter'];
@@ -75,18 +78,20 @@ const CreateAC = (props) => {
 
         // checks if any of the inputs are missing
         if (!startDate){
-            window.location.reload(false);
+            setMissingParams(true)
+            return
         }
         let checkedBoxesCandidates = document.querySelectorAll('input[name=candidate]:checked');
         if (checkedBoxesCandidates.length < 1){
-            window.location.reload(false);
+            setMissingParams(true)
+            return
         }
         let checkedBoxesInterviewers = document.querySelectorAll('input[name=interviewer]:checked');
         if (checkedBoxesInterviewers.length < 1){
-            window.location.reload(false);
+            setMissingParams(true)
+            return
         }
-        window.setTimeout(2000)
-
+        
         AssessmentCentreService.sendIds(selectedCandidates, selectedInterviewers, startDate, endDate).then((res) => {
             props.history.push('/setupAC')
         })
@@ -152,14 +157,10 @@ const CreateAC = (props) => {
                         )}
                 </div>
 
-                
-
                 <button type="submit" className="btn btn-success me-2 mt-5">Next</button>
-
+                { missingParams && <ViewAssessmentCentres /> }
+                
             </form>
-            
-            
-
         </div>
     )
 }

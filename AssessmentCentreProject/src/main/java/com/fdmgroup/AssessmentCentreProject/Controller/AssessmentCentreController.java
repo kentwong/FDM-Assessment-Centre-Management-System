@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,10 +34,27 @@ import com.fdmgroup.AssessmentCentreProject.repository.CandidateRepository;
 import com.fdmgroup.AssessmentCentreProject.repository.InterviewerRepository;
 import com.fdmgroup.AssessmentCentreProject.repository.QuestionRepository;
 
+/**
+ * @author Jeriel
+ * The AssessmentCentreController class setups up and creates Assesment Centres.
+ * It Sets the candidates and interviewers involved in the New AC.
+ * It also creates a response forms that links the candidate to an interviewer 
+ * and all the questions available for an interview type.
+ */
+/**
+ * @author user
+ *
+ */
+/**
+ * @author user
+ *
+ */
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/assessmentCentre/api/v1")
 public class AssessmentCentreController {
+	
+	private Logger logger = LogManager.getLogger(AssessmentCentreController.class);
 
 	private AssessmentCentreRepository acRepo;
 	private ACCoordinatorRepository coordinatorRepo;
@@ -58,23 +77,37 @@ public class AssessmentCentreController {
 		this.responseRepo = responseRepo;
 	}
 
+	/**
+	 * @return a list of all ACs from DB
+	 */
 	@GetMapping("/all")
 	public List<AssessmentCentre> getAllAssessmentCentres() {
+		logger.info("GETTING all assessment centres from DB");
 		return acRepo.findAll();
 	}
 
+	/**
+	 * @return a list of all interviewers from DB
+	 */
 	@GetMapping("/allInterviewers")
 	public List<Interviewer> getInterviewers() {
+		logger.info("GETTING all interviewers from DB");
 		return interviewerRepo.findAll();
 	}
 
+	/**
+	 * retrieves the coordinator with @param userId and assigns the new AC to them 
+	 */
 	@PostMapping("/setAC")
 	public void setCoordinator(@RequestBody Object userId) {
 		Integer id = Integer.parseInt(userId.toString().replaceAll("[^0-9]", ""));
-		coordinator = (coordinatorRepo.findById(id)).get();
-		System.out.println("Coordinator ID = " + id);
+		logger.info("GETTING AC coordinator with ID: " + id);
+		coordinator = coordinatorRepo.findById(id).get();
 	}
 	
+	/**
+	 * @return the candidates not assigned to an AC
+	 */
 	@GetMapping("/candidates")
 	public List<Candidate> getPendingCandidates() {
 		List<Candidate> baseline = candidateRepo.findAll();
@@ -84,50 +117,54 @@ public class AssessmentCentreController {
 		for (AssessmentCentre ac : checker) {
 			tobeRemoved.addAll(ac.getCandidates());
 		}
-		
 		baseline.removeAll(tobeRemoved);
-		
+		logger.info("SENDING candidates not assigned to ACs");
 		return baseline;
 	}
 
+	/**
+	 * sets the start @param date of the AC being created
+	 */
 	@PostMapping("/startDate")
 	public void setupACStartDate(@RequestBody LocalDateTime date) {
-		System.out.println("STARTING DATE - " + date);
+		logger.info("SET new AC start date to " + date);
 		LocalDateTime start = date.plusHours(12);
 		coordinator.getNewAC().setStart(start);
 	}
 	
+	/**
+	 * sets the end @param date of the AC being created
+	 */
 	@PostMapping("/endDate")
 	public void setupACSEndDate(@RequestBody LocalDateTime date) {
-		System.out.println("ENDING DATE - " + date);
+		logger.info("SET new AC end date to " + date);
 		LocalDateTime end = date.plusHours(12);
 		coordinator.getNewAC().setEnd(end);
 	}
 	
+	/**
+	 * sets the candidates of the AC being created with @param candidateIds
+	 */
 	@PostMapping("/acCandidates")
 	public void setupACCandidates(@RequestBody List<Integer> candidateIds) {
-		// @RequestHeader("Authorization") Integer userId
-
 		Set<Integer> distinct = new HashSet<Integer>(candidateIds);
-		List<Integer> finalCandidates = new ArrayList<>();
+		List<Integer> finalCandidatesIds = new ArrayList<>();
 		for (Integer id : distinct) {
 			if (Collections.frequency(candidateIds, id) % 2 != 0) {
-				finalCandidates.add(id);
+				finalCandidatesIds.add(id);
 			}
 		}
 		List<Candidate> candidates = new ArrayList<>();
-		for (Integer id : finalCandidates) {
+		for (Integer id : finalCandidatesIds) {
 			candidates.add(candidateRepo.getById(id));
 		}
 		coordinator.assignCandidates(candidates);
-
-		for (Candidate can : candidates) {
-			System.out.println("Candidate: " + can.getFirstName() + " " + can.getLastName());
-		}
-		System.out.println("TEST CANDIDATES LIST - " + coordinator.getNewAC().getCandidates().size());
-
+		logger.info("SETTING " + coordinator.getNewAC().getCandidates().size() + " candidates to new AC");
 	}
 
+	/**
+	 * sets the interviewers of the AC being created with @param interviewerIds
+	 */
 	@PostMapping("/acInterviewers")
 	public void setupACInterviewers(@RequestBody List<Integer> interviewerIds) {
 		Set<Integer> distinct = new HashSet<Integer>(interviewerIds);
@@ -142,48 +179,45 @@ public class AssessmentCentreController {
 			interviewers.add(interviewerRepo.getById(id));
 		}
 		coordinator.assignInterviewers(interviewers);
-
-		for (Interviewer interviewer : interviewers) {
-			System.out.println("Interviewer: " + interviewer.getFirstName() + " " + interviewer.getLastName());
-		}
-		System.out.println("TEST INTERVIEWERS LIST - " + coordinator.getNewAC().getInterviewers().size());
+		logger.info("SETTING " + coordinator.getNewAC().getInterviewers().size() + " interviewers to new AC");
 	}
 
+	/**
+	 * @return the candidates selected to be in the AC being created
+	 */
 	@GetMapping("/selectedCandidates")
 	public List<Candidate> getSelectedCandidates() {
-//		System.out.println("WORKING: " + coordinator);
 		List<Candidate> candidates = coordinator.getNewAC().getCandidates();
 		List<Candidate> result = new ArrayList<>();
 		for (Candidate candidate : candidates) {
-			System.out.println("CANDIDATE: " + candidate.getFirstName());
 			result.add((Candidate) candidateRepo.findById(candidate.getId()).orElseThrow());
 		}
-//		System.out.println("RESULTS: " + result.size());
+		logger.info("SENDING selected candidates for new AC");
 		return result;
 	}
 
+	/**
+	 * @return the interviewers seleceted to be in the AC being created
+	 */
 	@GetMapping("/selectedInterviewers")
 	public List<Interviewer> getSelectedInterviewers() {
-//		System.out.println("WORKING: " + coordinator);
 		List<Interviewer> interviewers = coordinator.getNewAC().getInterviewers();
 		List<Interviewer> result = new ArrayList<>();
 		for (Interviewer interviewer : interviewers) {
-			System.out.println("INTERVIEWER: " + interviewer.getFirstName());
 			result.add((Interviewer) interviewerRepo.findById(interviewer.getId()).orElseThrow());
 		}
+		logger.info("SENDING selected interviewers for new AC");
 		return result;
 	}
 
+	/**
+	 * gets @param responses which links each candidate to an interviewer for each interview type and associates all related questions
+	 * then, associates the final AC to a coordinator and saves to DB
+	 */
 	@PostMapping("/createAC")
 	public void createAssessmentCentre(@RequestBody List<ResponseTemplate> responses) {
-//		 get questions from question bank --> separate by type --> assign to interview
-		
-		System.out.println("Setting up responses");
-		
+		logger.info("GETTING all questions and separating by type");
 		List<Question> questions = questionRepo.findAll();
-//		System.out.println("Question Size: " + questions.size());
-		
-		
 		List<Question> technicalQs = questions.stream().filter(q -> q.getQuestionType() == QuestionType.TECHNICAL)
 				.collect(Collectors.toList());
 		List<Question> hrQs = questions.stream().filter(q -> q.getQuestionType() == QuestionType.BEHAVIOURAL)
@@ -191,21 +225,13 @@ public class AssessmentCentreController {
 		List<Question> salesQs = questions.stream().filter(q -> q.getQuestionType() == QuestionType.GENERAL)
 				.collect(Collectors.toList());
 		
-		System.out.println("TECHNICAL Qs = " + technicalQs.size());
-		System.out.println("HR Qs = " + hrQs.size());
-		System.out.println("SALES Qs = " + salesQs.size());
-		
-		for (ResponseTemplate temp : responses) {
-			System.out.println("TEMPLATE: " + temp);
-			
+		for (ResponseTemplate temp : responses) {			
 			if (temp.getInterviewType().equals("1")) {
 				// TECHNICAL
 				for (Question q : technicalQs) {
 					AssessmentCentreResponse response = new AssessmentCentreResponse();
-					
 					response.setCandidate((candidateRepo.findById(Integer.parseInt(temp.getCandidate())).get()));
 					response.setInterviewer((interviewerRepo.findById(Integer.parseInt(temp.getInterviewer()))).get());
-					
 					response.setQuestion(q);
 					responseRepo.save(response);
 				}
@@ -215,7 +241,6 @@ public class AssessmentCentreController {
 					AssessmentCentreResponse response = new AssessmentCentreResponse();
 					response.setCandidate((candidateRepo.findById(Integer.parseInt(temp.getCandidate())).get()));
 					response.setInterviewer((interviewerRepo.findById(Integer.parseInt(temp.getInterviewer()))).get());
-					
 					response.setQuestion(q);
 					responseRepo.save(response);
 				}
@@ -225,7 +250,6 @@ public class AssessmentCentreController {
 					AssessmentCentreResponse response = new AssessmentCentreResponse();
 					response.setCandidate((candidateRepo.findById(Integer.parseInt(temp.getCandidate())).get()));
 					response.setInterviewer((interviewerRepo.findById(Integer.parseInt(temp.getInterviewer()))).get());
-					
 					response.setQuestion(q);
 					responseRepo.save(response);
 				}
@@ -235,45 +259,48 @@ public class AssessmentCentreController {
 		coordinator.saveAssessmentCentre();
 		coordinator.setAssessmentCentres(coordinator.getAssessmentCentres());
 		coordinatorRepo.save(coordinator);
+		logger.info("SAVING new Assessment Centre");
 	}
 
+	/**
+	 * @param dates contains the id of the AC to be updated and the start and end dates to changed to
+	 * it then updates the AC and saves the changes to the DB
+	 */
 	@PostMapping("/updateAC")
 	public void updateAssessmentCentreDates(@RequestBody ACDatesTemplate dates) {
-		System.out.println("NEW DATES - " + dates);
+		logger.info("UPDATING ac with id " + dates.getId() + " to have the start date to be " + dates.getStart() + " and have the end date to be " + dates.getEnd());
 		AssessmentCentre ac = acRepo.findById(dates.getId()).get();
-		
 		ac.setStart(dates.getStart().plusHours(12));
 		ac.setEnd(dates.getEnd().plusHours(12));
-		
 		acRepo.save(ac);
 	}
 	
-	@PostMapping("/deleteAC")
-	public void deleteAssessmentCentre(@RequestBody Object acId) {
-		
-		String[] splitString = (acId.toString()).split(",");
-		
-		Integer coordinatorID = Integer.parseInt(splitString[0].replaceAll("[^0-9]", ""));
-		Integer acID =  Integer.parseInt(splitString[1].replaceAll("[^0-9]", ""));
-		
-		coordinator = coordinatorRepo.getById(coordinatorID);
-		
-		List<AssessmentCentre> currentACs = coordinator.getAssessmentCentres();
-		List<AssessmentCentre>tobeDeleted = new ArrayList<>();
-		System.out.println("BEFORE: Coordinator: " + coordinator + ", AClist size: " + currentACs.size());;
-		
-		for (AssessmentCentre assessmentCentre : currentACs) {
-			if (assessmentCentre.getId() == acID) {
-				tobeDeleted.add(assessmentCentre);
-			}
-		}
-		currentACs.removeAll(tobeDeleted);
-		
-		System.out.println("AFTER: Coordinator: " + coordinator + ", AClist size: " + currentACs.size());;
-		
-		coordinatorRepo.save(coordinator);
+//	@PostMapping("/deleteAC")
+//	public void deleteAssessmentCentre(@RequestBody Object acId) {
+//		
+//		String[] splitString = (acId.toString()).split(",");
+//		
+//		Integer coordinatorID = Integer.parseInt(splitString[0].replaceAll("[^0-9]", ""));
+//		Integer acID =  Integer.parseInt(splitString[1].replaceAll("[^0-9]", ""));
+//		
+//		coordinator = coordinatorRepo.getById(coordinatorID);
+//		
+//		List<AssessmentCentre> currentACs = coordinator.getAssessmentCentres();
+//		List<AssessmentCentre>tobeDeleted = new ArrayList<>();
+//		System.out.println("BEFORE: Coordinator: " + coordinator + ", AClist size: " + currentACs.size());;
+//		
+//		for (AssessmentCentre assessmentCentre : currentACs) {
+//			if (assessmentCentre.getId() == acID) {
+//				tobeDeleted.add(assessmentCentre);
+//			}
+//		}
+//		currentACs.removeAll(tobeDeleted);
+//		
+//		System.out.println("AFTER: Coordinator: " + coordinator + ", AClist size: " + currentACs.size());;
+//		
+//		coordinatorRepo.save(coordinator);
 //		acRepo.deleteById(acID);
-	}
+//	}
 	
 	
 }
