@@ -5,16 +5,16 @@ const HOMEPAGE_API_URL = "http://localhost:9003/home/api/v1";
 class HomePageService {
 
     getACOverviewDetails() {
-        return axios.get(HOMEPAGE_API_URL + '/home',);
+        return axios.get(HOMEPAGE_API_URL + '/home');
     }
 
     sendDetails(LoggedInDetails) {
         return axios.post(HOMEPAGE_API_URL + '/home', LoggedInDetails, {header: {"Content-Type": "application/json"}});
     }
 
-    // getAssesmentCenters() {
-
-    // }
+    mostRecentAc(AssesmentCentre) {
+        return axios.get(HOMEPAGE_API_URL + '/hom');
+    }
 
 }
 
