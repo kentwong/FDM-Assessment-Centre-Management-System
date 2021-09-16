@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fdmgroup.AssessmentCentreProject.model.AssessmentCentreResponse;
 import com.fdmgroup.AssessmentCentreProject.model.Candidate;
+import com.fdmgroup.AssessmentCentreProject.model.ACOverviewData;
 import com.fdmgroup.AssessmentCentreProject.model.LoggedInDetails;
 import com.fdmgroup.AssessmentCentreProject.model.PendingStatusData;
+import com.fdmgroup.AssessmentCentreProject.repository.AssessmentCentreRepository;
 import com.fdmgroup.AssessmentCentreProject.repository.AssessmentCentreResponseRepository;
 import com.fdmgroup.AssessmentCentreProject.repository.CandidateRepository;
 
@@ -23,13 +25,13 @@ import com.fdmgroup.AssessmentCentreProject.repository.CandidateRepository;
 public class HomePageController {
 	
 	@Autowired
-	AssessmentCentreResponseRepository assesmentCentreResponseRepo;
+	AssessmentCentreRepository assesmentCentreRepo;
 	@Autowired
 	CandidateRepository candidateRepo;
 	
-	public HomePageController (AssessmentCentreResponseRepository assesmentCentreResponseRepo, CandidateRepository candidateRepo) {
+	public HomePageController (AssessmentCentreRepository assesmentCentreRepo, CandidateRepository candidateRepo) {
 		super();
-		this.assesmentCentreResponseRepo = assesmentCentreResponseRepo;
+		this.assesmentCentreRepo = assesmentCentreRepo;
 		this.candidateRepo = candidateRepo;
 	}
 	
@@ -46,7 +48,12 @@ public class HomePageController {
 		return data;
 	}
 	
-//	@PostMapping("/home")
+	@GetMapping("/home")
+	public ACOverviewData getACOverviewData() {
+		return new ACOverviewData(candidateRepo.candidatesWithoutACS().size(),
+				assesmentCentreRepo.upcomingACS().size(),
+				assesmentCentreRepo.completedACS().size());
+	}
 
 	
 }

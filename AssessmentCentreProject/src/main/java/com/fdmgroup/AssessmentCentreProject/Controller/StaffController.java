@@ -46,13 +46,13 @@ public class StaffController {
 		if (staff.isPresent() && staff.get().getEncyptedPassword().equals(user.getPassword())) {
 			
 			if (staff.get() instanceof Interviewer) {
-				return new LoggedInDetails(staff.get().getId(), "interviewer");
+				return new LoggedInDetails(staff.get().getId(), "interviewer", staff.get().getFirstName());
 			}
 			else if (staff.get() instanceof Recruiter) {
-				return new LoggedInDetails(staff.get().getId(), "recruiter");
+				return new LoggedInDetails(staff.get().getId(), "recruiter", staff.get().getFirstName());
 			}
 			else if (staff.get() instanceof ACCoordinator) {
-				return new LoggedInDetails(staff.get().getId(), "ACCoordinator");
+				return new LoggedInDetails(staff.get().getId(), "ACCoordinator", staff.get().getFirstName());
 			}
 		}
 		return null;

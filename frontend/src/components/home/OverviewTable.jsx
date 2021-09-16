@@ -7,7 +7,8 @@ class OverviewTable extends Component {
         super(props)
 
         this.state = {
-            candidatesOverviewData: []
+            candidatesOverviewData: [],
+            acOverviewData: []
         }
     
     }
@@ -23,11 +24,10 @@ class OverviewTable extends Component {
             this.setState({ candidatesOverviewData: res.data })
         })
 
-        // CandidateService.getCandidates().then((res) => {
-        //             let filtered = res.data.filter(candidate => candidate.recruiterId === 0);
-        //             console.log(filtered.length)
-        //             const unassignedCandidates = filtered.length;
-        // })
+
+        HomePageService.getACOverviewDetails().then(res => {
+            this.setState({ acOverviewData: res.data })
+        })
 
     }
 
@@ -93,15 +93,15 @@ class OverviewTable extends Component {
                         <tbody>
                             <tr>
                                 <td>Unassigned Applicants</td>
-                                <td> hi</td>
+                                <td>{this.state.acOverviewData.unasignedApplicants}</td>
                             </tr>
                             <tr>
                                 <td>Upcoming AC's</td>
-                                <td>{this.state.candidatesOverviewData.phoneScreening}</td>
+                                <td>{this.state.acOverviewData.upcomingAcs}</td>
                             </tr>
                             <tr>
                                 <td>Completed AC's</td>
-                                <td>{this.state.candidatesOverviewData.aptitudeTest}</td>
+                                <td>{this.state.acOverviewData.completedAcs}</td>
                             </tr>
                             <tr>
                                 <td></td>

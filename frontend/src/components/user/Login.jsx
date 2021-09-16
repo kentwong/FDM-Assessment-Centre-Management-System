@@ -49,6 +49,7 @@ class Login extends Component {
             if (res.data) {
                 localStorage.setItem('user', res.data.staffId);
                 localStorage.setItem('role', res.data.role);
+                localStorage.setItem('name', res.data.name);
                 window.location.reload(false);
 
             }

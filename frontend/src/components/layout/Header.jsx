@@ -16,6 +16,7 @@ class Header extends Component {
     logoutUser() {
         localStorage.removeItem('user');
         localStorage.removeItem('role');
+        localStorage.removeItem('name');
         window.location.reload(false);
     }
 
@@ -86,7 +87,7 @@ class Header extends Component {
                                     <li className="nav-item dropdown">
 
                                         <a className="nav-link text-light dropdown-toggle" data-bs-toggle="dropdown" href="/" role="button" aria-expanded="false">
-                                            Welcome Back, Name{localStorage.getItem('name')}
+                                            Welcome Back, {localStorage.getItem('name')}
                                             <img src={ProfilePic} className="ms-3" style={{ "height": "40px", "borderRadius": "25px" }} alt="profile" />
                                         </a>
                                         <ul className="dropdown-menu">

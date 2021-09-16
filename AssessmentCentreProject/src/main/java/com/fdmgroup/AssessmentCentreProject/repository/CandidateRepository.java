@@ -22,4 +22,7 @@ public interface CandidateRepository extends JpaRepository<Candidate, Integer>{
 	@Query(value="SELECT * FROM candidate c WHERE c.recruiter_id IS NULL", nativeQuery=true)
 	List<Candidate> applicationsPending();
 	
+	@Query (value="SELECT * FROM candidate c WHERE NOT EXISTS (SELECT * FROM assessment_centre_candidates ac WHERE c.id = ac.candidates_id)", nativeQuery=true)
+	List<Candidate> candidatesWithoutACS();
+	
 }
