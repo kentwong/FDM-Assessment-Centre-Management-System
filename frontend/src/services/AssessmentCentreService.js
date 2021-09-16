@@ -38,6 +38,15 @@ class AssessmentCentreService {
     createAssessmentCentre(details){
         return axios.post(ASSESSMENT_CENTRE_API_URL + '/createAC', details)
     }
+
+    updateAssessmentCentreDates(dates){
+        return axios.post(ASSESSMENT_CENTRE_API_URL + '/updateAC', dates)
+    }
+
+    deleteAssessmentCentre(acID){
+        return axios.post(ASSESSMENT_CENTRE_API_URL + '/deleteAC', {acID})
+    }
+    
     
 }
 

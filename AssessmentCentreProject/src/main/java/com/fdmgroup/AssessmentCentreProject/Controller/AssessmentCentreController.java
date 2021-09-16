@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fdmgroup.AssessmentCentreProject.model.ACCoordinator;
+import com.fdmgroup.AssessmentCentreProject.model.ACDatesTemplate;
 import com.fdmgroup.AssessmentCentreProject.model.AssessmentCentre;
 import com.fdmgroup.AssessmentCentreProject.model.AssessmentCentreResponse;
 import com.fdmgroup.AssessmentCentreProject.model.Candidate;
@@ -176,7 +177,13 @@ public class AssessmentCentreController {
 	@PostMapping("/createAC")
 	public void createAssessmentCentre(@RequestBody List<ResponseTemplate> responses) {
 //		 get questions from question bank --> separate by type --> assign to interview
+		
+		System.out.println("Setting up responses");
+		
 		List<Question> questions = questionRepo.findAll();
+//		System.out.println("Question Size: " + questions.size());
+		
+		
 		List<Question> technicalQs = questions.stream().filter(q -> q.getQuestionType() == QuestionType.TECHNICAL)
 				.collect(Collectors.toList());
 		List<Question> hrQs = questions.stream().filter(q -> q.getQuestionType() == QuestionType.BEHAVIOURAL)
@@ -230,4 +237,43 @@ public class AssessmentCentreController {
 		coordinatorRepo.save(coordinator);
 	}
 
+	@PostMapping("/updateAC")
+	public void updateAssessmentCentreDates(@RequestBody ACDatesTemplate dates) {
+		System.out.println("NEW DATES - " + dates);
+		AssessmentCentre ac = acRepo.findById(dates.getId()).get();
+		
+		ac.setStart(dates.getStart().plusHours(12));
+		ac.setEnd(dates.getEnd().plusHours(12));
+		
+		acRepo.save(ac);
+	}
+	
+	@PostMapping("/deleteAC")
+	public void deleteAssessmentCentre(@RequestBody Object acId) {
+		
+		String[] splitString = (acId.toString()).split(",");
+		
+		Integer coordinatorID = Integer.parseInt(splitString[0].replaceAll("[^0-9]", ""));
+		Integer acID =  Integer.parseInt(splitString[1].replaceAll("[^0-9]", ""));
+		
+		coordinator = coordinatorRepo.getById(coordinatorID);
+		
+		List<AssessmentCentre> currentACs = coordinator.getAssessmentCentres();
+		List<AssessmentCentre>tobeDeleted = new ArrayList<>();
+		System.out.println("BEFORE: Coordinator: " + coordinator + ", AClist size: " + currentACs.size());;
+		
+		for (AssessmentCentre assessmentCentre : currentACs) {
+			if (assessmentCentre.getId() == acID) {
+				tobeDeleted.add(assessmentCentre);
+			}
+		}
+		currentACs.removeAll(tobeDeleted);
+		
+		System.out.println("AFTER: Coordinator: " + coordinator + ", AClist size: " + currentACs.size());;
+		
+		coordinatorRepo.save(coordinator);
+//		acRepo.deleteById(acID);
+	}
+	
+	
 }

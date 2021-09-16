@@ -49,16 +49,14 @@ public class Candidate {
 	private String notes;
 	private String status;
 	
-
-//	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER) // Kent: remove because causing detached entity passed to persist exception
 	@ManyToOne
 	@JsonBackReference // kent: Should be backreference instead of managedreference
 	private Recruiter recruiter;
-//	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER) //Kent: why Cascade ALL? causing detached entity passed to persist exception
 	@ManyToOne
 	private Stream stream;
 	
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	
+	@ManyToMany(/*cascade = CascadeType.ALL,  -> 15/09 TEST */fetch = FetchType.EAGER)
 	@JoinTable(name = "candidate_history", 
 		joinColumns = { @JoinColumn(name="fk_candidate_id") }, 
 		inverseJoinColumns =	{ @JoinColumn(name="fk_old_id") }

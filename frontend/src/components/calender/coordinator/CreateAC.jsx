@@ -4,13 +4,15 @@ import { DateTimePickerComponent } from '@syncfusion/ej2-react-calendars';
 import CandidateService from '../../../services/CandidateService'
 import AssessmentCentreService from '../../../services/AssessmentCentreService'
 import SetupAC from './SetupAC.jsx'
+import SearchBar from '../../../components/applicants/SearchBar'
 
 const CreateAC = (props) => {
 
     const storedCoordinator = localStorage.getItem('user')
+    const excludeSearchColumns = ['id', 'aptitude_score', 'cv', 'date_of_birth', 'email', 'notes', 'phone_number', 'status', 'university', 'address', 'recruiter'];
     
     const [candidates, setCandidates] = useState([])
-    const [staff, setStaff] = useState([])
+    const [interviewers, setinterviewers] = useState([])
 
     const [selectedCandidates, setSelectedCandidates] = useState([])
     const [selectedInterviewers, setSelectedInterviewers] = useState([])
@@ -22,8 +24,6 @@ const CreateAC = (props) => {
     const [endDate, setDateEnd] = useState(null)
     const [usable, setUsable] = useState(false)
 
-    // const [maxEndDate, setMaxEndDate] = useState(new Date((today.getFullYear()+100), today.getMonth(), today.getDate()))
-
     const startDateHandler = (e) => {
         console.log("START - " + e.target.value)
         setDateStart(e.target.value)
@@ -33,13 +33,11 @@ const CreateAC = (props) => {
             setUsable(false)
             setDateEnd(null)
 
-            // setMaxEndDate(new Date((today.getFullYear()+100), today.getMonth(), today.getDate()))
         } else {
             console.log("NOT NULL - " + e.target.value)
             setUsable(true)
             setDateEnd(e.target.value)
 
-            // setMaxEndDate(new Date(e.target.value.getFullYear(), e.target.value.getMonth(), e.target.value.getDate(), 11, 30))
         }
     }
 
@@ -48,13 +46,37 @@ const CreateAC = (props) => {
         setDateEnd(e.target.value)
     }
 
+    const handleCandidateSearch = (search) => {
+        AssessmentCentreService.getCandidates().then((res) => {
+            let filtered = res.data
+                .filter(candidate => {
+                    return Object.keys(candidate).some(key => {
+                        return excludeSearchColumns.includes(key) ? false : candidate[key].toString().toLowerCase().includes(search.toLowerCase().trim())
+                    })
+                });
+            setCandidates(filtered);
+        })
+    }
+
+    const handleInterviewerSearch = (search) => {
+        AssessmentCentreService.getInterviewers().then((res) => {
+            let filtered = res.data
+                .filter(interviewer => {
+                    return Object.keys(interviewer).some(key => {
+                        return excludeSearchColumns.includes(key) ? false : interviewer[key].toString().toLowerCase().includes(search.toLowerCase().trim())
+                    })
+                });
+            setinterviewers(filtered);
+        })
+    }
+
     const submitACHandler = (e) => {
         e.preventDefault()
 
+        // checks if any of the inputs are missing
         if (!startDate){
             window.location.reload(false);
         }
-
         let checkedBoxesCandidates = document.querySelectorAll('input[name=candidate]:checked');
         if (checkedBoxesCandidates.length < 1){
             window.location.reload(false);
@@ -63,8 +85,8 @@ const CreateAC = (props) => {
         if (checkedBoxesInterviewers.length < 1){
             window.location.reload(false);
         }
-
         window.setTimeout(2000)
+
         AssessmentCentreService.sendIds(selectedCandidates, selectedInterviewers, startDate, endDate).then((res) => {
             props.history.push('/setupAC')
         })
@@ -77,12 +99,11 @@ const CreateAC = (props) => {
         })
         AssessmentCentreService.getInterviewers().then((res) => {
             // console.log(res.data)
-            setStaff(res.data)
+            setinterviewers(res.data)
         })
         AssessmentCentreService.sendCoordinatorID(storedCoordinator)
     }, [])
 
-    
     return (
         <div className="custom-container mt-4">
 
@@ -101,24 +122,34 @@ const CreateAC = (props) => {
                     </div>
                 </div><br/><br/>
 
-                <div className="col">
-                <b>Candidates: </b>
-                    {candidates.map( (candidate) => 
-                        <div key={candidate.id}>
-                            <input type="checkbox" name="candidate" value={candidate.id} onChange={(e)=>setSelectedCandidates([...selectedCandidates, e.target.value])} />
-                            <label for="candidate">&nbsp;{candidate.firstName} {candidate.lastName}</label><br/>
-                        </div>
-                    )}
+                <div className="col border overflow-auto" style={ { height: 400 } }>
+                    <br/>
+                    <input className="form-control me-2 search-bar-input mb-2" type="search" placeholder="Search" aria-label="Search" onChange={e => handleCandidateSearch(e.target.value)} />
+                    <b>Candidates: </b>
+                    <hr/>
+                        {candidates.map( (candidate) => 
+                            <div key={candidate.id}>
+                                <input type="checkbox" name="candidate" value={candidate.id} onChange={(e)=>setSelectedCandidates([...selectedCandidates, e.target.value])} />
+                                <label for="candidate">
+                                    &nbsp;{candidate.firstName} {candidate.lastName} - <span className="fw-light fst-italic">{candidate.streamName}</span>
+                                </label>
+                            <hr/>
+                            </div>
+                        )}
                 </div>
 
-                <div className="col">
-                <b>Interviewers: </b>
-                    {staff.map( interviewer => 
-                        <div key={interviewer.id}>
-                            <input type="checkbox" name="interviewer" value={interviewer.id} onChange={(e)=>setSelectedInterviewers([...selectedInterviewers, e.target.value])} />
-                            <label for="candidate">&nbsp;{interviewer.firstName} {interviewer.lastName}</label><br/>
-                        </div>
-                    )}
+                <div className="col border overflow-auto" style={ { height: 400 } }>
+                    <br/>
+                    <input className="form-control me-2 search-bar-input mb-2" type="search" placeholder="Search" aria-label="Search" onChange={e => handleInterviewerSearch(e.target.value)} />
+                    <b>Interviewers: </b>
+                    <hr/>
+                        {interviewers.map( interviewer => 
+                            <div key={interviewer.id}>
+                                <input type="checkbox" name="interviewer" value={interviewer.id} onChange={(e)=>setSelectedInterviewers([...selectedInterviewers, e.target.value])} />
+                                <label for="candidate">&nbsp;{interviewer.firstName} {interviewer.lastName}</label>
+                                <hr/>
+                            </div>
+                        )}
                 </div>
 
                 

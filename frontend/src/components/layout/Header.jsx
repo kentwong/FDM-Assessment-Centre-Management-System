@@ -1,14 +1,9 @@
 import React, { Component } from 'react';
 import Logo from '../../assets/images/FDMLogo-white.png';
 import ProfilePic from '../../assets/images/profilepic.png';
-import JobTrain from '../../assets/images/JobTrain.png';
-import LaunchPadRecruits from '../../assets/images/LaunchPad.png';
-import LinkedIn from '../../assets/images/LinkedIn.png';
-import Outlook from '../../assets/images/Outlook.png';
-import Eploy from '../../assets/images/Eploy.png';
-import Vervoe from '../../assets/images/Vervoe.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTh } from '@fortawesome/free-solid-svg-icons';
+import QuickAccess from './QuickAccess';
 
 class Header extends Component {
 
@@ -18,25 +13,25 @@ class Header extends Component {
         this.logoutUser = this.logoutUser.bind(this);
     }
 
-    logoutUser () {
+    logoutUser() {
         localStorage.removeItem('user');
         localStorage.removeItem('role');
         window.location.reload(false);
     }
 
     render() {
-        if (! localStorage.getItem('user')) {
+        if (!localStorage.getItem('user')) {
             return (
                 <div>
-                <header>
-                    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-                        <div className="container-fluid">
-                            <a className="navbar-brand" href="/login"><img src={Logo} style={{ "height": "50px" }} alt="Logo" /></a>
-                           
-                        </div>
-                    </nav>
-                </header>
-            </div>
+                    <header>
+                        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+                            <div className="container-fluid">
+                                <a className="navbar-brand" href="/login"><img src={Logo} style={{ "height": "50px" }} alt="Logo" /></a>
+
+                            </div>
+                        </nav>
+                    </header>
+                </div>
             )
         }
 
@@ -69,7 +64,7 @@ class Header extends Component {
                                     </li>
                                 </ul>
                                 <div className="navbar-nav ms-auto">
-                                    <li >
+                                    {/* <li > //Redundant because quick access is already at the home page and the support page
                                         <a className="nav-link text-light" href="/" data-bs-toggle="modal" data-bs-target="#modalFullscreen"> <FontAwesomeIcon className="fa-lg bin" icon={faTh} color="rgba(255,255,255,.55)" style={{ "fontSize": "35px" }} /></a>
                                         <div className="modal fade" id="modalFullscreen" aria-hidden="true" aria-labelledby="modalFullscreenLabel" tabIndex="-1">
                                             <div className="modal-dialog modal-dialog-centered modal-lg">
@@ -79,46 +74,7 @@ class Header extends Component {
                                                         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div className="modal-body">
-                                                        <div className="row quick-access-link">
-                                                            <div className="col-4">
-                                                                <a href="https://jobtrain.co.uk/" target="_blank" rel="noreferrer">
-                                                                    <img src={JobTrain} alt="JobTrain" />
-                                                                    <p>JobTrain</p>
-                                                                </a>
-                                                            </div>
-                                                            <div className="col-4">
-                                                                <a href="https://support.launchpadrecruits.com/en/login" target="_blank" rel="noreferrer">
-                                                                    <img src={LaunchPadRecruits} alt="LaunchPadRecruits" />
-                                                                    <p>Launchpad Recruits</p>
-                                                                </a>
-                                                            </div>
-                                                            <div className="col-4">
-                                                                <a href="https://www.linkedin.com/login" target="_blank" rel="noreferrer">
-                                                                    <img src={LinkedIn} alt="LinkedIn" />
-                                                                    <p>LinkedIn</p>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                        <div className="row quick-access-link">
-                                                            <div className="col-4">
-                                                                <a href="https://outlook.office365.com/mail/inbox" target="_blank" rel="noreferrer">
-                                                                    <img src={Outlook} alt="Outlook" />
-                                                                    <p>Outlook</p>
-                                                                </a>
-                                                            </div>
-                                                            <div className="col-4">
-                                                                <a href="https://careers.eploy.co.uk/registration.aspx" target="_blank" rel="noreferrer">
-                                                                    <img src={Eploy} alt="Eploy" />
-                                                                    <p>Eploy</p>
-                                                                </a>
-                                                            </div>
-                                                            <div className="col-4">
-                                                                <a href="https://app.vervoe.com/login" target="_blank" rel="noreferrer">
-                                                                    <img src={Vervoe} alt="Vervoe" />
-                                                                    <p>Vervoe</p>
-                                                                </a>
-                                                            </div>
-                                                        </div>
+                                                        <QuickAccess colSize={'4'} />
                                                     </div>
                                                     <div className="modal-footer">
                                                         <button className="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">Close</button>
@@ -126,15 +82,19 @@ class Header extends Component {
                                                 </div>
                                             </div>
                                         </div>
-                                    </li>
+                                    </li> */}
                                     <li className="nav-item dropdown">
-                                        <a className="nav-link text-light dropdown-toggle" data-bs-toggle="dropdown" href="/" role="button" aria-expanded="false"><img src={ProfilePic} style={{ "height": "35px", "borderRadius": "5px" }} alt="profile" /></a>
+
+                                        <a className="nav-link text-light dropdown-toggle" data-bs-toggle="dropdown" href="/" role="button" aria-expanded="false">
+                                            Welcome Back, Name{localStorage.getItem('name')}
+                                            <img src={ProfilePic} className="ms-3" style={{ "height": "40px", "borderRadius": "25px" }} alt="profile" />
+                                        </a>
                                         <ul className="dropdown-menu">
-                                            <li><a className="dropdown-item" href="/" >Manage Profile</a></li>
+                                            <li><a className="dropdown-item" href="/account/update" >Manage Profile</a></li>
                                             <li><hr className="dropdown-divider" /></li>
                                             <li>
                                                 <div className="dropdown-item" onClick={this.logoutUser}>
-                                                        Log Out
+                                                    Log Out
                                                 </div>
                                             </li>
                                         </ul>

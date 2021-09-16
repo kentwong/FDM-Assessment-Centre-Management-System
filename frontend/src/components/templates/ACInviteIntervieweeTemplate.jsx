@@ -1,4 +1,4 @@
-const ACInviteTemplate = candidate => `Dear ${candidate.firstName} ${candidate.lastName},
+const ACInviteIntervieweeTemplate = candidate => `Dear ${candidate.firstName} ${candidate.lastName},
 
 Ref. ${candidate.stream.streamName} – Immediate Start
 
@@ -12,4 +12,4 @@ Kind regards,
 The FDM Group Recruitment Team
 `;
 
-export default ACInviteTemplate;
+export default ACInviteIntervieweeTemplate;
