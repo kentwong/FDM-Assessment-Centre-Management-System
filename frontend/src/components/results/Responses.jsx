@@ -2,9 +2,6 @@ import React, { useState, useEffect } from 'react';
 import AssessmentCentreResponseService from '../../services/AssessmentCentreResponseService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInfo, faSearch } from '@fortawesome/free-solid-svg-icons';
-import ExportButton from './ExportButton';
-import XLSX from 'xlsx';
-import jsPDF from 'jspdf';
 
 function Responses(props) {
 
@@ -29,35 +26,6 @@ function Responses(props) {
         })
     }
 
-    const columns = [
-        { title: "ID", field: "id" },
-    ]
-
-
-
-    const exportToExcel = () => {
-        const newData = responses.map(response => {
-            return response;
-        })
-        const worksheet = XLSX.utils.json_to_sheet(newData);
-        const workbook = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(workbook, worksheet, "responses")
-
-        let buffer = XLSX.write(workbook, { bookType: "xlsx", type: "buffer" });
-        XLSX.write(workbook, { bookType: "xlsx", type: "binary" });
-        XLSX.writeFile(workbook, "FDM_Candidates_Results_Data.xlsx");
-    }
-
-    const exportToPdf = () => {
-        const doc = new jsPDF();
-        doc.text("FDM Results List", 20, 10);
-        doc.autoTable({
-            columns: columns.map(col => ({ ...col, dataKey: col.field })),
-            body: responses
-        })
-        doc.save("FDM_Results.pdf");
-    }
-
 
     return (
             <div className="row">
@@ -67,9 +35,6 @@ function Responses(props) {
                     <input className="form-control me-2 search-bar-input" type="search" placeholder="Search" aria-label="Search" onChange={e => handleSearch(e.target.value)} />
                 </form>
             </div>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
-
-                <nav><ExportButton exportToExcel={exportToExcel} exportToPdf={exportToPdf} /> Export is not working (don't use)</nav>
                 <table className="table table-Striped table-bordered table-hover">
                     <thead>
                    
