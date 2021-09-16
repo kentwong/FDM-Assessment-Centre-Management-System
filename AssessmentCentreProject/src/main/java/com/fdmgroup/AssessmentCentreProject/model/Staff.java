@@ -11,8 +11,14 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
+@JsonSubTypes({ @Type(value = Interviewer.class, name = "interviewer"), @Type(value = Recruiter.class, name = "recruiter"), @Type(value = ACCoordinator.class, name = "accoordinator") })
 public abstract class Staff {
 
 	@Id
@@ -76,20 +82,19 @@ public abstract class Staff {
 	public void setEncyptedPassword(String password) {
 		this.encyptedPassword = encryptPassword(password);
 	}
-	
+
 	public String encryptPassword(String password) {
 		try {
 			MessageDigest m = MessageDigest.getInstance("MD5");
 			m.update(password.getBytes());
 			byte[] bytes = m.digest();
 
-			StringBuilder s = new StringBuilder();  
-            for(int i=0; i< bytes.length ;i++)  
-            {  
-                s.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));  
-            }  
-            return s.toString();
-			
+			StringBuilder s = new StringBuilder();
+			for (int i = 0; i < bytes.length; i++) {
+				s.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+			}
+			return s.toString();
+
 		} catch (NoSuchAlgorithmException e) {
 			System.err.println("Failed to hash password");
 			e.printStackTrace();

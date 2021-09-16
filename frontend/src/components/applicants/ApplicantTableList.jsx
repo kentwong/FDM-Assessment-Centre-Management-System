@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserEdit, faDownload } from '@fortawesome/free-solid-svg-icons';
+import { faUserEdit, faDownload, faSort } from '@fortawesome/free-solid-svg-icons';
 import SendEmailButton from './SendEmailButton';
 import DeleteApplicantButton from './DeleteApplicantButton';
 
+
 function ApplicantTableList(props) {
 
-    const { candidates, deleteCandidate } = props;
+    const { candidates, deleteCandidate, toggleSortId, toggleSortName, toggleSortStream, toggleSortStatus } = props;
 
     return (
         <div>
@@ -14,10 +15,10 @@ function ApplicantTableList(props) {
                 <table className="table table-Striped table-bordered table-hover">
                     <thead>
                         <tr>
-                            <th className="">ID</th>
-                            <th className="">Name</th>
-                            <th className="">Stream</th>
-                            <th className="">Status</th>
+                            <th className="icon-link" onClick={() => toggleSortId()}>ID <FontAwesomeIcon icon={faSort} /></th>
+                            <th className="icon-link" onClick={() => toggleSortName()}>Name <FontAwesomeIcon icon={faSort} /></th>
+                            <th className="icon-link" onClick={() => toggleSortStream()} > Stream < FontAwesomeIcon icon={faSort} /></th>
+                            <th className="icon-link" onClick={() => toggleSortStatus()} > Status < FontAwesomeIcon icon={faSort} /></th>
                             <th className="">Phone</th>
                             <th className="">Email</th>
                             <th className="">CV</th>
@@ -46,8 +47,8 @@ function ApplicantTableList(props) {
                         }
                     </tbody>
                 </table>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 }
 
