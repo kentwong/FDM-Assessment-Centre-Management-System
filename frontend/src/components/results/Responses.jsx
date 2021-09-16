@@ -35,6 +35,11 @@ function Responses(props) {
                     <input className="form-control me-2 search-bar-input" type="search" placeholder="Search" aria-label="Search" onChange={e => handleSearch(e.target.value)} />
                 </form>
             </div>
+            <div className="cpl md-4">
+            <button className="btn btn-warning" onClick={() => window.print()}>Print as PDF</button>
+            </div>
+            <br/>
+            <br/>
                 <table className="table table-Striped table-bordered table-hover">
                     <thead>
                    
