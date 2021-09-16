@@ -72,13 +72,14 @@ public class AssesmentCentreResponseController {
 				}
 			} else { // if there is no entry for the candidate, one is made
 				CandidateACResult result = new CandidateACResult();
-				// looks through the assessment center list and sets the date of the candidate acR if it equals row.getCandidate
-				for(AssessmentCentre centre : centres) {
-					if(centre.getCandidates().contains(response.getCandidate())) {
-						result.setDateTime(centre.getStart());
+				// looks through the assessment center list and sets the date of the candidate
+				// acR if it equals row.getCandidate
+				for (AssessmentCentre centre : centres) {
+					if (centre.getCandidates().contains(response.getCandidate())) {
+						result.setDate(centre.getStart().toLocalDate());
 					}
 				}
-				
+
 				result.setCandidate(response.getCandidate());
 				result.setInterviewer(response.getInterviewer());
 				result.setQuestion(response.getQuestion());
@@ -133,13 +134,14 @@ public class AssesmentCentreResponseController {
 					}
 				} else {
 					CandidateACResult result = new CandidateACResult();
-					// looks through the assessment center list and sets the date of the candidate acR if it equals row.getCandidate
-					for(AssessmentCentre centre : centres) {
-						if(centre.getCandidates().contains(response.getCandidate())) {
-							result.setDateTime(centre.getStart());
+					// looks through the assessment center list and sets the date of the candidate
+					// acR if it equals row.getCandidate
+					for (AssessmentCentre centre : centres) {
+						if (centre.getCandidates().contains(response.getCandidate())) {
+							result.setDate(centre.getStart().toLocalDate());
 						}
 					}
-					
+
 					result.setCandidate(response.getCandidate());
 					result.setInterviewer(response.getInterviewer());
 					result.setQuestion(response.getQuestion());
@@ -184,9 +186,9 @@ public class AssesmentCentreResponseController {
 		List<AssessmentCentreResponse> responses = assessmentCentreResponseRepo.findByCandidateId(id);
 		List<CandidateACResult> generalResponses = new ArrayList<>();
 		for (AssessmentCentreResponse response : responses) {
-			if (response.getQuestion().getQuestionType().equals(QuestionType.GENERAL)) { // only creates an entry for
-																							// the candidate's general
-																							// questions
+			if (response.getQuestion().getQuestionType().equals(QuestionType.GENERAL) && (response.getNotes() != null || response.getPoints() > 0)) {
+				// only creates an entry for the candidate's general questions and the response is not null
+
 				CandidateACResult generalResponse = new CandidateACResult();
 				generalResponse.setGeneral(response.getPoints());
 				generalResponse.setQuestion(response.getQuestion());
@@ -217,9 +219,8 @@ public class AssesmentCentreResponseController {
 		List<AssessmentCentreResponse> responses = assessmentCentreResponseRepo.findByCandidateId(id);
 		List<CandidateACResult> technicalResponses = new ArrayList<>();
 		for (AssessmentCentreResponse response : responses) {
-			if (response.getQuestion().getQuestionType().equals(QuestionType.TECHNICAL)) { // only creates an entry for
-																							// the candidate's technical
-																							// questions
+			if (response.getQuestion().getQuestionType().equals(QuestionType.TECHNICAL) && (response.getNotes() != null || response.getPoints() > 0)) {
+				// only creates an entry for the candidate's technical questions and the response is not null
 				CandidateACResult technicalResponse = new CandidateACResult();
 				technicalResponse.setTechnical(response.getPoints());
 				technicalResponse.setQuestion(response.getQuestion());
@@ -250,9 +251,8 @@ public class AssesmentCentreResponseController {
 		List<AssessmentCentreResponse> responses = assessmentCentreResponseRepo.findByCandidateId(id);
 		List<CandidateACResult> behaviouralResponses = new ArrayList<>();
 		for (AssessmentCentreResponse response : responses) {
-			if (response.getQuestion().getQuestionType().equals(QuestionType.BEHAVIOURAL)) { // only creates an entry
-																								// for the candidate's
-																								// general questions
+			if (response.getQuestion().getQuestionType().equals(QuestionType.BEHAVIOURAL) && (response.getNotes() != null || response.getPoints() > 0)) {
+				// only creates an entry for the candidate's behavioural questions and the response is not null
 				CandidateACResult behaviouralResponse = new CandidateACResult();
 				behaviouralResponse.setBehavioural(response.getPoints());
 				behaviouralResponse.setQuestion(response.getQuestion());

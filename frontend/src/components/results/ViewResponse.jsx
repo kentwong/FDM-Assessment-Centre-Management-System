@@ -111,7 +111,7 @@ function ViewResponse(props) {
                                 response.map(
                                         response =>
                                             <tr key={response.question.questionBody}>
-                                                <td> Date and time of AC: {response.dateTime} </td>
+                                                <td> {response.date} </td>
                                             </tr>
                                     )
                                 }
