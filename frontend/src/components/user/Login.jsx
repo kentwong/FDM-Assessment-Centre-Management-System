@@ -63,7 +63,7 @@ class Login extends Component {
         return (
             <div className="container">
                 <form className="custom-container" onSubmit={this.validateUser}>
-                    <h2 className="mb-5 text-center">FDM Assessment Centre System</h2>
+                    <h2 className="mb-5 text-center">FDM Assessment Centre Management System</h2>
 
                     <div className="row">
                         <div className="col-4">
