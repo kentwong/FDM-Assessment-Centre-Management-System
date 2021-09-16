@@ -253,6 +253,7 @@ function ViewApplicants(props) {
     ]
     //For filtering 
     const checkboxFilterStreamOnChange = (e) => {
+        setSuccessFilter('')
         const { id, checked } = e.target;
         setCandidateListFilterStreams({ ...candidateListFilterStreams, [id]: checked })
     }
@@ -276,11 +277,13 @@ function ViewApplicants(props) {
                 })
             })
         setCandidates(filtered);
+        setSuccessFilter('Streams are successfully filtered.')
 
         console.log('new filtered stream candidate list', candidates)
     }
 
     const checkboxFilterStatusOnChange = (e) => {
+        setSuccessFilter('')
         const { id, checked } = e.target;
         setCandidateListFilterStatus({ ...candidateListFilterStatus, [id]: checked })
     }
@@ -310,6 +313,7 @@ function ViewApplicants(props) {
                 })
             })
         setCandidates(filtered);
+        setSuccessFilter('Status are successfully filtered.')
 
         console.log('new filtered status candidate list', candidates)
     }
@@ -324,7 +328,7 @@ function ViewApplicants(props) {
 
                 <div className="col-4 ps-0">
                     {/* //Filter Button */}
-                    <button className="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#modalFilter"><FontAwesomeIcon className="fa-lg me-2" icon={faSlidersH} />Filter</button>
+                    <button className="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#modalFilter" onClick={() => setSuccessFilter('')}><FontAwesomeIcon className="fa-lg me-2" icon={faSlidersH} />Filter</button>
                 </div>
 
 
@@ -371,7 +375,10 @@ function ViewApplicants(props) {
                                             </div>
                                         )
                                     )}
-                                    <button type="submit" className="btn btn-primary position-absolute" style={{ "bottom": "-54px", "right": "205px" }} aria-label="Filter" >Filter Stream</button>
+                                    {!successFilter && <button type="submit" className="btn btn-primary position-absolute" style={{ "bottom": "-54px", "right": "205px" }} aria-label="Filter" >Filter Stream</button>}
+                                    {successFilter && <button type="submit" className="btn btn-primary position-absolute" style={{ "bottom": "-64px", "right": "205px" }} aria-label="Filter" >Filter Stream</button>}
+
+
                                 </form>
                                 <form onSubmit={(e) => handleStatusFilter(e)}>
                                     <div className="mt-4">Filter application's status: </div>
@@ -387,8 +394,9 @@ function ViewApplicants(props) {
                                             </div>
                                         )
                                     )}
+                                    {!successFilter && <button type="submit" className="btn btn-primary position-absolute" style={{ "bottom": "-54px", "right": "88px" }} aria-label="Filter" >Filter Status</button>}
+                                    {successFilter && <button type="submit" className="btn btn-primary position-absolute" style={{ "bottom": "-64px", "right": "88px" }} aria-label="Filter" >Filter Status</button>}
 
-                                    <button type="submit" className="btn btn-primary position-absolute" style={{ "bottom": "-54px", "right": "88px" }} aria-label="Filter" >Filter Status</button>
                                 </form>
                             </div>
 
