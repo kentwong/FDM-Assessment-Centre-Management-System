@@ -14,7 +14,7 @@ function ShowCandidatesAssignedToMe(props) {
                 <input type="radio" class="btn-check" name="options-outlined" id="all" autocomplete="off" onClick={() => {
                     setCandidatesAndUnassignedCandidates()
                 }} />
-                <label className="btn btn-outline-primary me-2" for="all">Show All</label>
+                <label className="btn btn-outline-primary me-2" for="all">Show All/Reset</label>
             </div>
         </div>
     );
