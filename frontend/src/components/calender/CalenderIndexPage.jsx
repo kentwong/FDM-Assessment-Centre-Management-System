@@ -25,8 +25,12 @@ class CalenderIndexPage extends Component {
         
         this.state = {
           showCreate: false,
-          readOnly: true
+          readOnly: true,
+          updateStart: null,
+          updateEnd: null,
         };
+        this.startDateHandler = this.startDateHandler.bind(this)
+        this.endDateHandler = this.endDateHandler.bind(this)
 
         this.data =  [{
                 Id: 1,
@@ -71,6 +75,22 @@ class CalenderIndexPage extends Component {
 
     }
 
+    componentDidUpdate() {
+        console.log('TEST')
+    }
+
+    startDateHandler(e) {
+        console.log("UPDATED START - " + e.target.value)
+        this.setState({ updateStart: e.target.value })
+        console.log(this.state.updateStart)
+    }
+
+    endDateHandler(e) {
+        console.log("UPDATED END - " + e.target.value)
+        this.setState({ updateEnd: e.target.value })
+        console.log(this.state.updateEnd)
+    }
+
     editorWindowTemplate(props) {
         return (
             <table className="custom-event-editor"  style={{width: '100%'}}>
@@ -82,25 +102,23 @@ class CalenderIndexPage extends Component {
                     <tr>
                         <td className="e-textlabel">From</td>
                         <td><DateTimePickerComponent className="e-field" id="StartTime" data-name="StartTime" 
-                            value={props.StartTime} format='dd/MM/yy hh:mm a'></DateTimePickerComponent>
-                        </td>
+                             format="dd/MM/yy hh:mm a" onChange={this.startDateHandler}></DateTimePickerComponent>
+                        </td> {/* value={props.StartTime} */}
                     </tr>
                     <tr>
                         <td className="e-textlabel">To</td>
                         <td><DateTimePickerComponent className="e-field" id="EndTime" data-name="EndTime" 
-                            min={props.StartTime} value={props.EndTime} format='dd/MM/yy hh:mm a'></DateTimePickerComponent>
-                        </td>
+                             format="dd/MM/yy hh:mm a" onChange={(this.endDateHandler)}></DateTimePickerComponent>
+                        </td> {/* value={props.EndTime} */}
                     </tr>
 
                     <tr>
                         <td className="e-textlabel">Description</td>
                         <td>
                             <input type="text" className="e-field e-input" id="Description" name="Description" readOnly={true}/>
-                            <button onClick={this.addCandidate}>Edit Candidates</button>
+                            {/* <button onClick={this.addCandidate}>Edit Candidates</button> */}
                         </td>
                     </tr>
-
-                    
                 </tbody>
             </table>
         )
@@ -109,6 +127,9 @@ class CalenderIndexPage extends Component {
     onPopupClose(args) {
         // only runs when SAVE button is pressed
         if (args.type === 'Editor' && args.data) {
+            // console.log("UPDATED start time: " + JSON.stringify(this.state.updateStart))
+            // console.log("UPDATED end time: " + JSON.stringify(this.state.updateEnd))
+            console.log("ARGS: " + JSON.stringify(args.data))
             this.updateAC(args)
         }
         if (args.type === 'DeleteAlert'){
@@ -125,7 +146,7 @@ class CalenderIndexPage extends Component {
                     end: args.data.EndTime,
                 }
                 console.log(ac.Id)
-                console.log("UPDATED: " + JSON.stringify(dates))
+                // console.log("UPDATED: " + JSON.stringify(dates))
                 AssessmentCentreService.updateAssessmentCentreDates(dates)
             }
         })
@@ -156,11 +177,10 @@ class CalenderIndexPage extends Component {
             <div className="custom-container">
                 {/* This is the Calender Page. */}
                 <ScheduleComponent currentView='Month' eventSettings={{ dataSource: this.data }} views={['Day', 'Week', 'Month', 'Agenda']} editorTemplate={this.editorWindowTemplate.bind(this)} 
-                    popupClose={this.onPopupClose.bind(this)} >
+                    popupClose={this.onPopupClose.bind(this)} test={this.state}>
                     <Inject services={[Day, Week, WorkWeek, Month, Agenda]}/>
                 </ScheduleComponent>
                 
-                {/* <ViewAssessmentCentres /> */}
                 <br/>
                 { shouldDisplayCreateAC && <button className="btn btn-primary" onClick={this.displayCreateACHandler}>Create Assessment Centre</button>}
                 { this.state.showCreate && <CreateAC />}
