@@ -31,21 +31,12 @@ import com.fdmgroup.AssessmentCentreProject.repository.StaffRepository;
 @RequestMapping("/staff/api/v1/")
 public class StaffController {
 	
-	//@Autowired
-	//private AuthenticationManager authenticationManager;
-	
 	@Autowired
 	private StaffRepository staffRepo;
 	
 	public StaffController(StaffRepository staffRepo) {
 		super();
 		this.staffRepo = staffRepo;
-	}
-	
-	@GetMapping("/login")
-	public List<Staff> login() {
-		return staffRepo.findAll();
-		
 	}
 	
 	@PostMapping("/login")
@@ -55,13 +46,13 @@ public class StaffController {
 		if (staff.isPresent() && staff.get().getEncyptedPassword().equals(user.getPassword())) {
 			
 			if (staff.get() instanceof Interviewer) {
-				return new LoggedInDetails(staff.get().getId(), "interviewer");
+				return new LoggedInDetails(staff.get().getId(), "interviewer", staff.get().getFirstName());
 			}
 			else if (staff.get() instanceof Recruiter) {
-				return new LoggedInDetails(staff.get().getId(), "recruiter");
+				return new LoggedInDetails(staff.get().getId(), "recruiter", staff.get().getFirstName());
 			}
 			else if (staff.get() instanceof ACCoordinator) {
-				return new LoggedInDetails(staff.get().getId(), "ACCoordinator");
+				return new LoggedInDetails(staff.get().getId(), "ACCoordinator", staff.get().getFirstName());
 			}
 		}
 		return null;

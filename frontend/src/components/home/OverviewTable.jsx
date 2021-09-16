@@ -7,22 +7,28 @@ class OverviewTable extends Component {
         super(props)
 
         this.state = {
-            candidatesOverviewData: []
+            candidatesOverviewData: [],
+            acOverviewData: []
         }
     
     }
 
     componentDidMount() {
-        HomePageService.getAssessmentCentreResponsesHome().then((res) => {
-            
+
+        let LoggedInDetails = {
+            staffId: localStorage.getItem('user'),
+            role: localStorage.getItem('role')
+        };
+
+        HomePageService.sendDetails(LoggedInDetails).then(res => {
             this.setState({ candidatesOverviewData: res.data })
         })
 
-        CandidateService.getCandidates().then((res) => {
-            let filtered = res.data.filter(candidate => candidate.recruiterId === 0);
-            console.log(filtered.length)
-            const unassignedCandidates = filtered.length;
+
+        HomePageService.getACOverviewDetails().then(res => {
+            this.setState({ acOverviewData: res.data })
         })
+
     }
 
 
@@ -87,15 +93,15 @@ class OverviewTable extends Component {
                         <tbody>
                             <tr>
                                 <td>Unassigned Applicants</td>
-                                <td> hi</td>
+                                <td>{this.state.acOverviewData.unasignedApplicants}</td>
                             </tr>
                             <tr>
                                 <td>Upcoming AC's</td>
-                                <td>{this.state.candidatesOverviewData.phoneScreening}</td>
+                                <td>{this.state.acOverviewData.upcomingAcs}</td>
                             </tr>
                             <tr>
                                 <td>Completed AC's</td>
-                                <td>{this.state.candidatesOverviewData.aptitudeTest}</td>
+                                <td>{this.state.acOverviewData.completedAcs}</td>
                             </tr>
                             <tr>
                                 <td></td>
@@ -103,11 +109,11 @@ class OverviewTable extends Component {
                             </tr>
                             <tr>
                                 <td>Total Applicants Registered</td>
-                                <td>{this.state.candidatesOverviewData.videoInterview}</td>
+                                <td>{this.state.candidatesOverviewData.newApplications}</td>
                             </tr>
                             <tr>
                                 <td>Registered Today</td>
-                                <td>{this.state.candidatesOverviewData.ac}</td>
+                                <td>{this.state.candidatesOverviewData.newApplications}</td>
                             </tr>
                             
                             <tr>

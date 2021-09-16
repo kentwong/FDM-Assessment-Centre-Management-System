@@ -12,11 +12,17 @@ import com.fdmgroup.AssessmentCentreProject.model.Candidate;
 
 @Repository
 public interface CandidateRepository extends JpaRepository<Candidate, Integer>{
-
+			
+	@Query (value = "SELECT * FROM candidate c WHERE c.status = :status AND recruiter_id = :recruiterId", nativeQuery=true)
+	List<Candidate> pendingStatusPerRecruiter(@Param("status") String status, @Param("recruiterId") int recruiterId);		
+			
 	@Query (value = "SELECT * FROM candidate c WHERE c.status = :searchterm", nativeQuery=true)
 	List<Candidate> pendingStatus(@Param("searchterm") String status);
 	
 	@Query(value="SELECT * FROM candidate c WHERE c.recruiter_id IS NULL", nativeQuery=true)
 	List<Candidate> applicationsPending();
+	
+	@Query (value="SELECT * FROM candidate c WHERE NOT EXISTS (SELECT * FROM assessment_centre_candidates ac WHERE c.id = ac.candidates_id)", nativeQuery=true)
+	List<Candidate> candidatesWithoutACS();
 	
 }
