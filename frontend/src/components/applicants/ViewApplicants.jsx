@@ -103,7 +103,7 @@ function ViewApplicants(props) {
             for (const key in countCandidatesToBeAssigned) {
                 if (countCandidatesToBeAssigned.hasOwnProperty(key)) {
                     for (let i = 0; i < countCandidatesToBeAssigned[key]; i++) {
-                        unassignedCandidates[i + done].recruiter = { id: parseInt(key) };
+                        unassignedCandidates[i + done].recruiter = { id: parseInt(key), type: 'recruiter' };
                         CandidateService.updateCandidate(unassignedCandidates[i + done], unassignedCandidates[i + done].id);
                     }
                     done = done + parseInt(countCandidatesToBeAssigned[key]);
