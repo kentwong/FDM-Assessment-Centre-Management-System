@@ -57,13 +57,16 @@ function InterviewForm({ id }) {
 
     useEffect(() => {
         AssessmentCentreResponseService.getResponsesByCandidateInterviewer(id, interviewerId).then( res => {
-            const tempRes = res.data.filter(e => (e.candidate.id == id && e.interviewer.id == interviewerId)); 
-            setAcResponses(tempRes);
-        });
-        AssessmentCentreResponseService.getAllQuestions().then(q => {
-            const tempQuestions = q.data.filter(e => acResponses.filter(i => i.question.id == e.id).length > 0);
-            acResponses.forEach(e => tempQuestions[tempQuestions.findIndex(i => i.id == e.question.id)].acResponseId = e.id);
-            setQuestionBank(tempQuestions);
+            // const tempRes = res.data.filter(e => (e.candidate.id == id && e.interviewer.id == interviewerId)); 
+            // setAcResponses(tempRes); console.log('a');
+
+            AssessmentCentreResponseService.getAllQuestions().then(q => {
+                // const tempQuestions = q.data.filter(e => acResponses.filter(i => i.question.id == e.id).length > 0);
+                // acResponses.forEach(e => tempQuestions[tempQuestions.findIndex(i => i.id == e.question.id)].acResponseId = e.id);
+                // setQuestionBank(tempQuestions); console.log('b');
+
+                setQuestionBank(q.data);
+            }); 
         });
     }, []);
 
