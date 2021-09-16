@@ -51,7 +51,7 @@ function ViewResponse(props) {
     
     return (
         <div className="custom-container">
-            <h1>AC Results</h1>
+            <h1>Assessment Centre Results</h1>
             <div>
                 <a href={'/results'}><FontAwesomeIcon className="fa-lg icon-link me-2" icon={faBackward} color="#0d6efd" /></a>
             </div>
@@ -111,7 +111,7 @@ function ViewResponse(props) {
                                 response.map(
                                         response =>
                                             <tr key={response.question.questionBody}>
-                                                <td> DATE </td>
+                                                <td> Date and time of AC: {response.dateTime} </td>
                                             </tr>
                                     )
                                 }
