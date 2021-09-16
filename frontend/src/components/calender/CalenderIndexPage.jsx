@@ -33,14 +33,14 @@ class CalenderIndexPage extends Component {
                 Subject: '2/9 Assessment Centre',
                 StartTime: new Date(2021, 8, 2, 12, 0),
                 EndTime: new Date(2021, 8, 2, 14, 0),
-                Description: 'DONE',
+                Description: 'Candidates: Mike Evans; Chris Godwin; Travis Kelce; Jason Kelce; Aaron Donald; ',
                 IsReadonly: true,
             }, {
                 Id: 2,
                 Subject: '7/9 Assessment Centre',
                 StartTime: new Date(2021, 8, 7, 9, 30),
                 EndTime: new Date(2021, 8, 7, 11, 0),
-                Description: 'DONE',
+                Description: 'Candidates: Thomas Edward; Patrick Brady; Aaron Rodgers; Drew Brees; Patrick Mahomes; ',
                 IsReadonly: true,
             }];
 
@@ -88,7 +88,7 @@ class CalenderIndexPage extends Component {
                     <tr>
                         <td className="e-textlabel">To</td>
                         <td><DateTimePickerComponent className="e-field" id="EndTime" data-name="EndTime" 
-                            value={props.EndTime} format='dd/MM/yy hh:mm a'></DateTimePickerComponent>
+                            min={props.StartTime} value={props.EndTime} format='dd/MM/yy hh:mm a'></DateTimePickerComponent>
                         </td>
                     </tr>
 
