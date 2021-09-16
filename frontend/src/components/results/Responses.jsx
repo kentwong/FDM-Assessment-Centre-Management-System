@@ -6,7 +6,7 @@ import { faInfo, faSearch } from '@fortawesome/free-solid-svg-icons';
 function Responses(props) {
 
     const [responses, setResponses] = useState([]);
-    const excludeSearchColumns = ['aptitude', 'general', 'technical', 'behavioural', 'curveball', 'overall'];
+    const excludeSearchColumns = ['cv', 'id', 'aptitude_score', 'phoneNumber', 'notes', 'recruiter', 'questionBody', 'questionType', 'interviewer', 'general', 'technical', 'behavioural', 'curveball', 'overall', 'technicalTotal', 'generalTotal', 'curveballTotal', 'behaviouralTotal', 'grade', 'notes'];
 
     useEffect(() => {
         AssessmentCentreResponseService.getAssessmentCentreResponseGrouped().then((res) => {
@@ -45,7 +45,7 @@ function Responses(props) {
                                         <td> Technical </td>
                                         <td> Behavioural </td>
                                         <td> Overall </td>
-                                        <td>More info </td>
+                                        <td> More info </td>
                                     </tr>
                             
                         

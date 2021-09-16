@@ -8,7 +8,7 @@ function SearchBar(props) {
 
     return (
         <div>
-            <div className="container-fluid ms-0 ps-0 mb-5">
+            <div className="container-fluid ms-0 ps-0 pe-0 mb-5">
                 <form className="d-flex">
                     <FontAwesomeIcon className="fa-lg icon-link me-2" icon={faSearch} color="#0d6efd" style={{ "marginTop": "8px" }} />
                     <input className="form-control me-2 search-bar-input" type="search" placeholder="Search" aria-label="Search" onChange={e => handleSearch(e.target.value)} />
