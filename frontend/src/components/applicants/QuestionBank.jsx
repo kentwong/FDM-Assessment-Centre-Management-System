@@ -4,6 +4,8 @@ import AssessmentCentreResponseService from '../../services/AssessmentCentreResp
 const QuestionBank = ({ questionBank, addQuestion }) => {
     return (
         <div>
+            <p>Questions for Interviewer - { localStorage.getItem('name') } </p>
+            { questionBank.length > 0 ?
             <div className="row">
                 <table className="table table-Striped table-bordered table-hover">
                     <thead>
@@ -27,6 +29,8 @@ const QuestionBank = ({ questionBank, addQuestion }) => {
                     </tbody>
                 </table>
             </div>
+            : <p>{ localStorage.getItem('name') } has no questions assigned for this candidate.</p>
+             }
         </div>
     )
 }

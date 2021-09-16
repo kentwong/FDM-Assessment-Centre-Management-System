@@ -1,19 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, componentDidMount } from 'react';
 import CandidateService from '../../services/CandidateService';
 import AssessmentCentreResponseService from '../../services/AssessmentCentreResponseService';
 import InterviewFormSingleQuestion from './InterviewFormSingleQuestion';
 import QuestionBank from './QuestionBank';
 
-function InterviewForm({id}) {
+function InterviewForm({ id }) {
+    const interviewerId = localStorage.getItem('user');
+
     const [showQuestionBank, setShowQuestionBank] = useState(true);
     const toggleQuestionBank = () => {
         showQuestionBank ? setShowQuestionBank(false) : setShowQuestionBank(true);
     }
     const [questionBank, setQuestionBank] = useState([]);
+    const [acResponses, setAcResponses] = useState([]);
 
     const [questionState, setQuestionState] = useState([]);
     const addQuestion = (id) => {
-        if (questionState.filter(question => question[0].id == id).length == 0) {
+        if (questionState.filter(question => question[0].id == id).length == 0 && questionState.length < 4) {
             const tempQuestion = questionBank.filter(question => question.id == id);
             setQuestionState([...questionState, { ...tempQuestion }]);
         }
@@ -26,7 +29,6 @@ function InterviewForm({id}) {
         e.preventDefault();
         questionState[questionState.findIndex((q => q[0].id == e.target.id))][0][e.target.name] = e.target.value;
         setQuestionState(questionState);
-        console.log(questionState);
     };
 
     const clearAllQuestions = () => {
@@ -34,6 +36,18 @@ function InterviewForm({id}) {
     }
 
     const submitInterviewForm = () => {
+        questionState.forEach(q => {
+            let question = {
+                notes: q[0].notes,
+                points: q[0].points,
+                candidate_id: id,
+                fk_interviewer_id: interviewerId,
+                question_id: q[0].id
+            }
+            console.log(question);
+            AssessmentCentreResponseService.updateAssessmentCentreResponse(question, q[0].acResponseId);
+        });
+
         setQuestionState([]);
     }
 
@@ -42,12 +56,17 @@ function InterviewForm({id}) {
     }
 
     useEffect(() => {
-        let isMounted = true;
-        AssessmentCentreResponseService.getAllQuestions().then((q) => {
-            if (isMounted) setQuestionBank(q.data);
-        }); console.log(localStorage.user);
-        return () => { isMounted = false };
-    }, []);
+        AssessmentCentreResponseService.getResponsesByCandidateInterviewer(id, interviewerId).then( res => {
+            const tempRes = res.data.filter(e => (e.candidate.id == id && e.interviewer.id == interviewerId)); 
+            setAcResponses(tempRes); console.log(acResponses);
+
+            AssessmentCentreResponseService.getAllQuestions().then(q => { 
+                const tempQuestions = q.data.filter(e => acResponses.filter(i => i.question.id == e.id).length > 0);
+                acResponses.forEach(e => tempQuestions[tempQuestions.findIndex(i => i.id == e.question.id)].acResponseId = e.id);
+                setQuestionBank(tempQuestions); 
+            }); 
+        });
+    }, [acResponses]);
 
     return (
         <div className="custom-container">

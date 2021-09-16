@@ -21,15 +21,6 @@ public class Interviewer extends Staff {
 		super();
 	}
 
-	// BEHAVIOURS *
-	public void chooseQuestion() {
-		
-	}
-	
-	public void uploadResponse(AssessmentCentreResponse response) {
-		
-	}
-
 	// GETTERS & SETTERS
 	public List<AssessmentCentreResponse> getResponses() {
 		return responses;
