@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { withRouter } from "react-router-dom";
 import CandidateService from '../../services/CandidateService';
 import RecruiterService from '../../services/RecruiterService';
+import StreamService from '../../services/StreamService';
 import AssignCandidatesToRecruiter from './AssignCandidatesToRecruiter';
 import SearchBar from './SearchBar';
 import ShowCandidatesAssignedToMe from './ShowCandidatesAssignedToMe';
@@ -13,6 +14,7 @@ import XLSX from 'xlsx';
 import ExportButton from './ExportButton';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
+import e from 'cors';
 
 function ViewApplicants(props) {
 
@@ -20,9 +22,11 @@ function ViewApplicants(props) {
     const [unassignedCandidates, setUnassignedCandidates] = useState([]);
     const excludeSearchColumns = ['id', 'aptitude_score', 'cv', 'notes', 'recruiter'];
     const [availRecruiters, setAvailRecruiters] = useState([]);
+    const [availStreams, setAvailStreams] = useState([]);
     const [countCandidatesToBeAssigned, setCountCandidatesToBeAssigned] = useState([]);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
+    const [successFilter, setSuccessFilter] = useState('');
     const [loading, setLoading] = useState(false);
 
     // For sorting columns
@@ -37,6 +41,10 @@ function ViewApplicants(props) {
 
         RecruiterService.getRecruiters().then(res => {
             setAvailRecruiters(res.data);
+        })
+
+        StreamService.getStreams().then(res => {
+            setAvailStreams(res.data);
         })
     }, [])
 
@@ -232,39 +240,83 @@ function ViewApplicants(props) {
     }
 
 
-    const [recruiterFilter, setRecruiterFilter] = useState([]);
+    const [candidateListFilterStreams, setCandidateListFilterStreams] = useState({});
+    const [candidateListFilterStatus, setCandidateListFilterStatus] = useState({});
+    const availStatus = [
+        { 'id': 1, 'status': 'Pending CV Screening' },
+        { 'id': 2, 'status': 'Pending Phone Screening' },
+        { 'id': 3, 'status': 'Pending Aptitude Test' },
+        { 'id': 4, 'status': 'Pending Video Interview' },
+        { 'id': 5, 'status': 'Pending AC' },
+        { 'id': 6, 'status': 'Applicant Rejected' },
+        { 'id': 7, 'status': 'Offer Letter Sent' }
+    ]
     //For filtering 
-    const checkboxFilterChange = (id) => {
-        let checkbox = document.getElementById('checkboxFilterRecruiter' + id);
-        console.log('id', id)
-        if (checkbox.checked) {
-            setRecruiterFilter(prev => prev)
-            CandidateService.getCandidates().then((res) => {
-
-                let filtered = res.data.filter(candidate => candidate.recruiterId.toString() === id.toString())
-                setCandidates(filtered);
-            });
-        } else {
-            console.log('is this run?')
-            let index = recruiterFilter.indexOf(id);
-            recruiterFilter.splice(index, 1)
-            CandidateService.getCandidates().then((res) => {
-                setCandidates(res.data);
-            });
-        };
-        console.log('recruiterFilter ', recruiterFilter)
+    const checkboxFilterStreamOnChange = (e) => {
+        setSuccessFilter('')
+        const { id, checked } = e.target;
+        setCandidateListFilterStreams({ ...candidateListFilterStreams, [id]: checked })
     }
 
-    const handleFilter = (filter) => {
+    const handleStreamFilter = (e) => {
+        e.preventDefault();
+        console.log('original candidate list', candidateListFilterStreams)
+        let trueKeys = Object.keys(candidateListFilterStreams).filter(k => candidateListFilterStreams[k]);
+        console.log('candidateListFilterStreams that is true only', trueKeys)
 
+        let filtered = candidates
+            .filter(candidate => {
+                return Object.keys(candidate).some(key => {
+                    return excludeSearchColumns.includes(key) ?
+                        false :
+                        candidate[key].toString().includes(trueKeys[0]) ||
+                        candidate[key].toString().includes(trueKeys[1]) ||
+                        candidate[key].toString().includes(trueKeys[2]) ||
+                        candidate[key].toString().includes(trueKeys[3]) ||
+                        candidate[key].toString().includes(trueKeys[4])
+                })
+            })
+        setCandidates(filtered);
+        setSuccessFilter('Streams are successfully filtered.')
+
+        console.log('new filtered stream candidate list', candidates)
     }
 
-    // const showCandidatesAssignedToMe = (id) => {
-    //     CandidateService.getCandidates().then((res) => {
-    //         let filtered = res.data.filter(candidate => candidate.recruiterId.toString() === id)
-    //         setCandidates(filtered);
-    //     });
-    // }
+    const checkboxFilterStatusOnChange = (e) => {
+        setSuccessFilter('')
+        const { id, checked } = e.target;
+        setCandidateListFilterStatus({ ...candidateListFilterStatus, [id]: checked })
+    }
+
+    const handleStatusFilter = (e) => {
+        e.preventDefault();
+        console.log('original candidate list', candidateListFilterStatus)
+        let trueKeys = Object.keys(candidateListFilterStatus).filter(k => candidateListFilterStatus[k]);
+        console.log('candidateListFilterStatus that is true only', trueKeys)
+
+        let filtered = candidates
+            .filter(candidate => {
+                return Object.keys(candidate).some(key => {
+                    return excludeSearchColumns.includes(key) ?
+                        false :
+                        candidate[key].toString().includes(trueKeys[0]) ||
+                        candidate[key].toString().includes(trueKeys[1]) ||
+                        candidate[key].toString().includes(trueKeys[2]) ||
+                        candidate[key].toString().includes(trueKeys[3]) ||
+                        candidate[key].toString().includes(trueKeys[4]) ||
+                        candidate[key].toString().includes(trueKeys[5]) ||
+                        candidate[key].toString().includes(trueKeys[6]) ||
+                        candidate[key].toString().includes(trueKeys[7]) ||
+                        candidate[key].toString().includes(trueKeys[8]) ||
+                        candidate[key].toString().includes(trueKeys[9]) ||
+                        candidate[key].toString().includes(trueKeys[10])
+                })
+            })
+        setCandidates(filtered);
+        setSuccessFilter('Status are successfully filtered.')
+
+        console.log('new filtered status candidate list', candidates)
+    }
 
     return (
         <div className="container my-5">
@@ -276,7 +328,7 @@ function ViewApplicants(props) {
 
                 <div className="col-4 ps-0">
                     {/* //Filter Button */}
-                    <button className="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#modalFilter"><FontAwesomeIcon className="fa-lg me-2" icon={faSlidersH} />Filter</button>
+                    <button className="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#modalFilter" onClick={() => setSuccessFilter('')}><FontAwesomeIcon className="fa-lg me-2" icon={faSlidersH} />Filter</button>
                 </div>
 
 
@@ -284,56 +336,86 @@ function ViewApplicants(props) {
                     <div className="modal-dialog modal-dialog-centered modal-lg">
 
                         <div className="modal-content">
-                            <form onSubmit={(e) => handleFilter(e)}>
-                                <div className="modal-header">
-                                    <h5 className="modal-title" id="modalFilterLabel">Filter Candidates Data</h5>
-                                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div className="modal-body">
-                                    <ShowCandidatesAssignedToMe
-                                        showCandidatesAssignedToMe={showCandidatesAssignedToMe}
-                                        setCandidatesAndUnassignedCandidates={setCandidatesAndUnassignedCandidates}
-                                        candidates={candidates}
-                                    />
 
+                            <div className="modal-header">
+                                <h5 className="modal-title" id="modalFilterLabel">Filter Candidates Data</h5>
+                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div className="modal-body">
+                                <ShowCandidatesAssignedToMe
+                                    showCandidatesAssignedToMe={showCandidatesAssignedToMe}
+                                    setCandidatesAndUnassignedCandidates={setCandidatesAndUnassignedCandidates}
+                                    candidates={candidates}
+                                />
 
-
-                                    Show candidates assigned to:
+                                {/* <div className="mt-4">Show candidates assigned to: </div>
                                     {availRecruiters.map(
                                         recruiter => (
                                             <div key={recruiter.id}>
                                                 <div className="form-check my-1">
-                                                    <input className="form-check-input" type="checkbox" value="" id={"checkboxFilterRecruiter" + recruiter.id} onChange={() => checkboxFilterChange(recruiter.id)} />
-                                                    <label className="form-check-label" htmlFor={"checkboxFilterRecruiter" + recruiter.id}>
+                                                    <input className="form-check-input" type="checkbox" value="" id={recruiter.firstName} onChange={(e) => checkboxFilterStreamOnChange(e)} />
+                                                    <label className="form-check-label" htmlFor={recruiter.firstName}>
                                                         {recruiter.firstName} {recruiter.lastName}
                                                     </label>
                                                 </div>
                                             </div>
-                                        ))}
+                                        ))} */}
+
+                                <form onSubmit={(e) => handleStreamFilter(e)}>
+                                    <div className="mt-4">Filter streams: </div>
+                                    {availStreams.map(
+                                        stream => (
+                                            <div key={stream.id}>
+                                                <div className="form-check my-1">
+                                                    <input className="form-check-input" type="checkbox" value="" id={stream.streamName} onChange={(e) => checkboxFilterStreamOnChange(e)} />
+                                                    <label className="form-check-label" htmlFor={stream.streamName}>
+                                                        {stream.streamName}
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        )
+                                    )}
+                                    {!successFilter && <button type="submit" className="btn btn-primary position-absolute" style={{ "bottom": "-54px", "right": "205px" }} aria-label="Filter" >Filter Stream</button>}
+                                    {successFilter && <button type="submit" className="btn btn-primary position-absolute" style={{ "bottom": "-64px", "right": "205px" }} aria-label="Filter" >Filter Stream</button>}
 
 
+                                </form>
+                                <form onSubmit={(e) => handleStatusFilter(e)}>
+                                    <div className="mt-4">Filter application's status: </div>
+                                    {availStatus.map(
+                                        status => (
+                                            <div key={status.id}>
+                                                <div className="form-check my-1">
+                                                    <input className="form-check-input" type="checkbox" value="" id={status.status} onChange={(e) => checkboxFilterStatusOnChange(e)} />
+                                                    <label className="form-check-label" htmlFor={status.status}>
+                                                        {status.status}
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        )
+                                    )}
+                                    {!successFilter && <button type="submit" className="btn btn-primary position-absolute" style={{ "bottom": "-54px", "right": "88px" }} aria-label="Filter" >Filter Status</button>}
+                                    {successFilter && <button type="submit" className="btn btn-primary position-absolute" style={{ "bottom": "-64px", "right": "88px" }} aria-label="Filter" >Filter Status</button>}
+
+                                </form>
+                            </div>
 
 
-                                </div>
-
-                                <div className="modal-footer">
-                                    {error && <div className="alert alert-danger ms-0 me-auto" role="alert">
+                            <div className="modal-footer">
+                                {/* {error && <div className="alert alert-danger ms-0 me-auto" role="alert">
                                         {error}
-                                    </div>}
-                                    {success && <div className="alert alert-success ms-0 me-auto" role="alert">
-                                        {success}
-                                    </div>}
-                                    <button type="submit" className="btn btn-danger" aria-label="Filter">Reset</button>
-                                    <button type="button" className="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">Done & Close</button>
-                                </div>
-                            </form>
+                                    </div>} */}
+                                {successFilter && <div className="alert alert-success ms-0 me-auto" role="alert">
+                                    {successFilter}
+                                </div>}
+
+
+                                <button type="button" className="btn btn-danger" data-bs-dismiss="modal" aria-label="Close">Close</button>
+                            </div>
+
                         </div>
                     </div>
                 </div>
-
-
-
-
 
                 <div className="col-4 pe-0">
                     <AssignCandidatesToRecruiter
