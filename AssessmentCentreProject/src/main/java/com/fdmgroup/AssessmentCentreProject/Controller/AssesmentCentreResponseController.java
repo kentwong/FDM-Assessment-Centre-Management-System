@@ -11,10 +11,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fdmgroup.AssessmentCentreProject.exception.ResourceNotFoundException;
 import com.fdmgroup.AssessmentCentreProject.model.AssessmentCentreResponse;
 import com.fdmgroup.AssessmentCentreProject.model.CandidateACResult;
 import com.fdmgroup.AssessmentCentreProject.model.Question;
@@ -232,8 +235,23 @@ public class AssesmentCentreResponseController {
 	
 	@GetMapping("/getByCandidateInterviewer")
 	public ResponseEntity<List<AssessmentCentreResponse>> getResponseByCandidateInterviwerId(@RequestParam Integer candidateId, @RequestParam Integer interviewerId) {
-		List<AssessmentCentreResponse> response = assessmentCentreResponseRepo.findByCandidateIdJoinInterviewer(candidateId, interviewerId);
+		List<AssessmentCentreResponse> response = assessmentCentreResponseRepo.findAll();
 		return ResponseEntity.ok(response);
+	}
+	
+	@PutMapping("/updateACResponse/{id}")
+	public ResponseEntity<AssessmentCentreResponse> updateAcResponse(@PathVariable Integer id, @RequestBody AssessmentCentreResponse newResponse) {
+		logger.info("PUT request for /id/" + id.toString());
+		AssessmentCentreResponse response = assessmentCentreResponseRepo.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Response does not exist with id : " + id));
+		
+		response.setPoints(newResponse.getPoints());
+		response.setNotes(newResponse.getNotes());
+		
+		System.out.println(newResponse);
+		
+		AssessmentCentreResponse updatedResponse = assessmentCentreResponseRepo.save(response);
+		return ResponseEntity.ok(updatedResponse);
 	}
 
 }

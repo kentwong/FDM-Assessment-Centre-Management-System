@@ -33,6 +33,10 @@ class AssessmentCentreResponseService {
         return axios.get(ASSESSMENT_CENTRE_RESPONSE_API_URL + '/info/' + candidateId)
     }
 
+    updateAssessmentCentreResponse(acResponse, acId) {
+        return axios.put(ASSESSMENT_CENTRE_RESPONSE_API_URL + '/updateACResponse/' + acId, acResponse);
+    }
+
 }
 
 export default new AssessmentCentreResponseService();
