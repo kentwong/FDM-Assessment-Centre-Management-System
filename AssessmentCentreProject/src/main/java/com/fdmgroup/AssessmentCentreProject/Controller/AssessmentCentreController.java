@@ -257,10 +257,10 @@ public class AssessmentCentreController {
 		Integer acID =  Integer.parseInt(splitString[1].replaceAll("[^0-9]", ""));
 		
 		coordinator = coordinatorRepo.getById(coordinatorID);
-		System.out.println("COORDINATOR " + coordinator);
 		
 		List<AssessmentCentre> currentACs = coordinator.getAssessmentCentres();
 		List<AssessmentCentre>tobeDeleted = new ArrayList<>();
+		System.out.println("BEFORE: Coordinator: " + coordinator + ", AClist size: " + currentACs.size());;
 		
 		for (AssessmentCentre assessmentCentre : currentACs) {
 			if (assessmentCentre.getId() == acID) {
@@ -269,8 +269,10 @@ public class AssessmentCentreController {
 		}
 		currentACs.removeAll(tobeDeleted);
 		
+		System.out.println("AFTER: Coordinator: " + coordinator + ", AClist size: " + currentACs.size());;
+		
 		coordinatorRepo.save(coordinator);
-		acRepo.deleteById(acID);
+//		acRepo.deleteById(acID);
 	}
 	
 	

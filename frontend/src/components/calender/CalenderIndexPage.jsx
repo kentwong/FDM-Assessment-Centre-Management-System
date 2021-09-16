@@ -96,7 +96,7 @@ class CalenderIndexPage extends Component {
                         <td className="e-textlabel">Description</td>
                         <td>
                             <input type="text" className="e-field e-input" id="Description" name="Description" readOnly={true}/>
-                            {/* <button onClick={this.addCandidate}>Edit Candidates</button> */}
+                            <button onClick={this.addCandidate}>Edit Candidates</button>
                         </td>
                     </tr>
 
@@ -154,7 +154,7 @@ class CalenderIndexPage extends Component {
     render() {
         return (
             <div className="custom-container">
-                This is the Calender Page.
+                {/* This is the Calender Page. */}
                 <ScheduleComponent currentView='Month' eventSettings={{ dataSource: this.data }} views={['Day', 'Week', 'Month', 'Agenda']} editorTemplate={this.editorWindowTemplate.bind(this)} 
                     popupClose={this.onPopupClose.bind(this)} >
                     <Inject services={[Day, Week, WorkWeek, Month, Agenda]}/>

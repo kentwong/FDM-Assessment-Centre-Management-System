@@ -24,7 +24,7 @@ public class AssessmentCentre {
 	private LocalDateTime start;
 	private LocalDateTime end;
 	
-	@ManyToOne//(cascade=CascadeType.ALL) -> 15/09 TEST
+	@ManyToOne/*(cascade=CascadeType.ALL) -> 15/09 TEST */ (cascade=CascadeType.PERSIST)
 	@JoinColumn(name = "fk_coordinator_id")
 	private ACCoordinator coordinator;
 	

@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 public class ACCoordinator extends Staff {
 	
-	@OneToMany (cascade=CascadeType.ALL, mappedBy="coordinator", fetch = FetchType.EAGER)
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="coordinator", fetch = FetchType.EAGER)
 	@JsonIgnore
 	private List<AssessmentCentre> assessmentCentres = new ArrayList<>();
 	@Transient
