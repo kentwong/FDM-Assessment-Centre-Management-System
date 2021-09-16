@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import AssessmentCentreService from '../../services/AssessmentCentreService';
+
 
 class UpdatesAndReminders extends Component {
     constructor(props){
@@ -7,13 +9,13 @@ class UpdatesAndReminders extends Component {
        
     }
 
-    // componentDidMount() {
-    //     HomePageRecruiterService.getAssessmentCentreResponsesHome().then((res) => {
+    componentDidMount() {
+        AssessmentCentreService.getAssessmentCentres().then((res) => {
             
-    //         this.setState({ candidatesOverviewData: res.data })
-    //         console.log(this.state.candidatesOverviewData);
-    //     })
-    // }
+            //this.setState({ candidatesOverviewData: res.data })
+            console.log(res.data);
+        })
+    }
 
     render() {
         return (

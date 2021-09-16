@@ -20,14 +20,14 @@ import com.fdmgroup.AssessmentCentreProject.repository.CandidateRepository;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/home/api/v1/")
-public class AsCentreResponseHPController {
+public class HomePageController {
 	
 	@Autowired
 	AssessmentCentreResponseRepository assesmentCentreResponseRepo;
 	@Autowired
 	CandidateRepository candidateRepo;
 	
-	public AsCentreResponseHPController (AssessmentCentreResponseRepository assesmentCentreResponseRepo, CandidateRepository candidateRepo) {
+	public HomePageController (AssessmentCentreResponseRepository assesmentCentreResponseRepo, CandidateRepository candidateRepo) {
 		super();
 		this.assesmentCentreResponseRepo = assesmentCentreResponseRepo;
 		this.candidateRepo = candidateRepo;
@@ -45,6 +45,8 @@ public class AsCentreResponseHPController {
 				candidateRepo.pendingStatusPerRecruiter("Applicant Rejected", user.getStaffId()).size());
 		return data;
 	}
+	
+//	@PostMapping("/home")
 
 	
 }
