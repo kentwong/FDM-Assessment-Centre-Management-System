@@ -70,7 +70,7 @@ function InterviewForm({ id }) {
 
     return (
         <div className="custom-container">
-            <form onSubmit={nullFunction}>
+            <form onSubmit={submitInterviewForm}>
                 <h2 className="mb-5">Assessment Centre - Interview Form</h2>
 
                 <input type="submit" value={showQuestionBank ? 'Hide Question Bank' : 'Show Question Bank'} onClick={toggleQuestionBank} />
@@ -93,7 +93,7 @@ function InterviewForm({ id }) {
 
                 <br />
 
-                <button type="submit" className="btn btn-success me-2 mt-5" onClick={submitInterviewForm}>Submit</button>
+                <button type="submit" className="btn btn-success me-2 mt-5">Submit</button>
                 <button className="btn btn-danger mt-5" onClick={clearAllQuestions}>Clear All</button>
             </form>
         </div>
