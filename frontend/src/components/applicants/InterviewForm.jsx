@@ -5,7 +5,7 @@ import InterviewFormSingleQuestion from './InterviewFormSingleQuestion';
 import QuestionBank from './QuestionBank';
 
 function InterviewForm({ id }) {
-    const interviewerId = JSON.parse(localStorage.user).id;
+    const interviewerId = localStorage.getItem('user');
 
     const [showQuestionBank, setShowQuestionBank] = useState(true);
     const toggleQuestionBank = () => {
