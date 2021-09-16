@@ -1,5 +1,7 @@
 package com.fdmgroup.AssessmentCentreProject.model;
 
+import java.time.LocalDateTime;
+
 public class CandidateACResult {
 
 	private Candidate candidate;
@@ -16,6 +18,7 @@ public class CandidateACResult {
 	private double behaviouralTotal;
 	private String grade;
 	private String notes;
+	private LocalDateTime dateTime;
 
 	public Candidate getCandidate() {
 		return candidate;
@@ -127,6 +130,14 @@ public class CandidateACResult {
 
 	public void setNotes(String notes) {
 		this.notes = notes;
+	}
+
+	public LocalDateTime getDateTime() {
+		return dateTime;
+	}
+
+	public void setDateTime(LocalDateTime dateTime) {
+		this.dateTime = dateTime;
 	}
 
 }

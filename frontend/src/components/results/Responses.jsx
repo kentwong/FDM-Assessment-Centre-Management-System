@@ -6,7 +6,7 @@ import { faInfo, faSearch } from '@fortawesome/free-solid-svg-icons';
 function Responses(props) {
 
     const [responses, setResponses] = useState([]);
-    const excludeSearchColumns = ['cv', 'id', 'aptitude_score', 'phoneNumber', 'notes', 'recruiter', 'questionBody', 'questionType', 'interviewer', 'general', 'technical', 'behavioural', 'curveball', 'overall', 'technicalTotal', 'generalTotal', 'curveballTotal', 'behaviouralTotal', 'grade', 'notes'];
+    const excludeSearchColumns = ['cv', 'id', 'aptitude_score', 'phoneNumber', 'notes', 'recruiter', 'questionBody', 'questionType', 'interviewer', 'general', 'technical', 'behavioural', 'curveball', 'overall', 'technicalTotal', 'generalTotal', 'curveballTotal', 'behaviouralTotal', 'grade', 'notes', 'email', 'encryptedPassword'];
 
     useEffect(() => {
         AssessmentCentreResponseService.getAssessmentCentreResponseGrouped().then((res) => {
@@ -18,8 +18,8 @@ function Responses(props) {
         AssessmentCentreResponseService.getAssessmentCentreResponseGrouped().then((res) => {
             let filtered = res.data
                 .filter(response => {
-                    return Object.keys(response.candidate).some(key => {
-                        return excludeSearchColumns.includes(key) ? false : response.candidate[key].toString().toLowerCase().includes(search.toLowerCase().trim())
+                    return Object.keys(response).some(key => {
+                        return excludeSearchColumns.includes(key) ? false : response[key].toString().toLowerCase().includes(search.toLowerCase().trim())
                     })
                 });
             setResponses(filtered);
@@ -45,6 +45,7 @@ function Responses(props) {
                                         <td> Technical </td>
                                         <td> Behavioural </td>
                                         <td> Overall </td>
+                                        <td> DateTime </td>
                                         <td> More info </td>
                                     </tr>
                             
@@ -62,6 +63,7 @@ function Responses(props) {
                                         <td> {response.technical} </td>
                                         <td> {response.behavioural} </td>
                                         <td> {response.overall} </td>
+                                        <td> {response.dateTime} </td>
                                         <td><a href={'/info/' + response.candidate.id}><FontAwesomeIcon className="fa-lg icon-link me-2" icon={faInfo} color="#0d6efd" /></a></td>
                                     </tr>
                             )
