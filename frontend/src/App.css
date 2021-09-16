@@ -46,7 +46,7 @@ div.row.quick-access-link {
 
 .quick-access-link {
   text-align: center;
-  width: 600px;
+  /* width: 600px; */
   text-align: center;
 }
 
@@ -84,7 +84,6 @@ div.row.quick-access-link {
   align-items: center;
   align-content: center;
   justify-content: center;
-  
 }
 
 .linksImg {

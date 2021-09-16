@@ -5,7 +5,7 @@ class ResultIndexPage extends Component {
     render() {
         return (
             <div className="custom-container">
-                This is the Result Page.
+                <h2 className="text-center">Results List</h2>
                 <Responses/>
             </div>
         );

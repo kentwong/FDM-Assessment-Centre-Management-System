@@ -12,6 +12,22 @@ class AssessmentCentreResponseService {
         return axios.get(ASSESSMENT_CENTRE_RESPONSE_API_URL + '/groupResponses');
     }
 
+    getAssessmentCentreResponseGroupedOneForId(candidateId) {
+        return axios.get(ASSESSMENT_CENTRE_RESPONSE_API_URL + '/groupResponse/' + candidateId);
+    }
+
+    getAssessmentCentreResponseGroupedForIdOnlyGeneral(candidateId) {
+        return axios.get(ASSESSMENT_CENTRE_RESPONSE_API_URL + '/general/' + candidateId);
+    }
+
+    getAssessmentCentreResponseGroupedForIdOnlyTechnical(candidateId) {
+        return axios.get(ASSESSMENT_CENTRE_RESPONSE_API_URL + '/technical/' + candidateId);
+    }
+
+    getAssessmentCentreResponseGroupedForIdOnlyBehavioural(candidateId) {
+        return axios.get(ASSESSMENT_CENTRE_RESPONSE_API_URL + '/behavioural/' + candidateId);
+    }
+
     getAllQuestions(){
         return axios.get(ASSESSMENT_CENTRE_RESPONSE_API_URL + '/getAllQuestions');
     }

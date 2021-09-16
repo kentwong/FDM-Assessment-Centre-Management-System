@@ -1,5 +1,7 @@
 package com.fdmgroup.AssessmentCentreProject.model;
 
+import java.time.LocalDateTime;
+
 public class CandidateACResult {
 
 	private Candidate candidate;
@@ -10,6 +12,13 @@ public class CandidateACResult {
 	private Question question;
 	private Interviewer interviewer;
 	private double overall;
+	private double technicalTotal;
+	private double generalTotal;
+	private double curveballTotal;
+	private double behaviouralTotal;
+	private String grade;
+	private String notes;
+	private LocalDateTime dateTime;
 
 	public Candidate getCandidate() {
 		return candidate;
@@ -73,6 +82,62 @@ public class CandidateACResult {
 
 	public void setOverall(double overall) {
 		this.overall = overall;
+	}
+
+	public double getTechnicalTotal() {
+		return technicalTotal;
+	}
+
+	public void setTechnicalTotal(double technicalTotal) {
+		this.technicalTotal = technicalTotal;
+	}
+
+	public double getGeneralTotal() {
+		return generalTotal;
+	}
+
+	public void setGeneralTotal(double generalTotal) {
+		this.generalTotal = generalTotal;
+	}
+
+	public double getCurveballTotal() {
+		return curveballTotal;
+	}
+
+	public void setCurveballTotal(double curveballTotal) {
+		this.curveballTotal = curveballTotal;
+	}
+
+	public double getBehaviouralTotal() {
+		return behaviouralTotal;
+	}
+
+	public void setBehaviouralTotal(double behaviouralTotal) {
+		this.behaviouralTotal = behaviouralTotal;
+	}
+
+	public String getGrade() {
+		return grade;
+	}
+
+	public void setGrade(String grade) {
+		this.grade = grade;
+	}
+
+	public String getNotes() {
+		return notes;
+	}
+
+	public void setNotes(String notes) {
+		this.notes = notes;
+	}
+
+	public LocalDateTime getDateTime() {
+		return dateTime;
+	}
+
+	public void setDateTime(LocalDateTime dateTime) {
+		this.dateTime = dateTime;
 	}
 
 }

@@ -2,6 +2,7 @@ package com.fdmgroup.AssessmentCentreProject.model;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -15,14 +16,14 @@ public class AssessmentCentreResponse {
 	@GeneratedValue
 	private int id;
 	
-	@OneToOne // ONE acresponse TO ONE candidate
+	@OneToOne(cascade = CascadeType.DETACH)
 	private Candidate candidate;
 	
-	@ManyToOne (cascade=CascadeType.ALL) // MANY acresponse TO ONE interviewer
+	@ManyToOne // (cascade=CascadeType.ALL) -> 15/09 TEST
 	@JoinColumn(name = "fk_interviewer_id")
 	private Interviewer interviewer;
 	
-	@ManyToOne // MANY acresponse TO ONE question
+	@ManyToOne
 	private Question question;
 	
 	private double points;

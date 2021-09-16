@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fdmgroup.AssessmentCentreProject.model.ACCoordinator;
+import com.fdmgroup.AssessmentCentreProject.model.ACDatesTemplate;
 import com.fdmgroup.AssessmentCentreProject.model.AssessmentCentre;
 import com.fdmgroup.AssessmentCentreProject.model.AssessmentCentreResponse;
 import com.fdmgroup.AssessmentCentreProject.model.Candidate;
@@ -71,20 +72,35 @@ public class AssessmentCentreController {
 	public void setCoordinator(@RequestBody Object userId) {
 		Integer id = Integer.parseInt(userId.toString().replaceAll("[^0-9]", ""));
 		coordinator = (coordinatorRepo.findById(id)).get();
-//		System.out.println("Coordinator ID = " + id);
+		System.out.println("Coordinator ID = " + id);
+	}
+	
+	@GetMapping("/candidates")
+	public List<Candidate> getPendingCandidates() {
+		List<Candidate> baseline = candidateRepo.findAll();
+		List<AssessmentCentre> checker = acRepo.findAll();
+		List<Candidate> tobeRemoved = new ArrayList<>();
+		
+		for (AssessmentCentre ac : checker) {
+			tobeRemoved.addAll(ac.getCandidates());
+		}
+		
+		baseline.removeAll(tobeRemoved);
+		
+		return baseline;
 	}
 
 	@PostMapping("/startDate")
 	public void setupACStartDate(@RequestBody LocalDateTime date) {
 		System.out.println("STARTING DATE - " + date);
-		LocalDateTime start = date;
+		LocalDateTime start = date.plusHours(12);
 		coordinator.getNewAC().setStart(start);
 	}
 	
 	@PostMapping("/endDate")
 	public void setupACSEndDate(@RequestBody LocalDateTime date) {
 		System.out.println("ENDING DATE - " + date);
-		LocalDateTime end = date;
+		LocalDateTime end = date.plusHours(12);
 		coordinator.getNewAC().setEnd(end);
 	}
 	
@@ -148,7 +164,7 @@ public class AssessmentCentreController {
 
 	@GetMapping("/selectedInterviewers")
 	public List<Interviewer> getSelectedInterviewers() {
-		System.out.println("WORKING: " + coordinator);
+//		System.out.println("WORKING: " + coordinator);
 		List<Interviewer> interviewers = coordinator.getNewAC().getInterviewers();
 		List<Interviewer> result = new ArrayList<>();
 		for (Interviewer interviewer : interviewers) {
@@ -160,9 +176,14 @@ public class AssessmentCentreController {
 
 	@PostMapping("/createAC")
 	public void createAssessmentCentre(@RequestBody List<ResponseTemplate> responses) {
-		// get questions from question bank --> separate by type --> assign to interview
-		// type
+//		 get questions from question bank --> separate by type --> assign to interview
+		
+		System.out.println("Setting up responses");
+		
 		List<Question> questions = questionRepo.findAll();
+//		System.out.println("Question Size: " + questions.size());
+		
+		
 		List<Question> technicalQs = questions.stream().filter(q -> q.getQuestionType() == QuestionType.TECHNICAL)
 				.collect(Collectors.toList());
 		List<Question> hrQs = questions.stream().filter(q -> q.getQuestionType() == QuestionType.BEHAVIOURAL)
@@ -170,9 +191,9 @@ public class AssessmentCentreController {
 		List<Question> salesQs = questions.stream().filter(q -> q.getQuestionType() == QuestionType.GENERAL)
 				.collect(Collectors.toList());
 		
-//		System.out.println("TECHNICAL Qs = " + technicalQs.size());
-//		System.out.println("HR Qs = " + hrQs.size());
-//		System.out.println("SALES Qs = " + salesQs.size());
+		System.out.println("TECHNICAL Qs = " + technicalQs.size());
+		System.out.println("HR Qs = " + hrQs.size());
+		System.out.println("SALES Qs = " + salesQs.size());
 		
 		for (ResponseTemplate temp : responses) {
 			System.out.println("TEMPLATE: " + temp);
@@ -210,11 +231,49 @@ public class AssessmentCentreController {
 				}
 			}
 		}
-		
 		coordinator.getNewAC().setCoordinator(coordinator);
 		coordinator.saveAssessmentCentre();
 		coordinator.setAssessmentCentres(coordinator.getAssessmentCentres());
 		coordinatorRepo.save(coordinator);
 	}
 
+	@PostMapping("/updateAC")
+	public void updateAssessmentCentreDates(@RequestBody ACDatesTemplate dates) {
+		System.out.println("NEW DATES - " + dates);
+		AssessmentCentre ac = acRepo.findById(dates.getId()).get();
+		
+		ac.setStart(dates.getStart().plusHours(12));
+		ac.setEnd(dates.getEnd().plusHours(12));
+		
+		acRepo.save(ac);
+	}
+	
+	@PostMapping("/deleteAC")
+	public void deleteAssessmentCentre(@RequestBody Object acId) {
+		
+		String[] splitString = (acId.toString()).split(",");
+		
+		Integer coordinatorID = Integer.parseInt(splitString[0].replaceAll("[^0-9]", ""));
+		Integer acID =  Integer.parseInt(splitString[1].replaceAll("[^0-9]", ""));
+		
+		coordinator = coordinatorRepo.getById(coordinatorID);
+		
+		List<AssessmentCentre> currentACs = coordinator.getAssessmentCentres();
+		List<AssessmentCentre>tobeDeleted = new ArrayList<>();
+		System.out.println("BEFORE: Coordinator: " + coordinator + ", AClist size: " + currentACs.size());;
+		
+		for (AssessmentCentre assessmentCentre : currentACs) {
+			if (assessmentCentre.getId() == acID) {
+				tobeDeleted.add(assessmentCentre);
+			}
+		}
+		currentACs.removeAll(tobeDeleted);
+		
+		System.out.println("AFTER: Coordinator: " + coordinator + ", AClist size: " + currentACs.size());;
+		
+		coordinatorRepo.save(coordinator);
+//		acRepo.deleteById(acID);
+	}
+	
+	
 }

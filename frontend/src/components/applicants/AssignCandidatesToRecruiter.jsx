@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faExclamationCircle, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
 function AssignCandidatesToRecruiter(props) {
 
@@ -8,8 +10,12 @@ function AssignCandidatesToRecruiter(props) {
         <div>
             <div className="float-end">
                 {unassignedCandidates.length === 0 ?
-                    <button className="btn btn-success">{unassignedCandidates.length} Unassigned Applicants</button> :
-                    <button className="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalAssignCandidates">{unassignedCandidates.length} Unassigned Applicants</button>}
+                    <button className="btn btn-success">
+                        <FontAwesomeIcon className="fa-lg me-2" icon={faCheckCircle} /> All applicants are assigned to recruiters
+                    </button> :
+                    <button className="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalAssignCandidates">
+                        <FontAwesomeIcon className="fa-lg me-2" icon={faExclamationCircle} />TO-DO: {unassignedCandidates.length} unassigned applicants
+                    </button>}
             </div>
             <div className="modal fade" id="modalAssignCandidates" aria-hidden="true" aria-labelledby="modalAssignCandidatesLabel" tabIndex="-1">
                 <div className="modal-dialog modal-dialog-centered modal-lg">
@@ -17,7 +23,7 @@ function AssignCandidatesToRecruiter(props) {
                     <div className="modal-content">
                         <form onSubmit={(e) => assignCandidate(e)}>
                             <div className="modal-header">
-                                <h5 className="modal-title" id="modalAssignCandidatesLabel">Assigned Candidates to Recruiter</h5>
+                                <h5 className="modal-title" id="modalAssignCandidatesLabel">Assign Candidates to Recruiters</h5>
                                 <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div className="modal-body">
