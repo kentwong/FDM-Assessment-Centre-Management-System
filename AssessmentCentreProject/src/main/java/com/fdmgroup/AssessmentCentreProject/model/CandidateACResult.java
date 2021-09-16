@@ -1,6 +1,6 @@
 package com.fdmgroup.AssessmentCentreProject.model;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class CandidateACResult {
 
@@ -18,7 +18,7 @@ public class CandidateACResult {
 	private double behaviouralTotal;
 	private String grade;
 	private String notes;
-	private LocalDateTime dateTime;
+	private LocalDate date;
 
 	public Candidate getCandidate() {
 		return candidate;
@@ -132,12 +132,12 @@ public class CandidateACResult {
 		this.notes = notes;
 	}
 
-	public LocalDateTime getDateTime() {
-		return dateTime;
+	public LocalDate getDate() {
+		return date;
 	}
 
-	public void setDateTime(LocalDateTime dateTime) {
-		this.dateTime = dateTime;
+	public void setDate(LocalDate date) {
+		this.date = date;
 	}
 
 }
