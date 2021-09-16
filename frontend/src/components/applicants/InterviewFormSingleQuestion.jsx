@@ -15,7 +15,7 @@ const InterviewFormSingleQuestion = ({ currQuestion, handleQuestionChange, delet
                         <label htmlFor="lastName" className="form-label" >Points (/10)</label>
                         <input type="number" min="0" max="10" name="points" className="form-control" id={currQuestion.id} onChange={handleQuestionChange} ></input>
                         <br />
-                        <input type="button" value="Delete Question" onClick={() => deleteQuestion(currQuestion.id)}></input>
+                        <input type="button" className="btn btn-danger" value="Delete Question" onClick={() => deleteQuestion(currQuestion.id)}></input>
                 </div>
             </div>
             <div className="mb-3">
