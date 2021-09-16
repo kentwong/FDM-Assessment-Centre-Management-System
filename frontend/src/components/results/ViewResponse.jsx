@@ -104,7 +104,7 @@ function ViewResponse(props) {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-md-3">
+                    <div className="col-md-6">
                         <table className="table table-Striped table-bordered table-hover">
                             <tbody>
                                 {
@@ -112,20 +112,6 @@ function ViewResponse(props) {
                                         response =>
                                             <tr key={response.question.questionBody}>
                                                 <td> {response.date} </td>
-                                            </tr>
-                                    )
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                    <div className="col-md-3">
-                        <table className="table table-Striped table-bordered table-hover">
-                            <tbody>
-                                {
-                                response.map(
-                                        response =>
-                                            <tr key={response.question.questionBody}>
-                                                <td> Location? </td>
                                             </tr>
                                     )
                                 }
@@ -143,21 +129,7 @@ function ViewResponse(props) {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-md-3">
-                        <table className="table table-Striped table-bordered table-hover">
-                            <tbody>
-                                {
-                                response.map(
-                                        response =>
-                                            <tr key={response.question.questionBody}>
-                                                <td> Degree? </td>
-                                            </tr>
-                                    )
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                    <div className="col-md-3">
+                    <div className="col-md-6">
                         <table className="table table-Striped table-bordered table-hover">
                             <tbody>
                                 {
