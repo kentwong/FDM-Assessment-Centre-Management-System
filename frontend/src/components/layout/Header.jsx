@@ -64,7 +64,7 @@ class Header extends Component {
                                     </li>
                                 </ul>
                                 <div className="navbar-nav ms-auto">
-                                    <li >
+                                    {/* <li > //Redundant because quick access is already at the home page and the support page
                                         <a className="nav-link text-light" href="/" data-bs-toggle="modal" data-bs-target="#modalFullscreen"> <FontAwesomeIcon className="fa-lg bin" icon={faTh} color="rgba(255,255,255,.55)" style={{ "fontSize": "35px" }} /></a>
                                         <div className="modal fade" id="modalFullscreen" aria-hidden="true" aria-labelledby="modalFullscreenLabel" tabIndex="-1">
                                             <div className="modal-dialog modal-dialog-centered modal-lg">
@@ -82,9 +82,13 @@ class Header extends Component {
                                                 </div>
                                             </div>
                                         </div>
-                                    </li>
+                                    </li> */}
                                     <li className="nav-item dropdown">
-                                        <a className="nav-link text-light dropdown-toggle" data-bs-toggle="dropdown" href="/" role="button" aria-expanded="false"><img src={ProfilePic} style={{ "height": "35px", "borderRadius": "5px" }} alt="profile" /></a>
+
+                                        <a className="nav-link text-light dropdown-toggle" data-bs-toggle="dropdown" href="/" role="button" aria-expanded="false">
+                                            Welcome Back, Name{localStorage.getItem('name')}
+                                            <img src={ProfilePic} className="ms-3" style={{ "height": "40px", "borderRadius": "25px" }} alt="profile" />
+                                        </a>
                                         <ul className="dropdown-menu">
                                             <li><a className="dropdown-item" href="/account/update" >Manage Profile</a></li>
                                             <li><hr className="dropdown-divider" /></li>
