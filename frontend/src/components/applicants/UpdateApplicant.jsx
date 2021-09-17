@@ -99,7 +99,7 @@ function UpdateApplicant(props) {
             notes: notes,
             address: { address: address },
             stream: { id: parseInt(streamId) },
-            ...(recruiterId) && { recruiter: { id: parseInt(recruiterId) } },
+            ...(recruiterId) && { recruiter: { id: parseInt(recruiterId), type: 'recruiter' } },
             aptitudeScore: aptitudeScore,
             status: status
         };

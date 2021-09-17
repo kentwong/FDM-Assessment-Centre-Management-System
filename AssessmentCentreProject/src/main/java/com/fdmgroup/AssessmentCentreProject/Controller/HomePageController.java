@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fdmgroup.AssessmentCentreProject.model.AssessmentCentreResponse;
 import com.fdmgroup.AssessmentCentreProject.model.Candidate;
 import com.fdmgroup.AssessmentCentreProject.model.ACOverviewData;
+import com.fdmgroup.AssessmentCentreProject.model.AssessmentCentre;
 import com.fdmgroup.AssessmentCentreProject.model.LoggedInDetails;
 import com.fdmgroup.AssessmentCentreProject.model.PendingStatusData;
 import com.fdmgroup.AssessmentCentreProject.repository.AssessmentCentreRepository;
@@ -54,6 +55,11 @@ public class HomePageController {
 				assesmentCentreRepo.upcomingACS().size(),
 				assesmentCentreRepo.completedACS().size());
 	}
-
+	
+	@GetMapping("/hom")
+	public AssessmentCentre getMostRecent() {
+		System.out.println(assesmentCentreRepo.mostRecentAC());
+		return assesmentCentreRepo.mostRecentAC();
+	}
 	
 }

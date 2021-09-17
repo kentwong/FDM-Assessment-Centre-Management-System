@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import AssessmentCentreService from '../../services/AssessmentCentreService';
+import HomePageService from '../../services/HomePageService';
 
 
 class UpdatesAndReminders extends Component {
@@ -7,23 +8,21 @@ class UpdatesAndReminders extends Component {
         super(props)
 
         this.state = {
-            assesmentCentres: [],
-            stuff: []
+            mostRecentAc: [],
+            numCandidates: 0
         }
 
     }
-
+    
     componentDidMount() {
-        AssessmentCentreService.getAssessmentCentres().then((res) => {
+       
 
-            this.setState({ assesmentCentres: res.data })
-            console.log(res.data);
+        HomePageService.mostRecentAc().then((res) => {
+            this.setState({ mostRecentAc: res.data })
+            this.setState({ numCandidates: this.state.mostRecentAc.candidates.length })
+            
+
         })
-    }
-
-    changeACs() {
-        this.setState({ stuff: "hi" });
-        console.log(this.state.stuff);
     }
 
 
@@ -33,34 +32,30 @@ class UpdatesAndReminders extends Component {
             return (
                 <div>
                     <h2 className='text-center' >Updates And Reminders</h2>
-                    <div class="list-group">
-                        <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
-                            <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1">Next Assesment Centre:</h5>
+                    <div className="list-group centreMe">
+                        <a href="#" className="list-group-item list-group-item-danger list-group-item-action" aria-current="true">
+                            <div className="d-flex w-100 justify-content-between">
+                                <h5 className="mb-1">Next Assesment Centre:</h5>
                                 <small><a href="/view">View</a></small>
                             </div>
-                            <p class="mb-1">
-                                {this.state.stuff}
-                                {this.state.assesmentCentres.start}
-                                4 Candidates
-                                </p>
-                            <small>And some small print.</small>
+                            <p className="mb-1">
+                                {this.state.mostRecentAc.start} <br />
+                                {this.state.numCandidates} Candidates
+                            </p>
                         </a>
-                        <a href="#" class="list-group-item list-group-item-action">
-                            <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1">List group item heading</h5>
-                                <small class="text-muted">3 days ago</small>
+                        <a href="#" className="list-group-item list-group-item-action">
+                            <div className="d-flex w-100 justify-content-between">
+                                <h5 ></h5>
+                                <small className="text-muted"><a href="/applicant/edit/10">View</a></small>
                             </div>
-                            <p class="mb-1">Some placeholder content in a paragraph.</p>
-                            <small class="text-muted">And some muted small print.</small>
+                            <h5 >Mimi Nutbrown - Pending AC</h5>
                         </a>
-                        <a href="#" class="list-group-item list-group-item-action">
-                            <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1">List group item heading</h5>
-                                <small class="text-muted">3 days ago</small>
+                        <a href="#" className="list-group-item list-group-item-action">
+                            <div className="d-flex w-100 justify-content-between">
+                                <h5 className="mb-1">To-do:</h5>
+                                <small className="text-muted"><a href="/calender">Assign</a></small>
                             </div>
-                            <p class="mb-1">Some placeholder content in a paragraph.</p>
-                            <small class="text-muted">And some muted small print.</small>
+                            <p className="mb-1">Go to Calender to assign applicants to assesment centres.</p>
                         </a>
                     </div>
                     
@@ -71,19 +66,19 @@ class UpdatesAndReminders extends Component {
         if (localStorage.getItem('role') == "recruiter") {
             return (
                 <div>
-                    <h2 className='text-center' >Updates And Reminders</h2>
-                    <ul class="list-group">
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            A list item
-                            <span class="badge bg-primary rounded-pill">14</span>
+                    <h2 classNameName='text-center' >Updates And Reminders</h2>
+                    <ul className="list-group">
+                        <li className="list-group-item d-flex justify-content-between align-items-center">
+                            Lonardo Janos - Pending Video Interview
+                            <span className="badge bg-primary rounded-pill"><a style={{color: 'white'}} href="/applicant/edit/21">View</a></span>
                         </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            A second list item
-                            <span class="badge bg-primary rounded-pill">2</span>
+                        <li className="list-group-item d-flex justify-content-between align-items-center">
+                            Trudy Whalebelly - Pending Phone Screening
+                            <span className="badge bg-primary rounded-pill"><a style={{color: 'white'}} href="/applicant/edit/22">View</a></span>
                         </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            A third list item
-                            <span class="badge bg-primary rounded-pill">1</span>
+                        <li className="list-group-item d-flex justify-content-between align-items-center">
+                            Jump to applicants to assign new applicants to recruiters!
+                            <span className="badge bg-primary rounded-pill"><a style={{color: 'white'}} href="/applicants">Go</a></span>
                         </li>
                     </ul>
                 </div>
