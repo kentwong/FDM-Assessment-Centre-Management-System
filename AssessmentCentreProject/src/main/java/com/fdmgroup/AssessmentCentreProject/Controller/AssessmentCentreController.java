@@ -103,6 +103,9 @@ public class AssessmentCentreController {
 		Integer id = Integer.parseInt(userId.toString().replaceAll("[^0-9]", ""));
 		logger.info("GETTING AC coordinator with ID: " + id);
 		coordinator = coordinatorRepo.findById(id).get();
+		
+		// TAKE OUT
+		logger.warn("--------------------");
 	}
 	
 	/**
@@ -127,8 +130,8 @@ public class AssessmentCentreController {
 	 */
 	@PostMapping("/startDate")
 	public void setupACStartDate(@RequestBody LocalDateTime date) {
-		logger.info("SET new AC start date to " + date);
 		LocalDateTime start = date.plusHours(12);
+		logger.warn("SET new AC START date to " + start.getHour() + ":" + start.getMinute());
 		coordinator.getNewAC().setStart(start);
 	}
 	
@@ -137,8 +140,8 @@ public class AssessmentCentreController {
 	 */
 	@PostMapping("/endDate")
 	public void setupACSEndDate(@RequestBody LocalDateTime date) {
-		logger.info("SET new AC end date to " + date);
 		LocalDateTime end = date.plusHours(12);
+		logger.warn("SET new AC END date to " + end.getHour() + ":" + end.getMinute());
 		coordinator.getNewAC().setEnd(end);
 	}
 	

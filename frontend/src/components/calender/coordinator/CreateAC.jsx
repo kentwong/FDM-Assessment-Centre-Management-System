@@ -32,15 +32,11 @@ const CreateAC = (props) => {
         setDateStart(e.target.value)
 
         if (!e.target.value){
-            console.log("NULL - ")
             setUsable(false)
             setDateEnd(null)
-
         } else {
-            console.log("NOT NULL - " + e.target.value)
             setUsable(true)
             setDateEnd(e.target.value)
-
         }
     }
 
@@ -91,7 +87,7 @@ const CreateAC = (props) => {
             setMissingParams(true)
             return
         }
-        
+        console.log('FINAL DATES = START: ' + startDate + ', END: ' + endDate)
         AssessmentCentreService.sendIds(selectedCandidates, selectedInterviewers, startDate, endDate).then((res) => {
             props.history.push('/setupAC')
         })

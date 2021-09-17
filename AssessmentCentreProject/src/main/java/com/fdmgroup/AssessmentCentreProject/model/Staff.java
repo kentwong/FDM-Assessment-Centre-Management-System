@@ -1,6 +1,5 @@
 package com.fdmgroup.AssessmentCentreProject.model;
 
-import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -29,7 +28,6 @@ public abstract class Staff {
 	private String email;
 	private String encyptedPassword;
 	private String phoneNumber;
-//	private Object emailTemplate; // TODO define type
 
 	public Staff() {
 		super();
