@@ -30,8 +30,8 @@ public class Candidate {
 	private String lastName;
 	private String dateOfBirth;
 	
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "fk_address_id")
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "fk_address_id", referencedColumnName="id")
 	private Address address;
 	
 	private String email;
