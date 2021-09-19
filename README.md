@@ -51,7 +51,7 @@ This is the calender page where user can see all AC created and create new AC.
 ![AC](/demo/ac.JPG)
 
 This the result page where user can see the results after interview is conducted. 
-![results page](https://git.fdmgroup.com/Vincent.Chen1/assessment-centre-group-project---team-b/blob/master/demo/results.png)
+![results page](/demo/result.JPG)
 
 This is the help and support page where user can download commonly used documents, manage accounts, and have quick links to video tutorials and commonly used recruitement websites. 
 ![support page](/demo/support.JPG)
