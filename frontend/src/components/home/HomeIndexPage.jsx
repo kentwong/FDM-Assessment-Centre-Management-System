@@ -40,7 +40,8 @@ class HomeIndexPage extends Component {
                 <div className="custom-container">
                     <div className="row">
                         <div className="col-8">
-                            <InterviewAccordian />
+                            <h2>Upcoming Assement Centers:</h2>
+                            <Calendar />
                         </div>
                         <div className="col">
                             <QuickLinks />

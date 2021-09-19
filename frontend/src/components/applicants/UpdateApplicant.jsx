@@ -104,7 +104,7 @@ function UpdateApplicant(props) {
             status: status
         };
         console.log(JSON.stringify(candidate));
-
+        
         CandidateService.updateCandidate(candidate, id).then(res => {
             props.history.push('/applicants');
         });

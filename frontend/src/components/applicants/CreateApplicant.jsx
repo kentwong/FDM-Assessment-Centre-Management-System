@@ -83,7 +83,7 @@ function CreateApplicant(props) {
         };
 
         console.log(JSON.stringify(candidate));
-
+        
         CandidateService.createCandidate(candidate).then(res => {
             props.history.push('/applicants');
         });

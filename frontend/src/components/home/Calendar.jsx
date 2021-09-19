@@ -57,7 +57,6 @@ class Calendar extends Component {
                     <Inject services={[Month]}/>
                 </ScheduleComponent>
                 
-                <a href="/calender">View Full Calendar</a>
             </div>
         );
     }

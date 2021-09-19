@@ -38,14 +38,14 @@ class CalenderIndexPage extends Component {
                 StartTime: new Date(2021, 8, 2, 12, 0),
                 EndTime: new Date(2021, 8, 2, 14, 0),
                 Description: 'Candidates: Mike Evans; Chris Godwin; Travis Kelce; Jason Kelce; Aaron Donald; ',
-                IsReadonly: true,
+                IsReadonly: !shouldDisplayCreateAC,
             }, {
                 Id: 2,
                 Subject: '7/9 Assessment Centre',
                 StartTime: new Date(2021, 8, 7, 9, 30),
                 EndTime: new Date(2021, 8, 7, 11, 0),
                 Description: 'Candidates: Thomas Edward; Patrick Brady; Aaron Rodgers; Drew Brees; Patrick Mahomes; ',
-                IsReadonly: true,
+                IsReadonly: !shouldDisplayCreateAC,
             }];
 
         AssessmentCentreService.getAssessmentCentres().then((res) => {
