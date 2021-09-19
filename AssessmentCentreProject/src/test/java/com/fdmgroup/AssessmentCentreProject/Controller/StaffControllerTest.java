@@ -1,4 +1,4 @@
-package com.fdmgroup.AssessmentCentreProject.Controller.Test;
+package com.fdmgroup.AssessmentCentreProject.Controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
@@ -12,7 +12,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.fdmgroup.AssessmentCentreProject.Controller.StaffController;
 import com.fdmgroup.AssessmentCentreProject.model.LoggedInDetails;
 import com.fdmgroup.AssessmentCentreProject.model.LoginDetails;
 import com.fdmgroup.AssessmentCentreProject.model.Recruiter;
